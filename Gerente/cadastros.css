@@ -1,0 +1,45 @@
+.IcoCad{
+    width: 40%;
+    margin-top: 1%;
+    height: 80vh;
+}
+.cadastro{
+    width: 48%;
+    margin-top: 1%;
+    height: 96vh;
+    padding: 3%;
+}
+form{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    border-radius: 20px;
+    background-color: rgb(190, 188, 188);
+    box-shadow: 10px 10px 10px gray;
+}
+input{
+    width: 48%;
+    margin: 1%;
+    height: 5vh;
+    border: none;
+    border-radius: 10px;
+    padding: 3%;
+    display: flex;
+}
+h2{
+    margin-top: 0;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(7, 7, 48);
+    height: 30vh;
+}
+img{
+    width: 35%;
+}
+.btnCad{
+    display: flex;
+    background-color: rgb(8, 8, 61);
+    color: white;
+    justify-content: center;
+    height: 10vh;
+}
