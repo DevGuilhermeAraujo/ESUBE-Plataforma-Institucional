@@ -2,7 +2,7 @@ CREATE TABLE `escola_db`.`permissoes` (
     `id` INT(5) NOT NULL , 
     `nome` varchar(15) NOT NULL ,
     PRIMARY KEY (`id`)
-)
+);
 
 CREATE TABLE `escola_db`.`usuarios` (
     `ra` INT(10) NOT NULL , 
@@ -15,13 +15,13 @@ CREATE TABLE `escola_db`.`usuarios` (
     `senha` varchar(30),
     PRIMARY KEY (`ra`),
     FOREIGN KEY (`idPermissao`) REFERENCES permissoes(id)
-)
+);
 
 CREATE TABLE `escola_db`.`cursos` (
     `cod` INT(5) NOT NULL , 
     `nomeCurso` varchar(30) NOT NULL,
     PRIMARY KEY (`cod`)
-)
+);
 
 CREATE TABLE `escola_db`.`materias` (
     `cod` INT(5) NOT NULL , 
@@ -30,7 +30,7 @@ CREATE TABLE `escola_db`.`materias` (
     `nota` int(3) default null,
     PRIMARY KEY (`cod`),
     FOREIGN KEY (`codCurso`) REFERENCES cursos(cod)
-)
+);
 
 CREATE TABLE `escola_db`.`matriculas` (
     `cod` INT(10) NOT NULL , 
@@ -40,7 +40,7 @@ CREATE TABLE `escola_db`.`matriculas` (
     PRIMARY KEY (`cod`),
     FOREIGN KEY (`raAluno`) REFERENCES usuarios(ra),
     FOREIGN KEY (`codMaterial`) REFERENCES materias(cod)
-)
+);
 
 CREATE TABLE `escola_db`.`turmas` (
     `cod` INT(10) NOT NULL , 
