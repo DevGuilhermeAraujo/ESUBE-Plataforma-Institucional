@@ -11,10 +11,10 @@
     <div id="pagLogin">
         <div id="formulario">
             <h2>Este portal tem finalidade educativa</h2>
-            <form>
+            <form action="../BackEnd/processLogin.php" method="post">
                 <img src="../Imgs/eva.jpg" alt="logoEva">
-                <input type="text" placeholder="Matrícula">
-                <input type="password" placeholder="Senha">
+                <input type="text" name="RA_ID" placeholder="Matrícula">
+                <input type="password" name="password" placeholder="Senha">
                 <input id="login" type="submit" value="Login">
                 <div id="nav">
                     <a href="">Esqueci minha senha</a><br>
