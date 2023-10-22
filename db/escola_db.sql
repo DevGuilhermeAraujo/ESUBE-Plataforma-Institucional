@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19/10/2023 às 21:14
+-- Tempo de geração: 22/10/2023 às 09:43
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -22,16 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `escola_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `escola_db`;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `alunos`
---
-
-CREATE TABLE `alunos` (
-  `ra` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -63,20 +53,21 @@ CREATE TABLE `cursos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `gerentes`
+-- Estrutura para tabela `funcionarios`
 --
 
-CREATE TABLE `gerentes` (
+CREATE TABLE `funcionarios` (
   `id` int(10) NOT NULL,
+  `tipo` int(2) NOT NULL,
   `salario` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `gerentes`
+-- Despejando dados para a tabela `funcionarios`
 --
 
-INSERT INTO `gerentes` (`id`, `salario`) VALUES
-(1111111, 0.00);
+INSERT INTO `funcionarios` (`id`, `tipo`, `salario`) VALUES
+(1111111, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,13 +112,22 @@ CREATE TABLE `notas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `professores`
+-- Estrutura para tabela `tipos`
 --
 
-CREATE TABLE `professores` (
-  `id` int(10) NOT NULL,
-  `salario` decimal(5,2) DEFAULT NULL
+CREATE TABLE `tipos` (
+  `cod` int(2) NOT NULL,
+  `nomeTipo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tipos`
+--
+
+INSERT INTO `tipos` (`cod`, `nomeTipo`) VALUES
+(1, 'Gerente'),
+(2, 'Professor'),
+(3, 'Aluno');
 
 -- --------------------------------------------------------
 
@@ -154,7 +154,7 @@ CREATE TABLE `usuarios` (
   `sexo` int(1) NOT NULL,
   `dataNasc` date DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
-  `senha` varchar(30) DEFAULT NULL
+  `senha` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -167,12 +167,6 @@ INSERT INTO `usuarios` (`id`, `nome`, `CPF`, `sexo`, `dataNasc`, `email`, `senha
 --
 -- Índices para tabelas despejadas
 --
-
---
--- Índices de tabela `alunos`
---
-ALTER TABLE `alunos`
-  ADD KEY `ra` (`ra`);
 
 --
 -- Índices de tabela `aulas`
@@ -189,10 +183,11 @@ ALTER TABLE `cursos`
   ADD PRIMARY KEY (`cod`);
 
 --
--- Índices de tabela `gerentes`
+-- Índices de tabela `funcionarios`
 --
-ALTER TABLE `gerentes`
-  ADD KEY `id` (`id`);
+ALTER TABLE `funcionarios`
+  ADD KEY `id` (`id`),
+  ADD KEY `tipo` (`tipo`);
 
 --
 -- Índices de tabela `materias`
@@ -217,10 +212,10 @@ ALTER TABLE `notas`
   ADD KEY `materia` (`materia`);
 
 --
--- Índices de tabela `professores`
+-- Índices de tabela `tipos`
 --
-ALTER TABLE `professores`
-  ADD KEY `id` (`id`);
+ALTER TABLE `tipos`
+  ADD PRIMARY KEY (`cod`);
 
 --
 -- Índices de tabela `turmas`
@@ -274,23 +269,18 @@ ALTER TABLE `usuarios`
 --
 
 --
--- Restrições para tabelas `alunos`
---
-ALTER TABLE `alunos`
-  ADD CONSTRAINT `alunos_ibfk_1` FOREIGN KEY (`ra`) REFERENCES `usuarios` (`id`);
-
---
 -- Restrições para tabelas `aulas`
 --
 ALTER TABLE `aulas`
   ADD CONSTRAINT `aulas_ibfk_1` FOREIGN KEY (`materia`) REFERENCES `materias` (`cod`),
-  ADD CONSTRAINT `aulas_ibfk_2` FOREIGN KEY (`idProfessor`) REFERENCES `professores` (`id`);
+  ADD CONSTRAINT `aulas_ibfk_2` FOREIGN KEY (`idProfessor`) REFERENCES `funcionarios` (`id`);
 
 --
--- Restrições para tabelas `gerentes`
+-- Restrições para tabelas `funcionarios`
 --
-ALTER TABLE `gerentes`
-  ADD CONSTRAINT `gerentes_ibfk_1` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`);
+ALTER TABLE `funcionarios`
+  ADD CONSTRAINT `funcionarios_ibfk_1` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `funcionarios_ibfk_2` FOREIGN KEY (`tipo`) REFERENCES `tipos` (`cod`);
 
 --
 -- Restrições para tabelas `materias`
@@ -302,7 +292,7 @@ ALTER TABLE `materias`
 -- Restrições para tabelas `matriculas`
 --
 ALTER TABLE `matriculas`
-  ADD CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`raAluno`) REFERENCES `alunos` (`ra`),
+  ADD CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`raAluno`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`codCurso`) REFERENCES `cursos` (`cod`);
 
 --
@@ -313,17 +303,11 @@ ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`materia`) REFERENCES `materias` (`cod`);
 
 --
--- Restrições para tabelas `professores`
---
-ALTER TABLE `professores`
-  ADD CONSTRAINT `professores_ibfk_1` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`);
-
---
 -- Restrições para tabelas `turmas`
 --
 ALTER TABLE `turmas`
   ADD CONSTRAINT `turmas_ibfk_1` FOREIGN KEY (`aula`) REFERENCES `aulas` (`cod`),
-  ADD CONSTRAINT `turmas_ibfk_2` FOREIGN KEY (`aluno`) REFERENCES `alunos` (`ra`);
+  ADD CONSTRAINT `turmas_ibfk_2` FOREIGN KEY (`aluno`) REFERENCES `usuarios` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

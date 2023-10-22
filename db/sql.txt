@@ -9,25 +9,22 @@ CREATE TABLE `escola_db`.`usuarios` (
     `sexo` int(1) NOT NULL ,
     `dataNasc` date,
     `email` varchar(30),
-    `senha` varchar(30),
+    `senha` varchar(100),
     PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=1111111;
 
-CREATE TABLE `escola_db`.`alunos` (
-    `ra` INT(10) NOT NULL, 
-    FOREIGN KEY(`ra`) REFERENCES usuarios(id)
+CREATE TABLE `escola_db`.`tipos` (
+    `cod` INT(2) NOT NULL, 
+    `nomeTipo` VARCHAR(10) NOT NULL,
+    PRIMARY KEY (`cod`)
 );
 
-CREATE TABLE `escola_db`.`professores` (
+CREATE TABLE `escola_db`.`funcionarios` (
     `id` INT(10) NOT NULL, 
+    `tipo` INT(2) NOT NULL,
     `salario` DECIMAL(5,2),
-    FOREIGN KEY(`id`) REFERENCES usuarios(id)
-);
-
-CREATE TABLE `escola_db`.`gerentes` (
-    `id` INT(10) NOT NULL, 
-    `salario` DECIMAL(5,2),
-    FOREIGN KEY(`id`) REFERENCES usuarios(id)
+    FOREIGN KEY(`id`) REFERENCES usuarios(id),
+    FOREIGN KEY(`tipo`) REFERENCES tipos(cod)
 );
 
 CREATE TABLE `escola_db`.`cursos` (
@@ -52,7 +49,7 @@ CREATE TABLE `escola_db`.`matriculas` (
     `dataMAtricula` date,
     `status` varchar(15) DEFAULT null ,
     PRIMARY KEY (`cod`),
-    FOREIGN KEY (`raAluno`) REFERENCES alunos(ra),
+    FOREIGN KEY (`raAluno`) REFERENCES usuarios(id),
     FOREIGN KEY (`codCurso`) REFERENCES cursos(cod)
 );
 
@@ -75,7 +72,7 @@ CREATE TABLE `escola_db`.`aulas` (
     `status` varchar(15) DEFAULT null ,
     PRIMARY KEY (`cod`),
     FOREIGN KEY (`materia`) REFERENCES materias(cod),
-    FOREIGN KEY (`idProfessor`) REFERENCES professores(id)
+    FOREIGN KEY (`idProfessor`) REFERENCES funcionarios(id)
 );
 
 CREATE TABLE `escola_db`.`turmas` (
@@ -83,5 +80,12 @@ CREATE TABLE `escola_db`.`turmas` (
     `aluno` INT(10) NOT NULL , 
     `presenca` INT(1) NOT NULL ,
     FOREIGN KEY (`aula`) REFERENCES aulas(cod),
-    FOREIGN KEY (`aluno`) REFERENCES alunos(ra)
-)
+    FOREIGN KEY (`aluno`) REFERENCES usuarios(id)
+);
+
+INSERT INTO `escola_db`.`tipos`(cod, nomeTipo) VALUES (1, 'Gerente');
+INSERT INTO `escola_db`.`tipos`(cod, nomeTipo) VALUES (2, 'Professor');
+INSERT INTO `escola_db`.`tipos`(cod, nomeTipo) VALUES (3, 'Aluno');
+
+INSERT INTO `escola_db`.`usuarios`(nome, senha) VALUES ('Administrador','admin');
+INSERT INTO `escola_db`.`funcionarios`(id, tipo) VALUES (1111111,1);
