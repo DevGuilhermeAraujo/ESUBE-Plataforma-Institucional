@@ -1,3 +1,10 @@
+<?php
+    //Deve estar presente em todas as paginas
+    include_once '../BackEnd/sessao.php';
+    //Deve estar presente se o login for obrigatório 
+    //requiredLogin(); <- Desativado até a conexão do banco
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

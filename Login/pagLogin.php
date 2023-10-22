@@ -1,3 +1,11 @@
+<?php
+    //Deve estar presente em todas as paginas
+    include_once '../BackEnd/sessao.php';
+    if(Logued()){
+        redirectByPermission(getPermission());
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
