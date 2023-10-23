@@ -10,35 +10,16 @@
     <div class="inicio">
         <div class="painel">
             <div class="conteudo">
-                <h3>Meus Alunos</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est ratione nulla, necessitatibus consequuntur omnis odio vero unde, temporibus voluptatibus dolorem repellendus. Sed quis libero eveniet autem numquam nemo? Iure, rem.</p>
+                <h3>Minhas matérias</h3>
+
+                <!--x = numero total de materias deste aluno-->
+                <p>Matérias registradas: <span>x</span></p>
+
+                <!--x = numero total de notas registradas para este aluno-->
+                <p>Notas registradas: <span>x</span></p>
+
             </div>
-            <button>Ver</button>
-        </div>
-        <div class="painel">
-            <div class="conteudo">
-                <h3>Meus Alunos</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est ratione nulla, necessitatibus consequuntur omnis odio vero unde, temporibus voluptatibus dolorem repellendus. Sed quis libero eveniet autem numquam nemo? Iure, rem.</p>
-            </div>
-            <button>Ver</button>
-        </div>
-        <div class="painel">
-            
-        </div>
-        <div class="painel">
-            
-        </div>
-        <div class="painel">
-            
-        </div>
-        <div class="painel">
-            
-        </div>
-        <div class="painel">
-            
-        </div>
-        <div class="painel">
-           
+            <a class="ver" href="materias.php">Ver</a>
         </div>
     </div>
 </body>

@@ -21,9 +21,12 @@
     </div>
     <div class="full">
         <div class="usuario">
-            <p>Página do gerente</p>
-                <p>Usuário x</p>
-                <img src="../Imgs/usuario.png" alt="iconeUsuario">
+            <p class="desc">Página do gerente</p>
+            
+            <!--Aqui deve aparecer qual usuário está logado-->
+            <p></p>
+
+            <img src="../Imgs/usuario.png" alt="iconeUsuario">
         </div>
         <iframe src="inicioGerente.php" name="index"></iframe>    
     </div>

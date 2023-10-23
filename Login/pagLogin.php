@@ -13,13 +13,10 @@
             <h2>Este portal tem finalidade educativa</h2>
             <form action="../BackEnd/processLogin.php" method="post">
                 <img src="../Imgs/eva.jpg" alt="logoEva">
-                <input type="text" name="RA_ID" placeholder="Matrícula">
+                <input type="text" name="RA_ID" placeholder="ID">
                 <input type="password" name="password" placeholder="Senha">
                 <input id="login" type="submit" value="Login">
-                <div id="nav">
-                    <a href="">Esqueci minha senha</a><br>
-                    <a href="../AreaTeste.php">Area de testes</a>
-                </div>
+                <a href="../AreaTeste.php">Area de testes</a>
             </form>
         </div>
         <div id="logo">

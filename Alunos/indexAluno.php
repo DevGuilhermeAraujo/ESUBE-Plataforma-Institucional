@@ -12,8 +12,6 @@
             <h1>ADA <br><span>ESUBE</span></h1>
             <div class="links">
                 <a target="index" href="InicioAluno.php">Destaques</a>
-                <a href="">Pontuação</a>
-                <a href="">Horário</a>
                 <a href="../Login/pagLogin.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
                 <a href="../AreaTeste.php">Area de testes</a>
             </div>
@@ -22,10 +20,13 @@
     <div class="full">
         <div class="usuario">
             <p>Página do aluno</p>
-            <p>Usuário x</p>
+
+            <!--Aqui deve aparecer qual usuário está logado-->
+            <p></p>
+            
             <img src="../Imgs/usuario.png" alt="iconeUsuario">
         </div>
-        <iframe src="" name="index"></iframe>    
+        <iframe src="InicioAluno.php" name="index"></iframe>    
     </div>
 </body>
 </html>
