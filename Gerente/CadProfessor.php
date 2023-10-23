@@ -1,3 +1,10 @@
+<?php
+    //Deve estar presente em todas as paginas
+    include_once '../BackEnd/sessao.php';
+    //Deve estar presente se o login for obrigatório (parametro opcional, exige determinada permissão para acessar a pagina)
+    //requiredLogin();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
