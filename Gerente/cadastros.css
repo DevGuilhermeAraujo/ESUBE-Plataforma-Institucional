@@ -17,13 +17,13 @@ form{
     background-color: rgb(190, 188, 188);
     box-shadow: 10px 10px 10px gray;
 }
-input{
+input, select{
     width: 48%;
     margin: 1%;
     height: 5vh;
     border: none;
     border-radius: 10px;
-    padding: 3%;
+    padding: 0 0 0 3%;
     display: flex;
 }
 h2{

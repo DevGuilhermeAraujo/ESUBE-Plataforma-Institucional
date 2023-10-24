@@ -31,3 +31,31 @@
         }
     }
 ?>
+
+<?php
+// Informações de conexão com o banco de dados
+$host = 'localhost'; // Nome do servidor do banco de dados
+$database = 'escola_db'; // Nome do banco de dados
+$username = 'root'; // Nome de usuário do banco de dados
+$password = ''; // Senha do banco de dados
+
+// Tente estabelecer uma conexão com o banco de dados
+$conn = new mysqli($host, $username, $password, $database);
+
+// Verifique se a conexão foi bem-sucedida
+if ($conn->connect_error) {
+    die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+}
+
+// Defina o conjunto de caracteres para UTF-8 (opcional)
+$conn->set_charset("utf8");
+
+// Agora, você pode usar a variável $conn para executar consultas no banco de dados
+
+// Exemplo de consulta:
+// $sql = "SELECT * FROM tabela";
+// $result = $conn->query($sql);
+
+// Lembre-se de fechar a conexão quando não precisar mais dela
+// $conn->close();
+?>
