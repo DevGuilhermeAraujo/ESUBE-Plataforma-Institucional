@@ -39,7 +39,7 @@
 
     //Valida senha
     $result = $db->executar("SELECT senha FROM usuarios WHERE id = $ra_id;");
-    if(!password_verify($password, $result[0][0]) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
+    if(password_verify($password, $result[0][0]) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
         header("Location: ../Login/pagLogin.php?invalidLogin");
         exit();
     }
