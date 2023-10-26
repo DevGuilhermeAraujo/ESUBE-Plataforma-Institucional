@@ -29,7 +29,9 @@
             <p>Página do professor</p>
             
             <!--Aqui deve aparecer qual usuário está logado-->
-            <p></p>
+            <p>
+                
+            </p>
 
             <img src="../Imgs/usuario.png" alt="iconeUsuario">
         </div>
