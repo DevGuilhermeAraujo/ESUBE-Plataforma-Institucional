@@ -1,5 +1,4 @@
 <?php 
-
     $ra_id = $_POST["RA_ID"];
     $password = $_POST["password"];
 
@@ -23,7 +22,7 @@
 
     //Buscar usuário
     //$result = $db->executar("SELECT u.id from usuarios as u LEFT JOIN funcionarios as f ON u.id = f.id WHERE f.id IS null;");
-    $result = $db->executar("SELECT id from usuarios;");
+    $result = $db->executar("SELECT ra from usuarios;");
     $userValid = false;
     foreach($result as $c){
         //Valida usuário
@@ -38,8 +37,8 @@
     }
 
     //Valida senha
-    $result = $db->executar("SELECT senha FROM usuarios WHERE id = $ra_id;");
-    if(password_verify($password, $result[0][0]) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
+    $result = $db->executar("SELECT senha FROM usuarios WHERE ra = $ra_id;");
+    if(!password_verify($password, $result[0][0]) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
         header("Location: ../Login/pagLogin.php?invalidLogin");
         exit();
     }
@@ -49,12 +48,12 @@
     include_once "sessao.php";
     $_SESSION[SESSION_USER_RA_ID] = $ra_id;
 
-    $result = $db->executar("SELECT nome FROM usuarios WHERE id = $ra_id;");
+    $result = $db->executar("SELECT nome FROM usuarios WHERE ra = $ra_id;");
     $_SESSION[SESSION_USERNAME] = $result[0][0];
 
-    $result = $db->executar("SELECT f.tipo FROM funcionarios as f JOIN usuarios as u ON f.id = u.id WHERE f.id = $ra_id;",true);
+    $result = $db->executar("SELECT tipo FROM usuarios WHERE ra = $ra_id",true);
     $permisson = 0;
-    if($result->rowCount() == 0){
+    if($result->rowCount() == 3){
         $permisson = PERMISSION_ALUNO;
     }else{
         $result = $result->fetchAll();
