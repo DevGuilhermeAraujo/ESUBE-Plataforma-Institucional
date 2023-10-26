@@ -98,3 +98,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+    //Expressão regular para validar tipo do cadastro
+document.getElementById('tipo').addEventListener('change', function() {
+    var tipoSelecionado = this.value;
+
+    // Ocultar todas as partes específicas
+    document.getElementById('parteGerente').style.display = 'none';
+    document.getElementById('parteProfessor').style.display = 'none';
+    document.getElementById('parteAluno').style.display = 'none';
+
+    // Exibir a parte específica com base no tipo selecionado
+    if (tipoSelecionado === '1') {
+        document.getElementById('parteGerente').style.display = 'block';
+    } else if (tipoSelecionado === '2') {
+        document.getElementById('parteProfessor').style.display = 'block';
+    } else if (tipoSelecionado === '3') {
+        document.getElementById('parteAluno').style.display = 'block';
+    }
+});

@@ -1,7 +1,7 @@
 <?php
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT MAX(id) as proximo_ra FROM usuarios", true);
+$result = $db->executar("SELECT MAX(ra) as proximo_ra FROM usuarios", true);
 if ($result) {
     $row = $result->fetch(PDO::FETCH_ASSOC);
     $raAtual = $row['proximo_ra'] + 1;
@@ -23,25 +23,66 @@ if ($result) {
 <body>
     <img class="IcoCad" src="../Imgs/professor.png" alt="IconeCadastro">
     <form method="POST" action="../BackEnd/processCadastro.php" class="cadastro" onsubmit="return validateForm()" novalidate>
-        <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro Professor </h2>
+        <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
-        <span id="nomeError"><?php if (isset($nomeError)) { echo $nomeError; } ?></span>
+        <span id="nomeError"><?php if (isset($nomeError)) {
+                                    echo $nomeError;
+                                } ?></span>
         <input type="text" name="cpf" id="cpf" class="inputUser" placeholder="CPF" oninput="maskCPF()">
-        <span id="cpfError"><?php if (isset($cpfError)) { echo $cpfError; } ?></span>
+        <span id="cpfError"><?php if (isset($cpfError)) {
+                                echo $cpfError;
+                            } ?></span>
         <select id="genero" name="genero">
+            <option value="">Sexo</option>
             <option value="1">Masculino</option>
             <option value="2">Feminino</option>
             <option value="3">Outro</option>
         </select>
+        <label for="">Data de nascimento</label>
         <input type="date" placeholder="Data de nascimento" name="dtNasc" id="data">
-        <span id="dtError"><?php if (isset($dtError)) { echo $dtError; } ?></span>
+        <span id="dtError"><?php if (isset($dtError)) {
+                                echo $dtError;
+                            } ?></span>
         <input type="email" name="email" id="email" placeholder="Email">
-        <span id="emailError"><?php if (isset($emailError)) { echo $emailError; } ?></span>
+        <span id="emailError"><?php if (isset($emailError)) {
+                                    echo $emailError;
+                                } ?></span>
         <input type="password" placeholder="Código de confirmação" name="senha" id="senha">
-        <span id="passwordError"><?php if (isset($passwordError)) { echo $passwordError; } ?></span>
+        <span id="passwordError"><?php if (isset($passwordError)) {
+                                        echo $passwordError;
+                                    } ?></span>
+
+        <select id="tipo" name="tipo">
+            <option value="">Selecione o tipo</option>
+            <option value="1">Gerente</option>
+            <option value="2">Professor</option>
+            <option value="3">Aluno</option>
+        </select>
+        <!-- Partes específicas ocultas -->
+        <div id="parteGerente" style="display: none">
+            <!-- Campos específicos para gerente -->
+            <input type="text">
+        </div>
+
+        <div id="parteProfessor" style="display: none">
+            <!-- Campos específicos para professor -->
+            <input type="email" name="email" id="email" placeholder="Email">
+            <input type="email" name="email" id="email" placeholder="Email">
+            <input type="email" name="email" id="email" placeholder="Email">
+        </div>
+
+        <div id="parteAluno" style="display: none">
+            <!-- Campos específicos para aluno -->
+            <input type="text" id="matricula" name="matricula">
+        </div>
+
+
+
+
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
         <p id="mensagem"></p>
     </form>
 </body>
+
 </html>
