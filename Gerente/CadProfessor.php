@@ -18,6 +18,8 @@ if ($result) {
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="cadastros.css">
     <script src="../BackEnd/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -53,31 +55,24 @@ if ($result) {
                                         echo $passwordError;
                                     } ?></span>
 
-        <select id="tipo" name="tipo">
+        <select id="tipo" name="tipo" onchange="validarTipo()">
             <option value="">Selecione o tipo</option>
             <option value="1">Gerente</option>
             <option value="2">Professor</option>
             <option value="3">Aluno</option>
         </select>
         <!-- Partes específicas ocultas -->
-        <div id="parteGerente" style="display: none">
+        <div id="parteFuncionario" style="display: none">
             <!-- Campos específicos para gerente -->
-            <input type="text">
-        </div>
-
-        <div id="parteProfessor" style="display: none">
-            <!-- Campos específicos para professor -->
-            <input type="email" name="email" id="email" placeholder="Email">
-            <input type="email" name="email" id="email" placeholder="Email">
-            <input type="email" name="email" id="email" placeholder="Email">
+            <label for="">Data de Admissão</label>
+            <input type="date" name="dtContrato" id="dtContrato">
         </div>
 
         <div id="parteAluno" style="display: none">
             <!-- Campos específicos para aluno -->
-            <input type="text" id="matricula" name="matricula">
+            <label for="">Data Matrícula</label>
+            <input type="date" name="dtMatricula" id="dtMatricula">
         </div>
-
-
 
 
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
