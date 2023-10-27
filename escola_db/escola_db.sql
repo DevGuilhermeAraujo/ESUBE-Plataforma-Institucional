@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Out-2023 às 21:41
+-- Tempo de geração: 27-Out-2023 às 21:30
 -- Versão do servidor: 10.4.25-MariaDB
 -- versão do PHP: 8.1.10
 
@@ -39,7 +39,9 @@ CREATE TABLE `alunos` (
 --
 
 INSERT INTO `alunos` (`ra`, `id`, `dt_MATRICULA`, `id_turma`) VALUES
-(1111112, 1, '2023-10-26', 1);
+(1111112, 1, '2023-10-26', 1),
+(1111115, 4, '0000-00-00', 1),
+(1111120, 5, '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -117,19 +119,6 @@ CREATE TABLE `notas` (
   `data_atribuida` date NOT NULL,
   `tipo` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estrutura stand-in para vista `professores`
--- (Veja abaixo para a view atual)
---
-CREATE TABLE `professores` (
-`ra` int(11)
-,`nome` varchar(50)
-,`id` int(9)
-,`dt_CONTRATO` date
-);
 
 -- --------------------------------------------------------
 
@@ -226,38 +215,54 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senha`, `dt_registro`, `tipo`) VALUES
 (1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', 'admin', '2023-10-26 16:23:30', 1),
-(1111112, 'Guilherme Araujo', '144.684.996-13', 1, '2002-02-27', 'guiboas298@gmail.com', '123456789', '2023-10-26 18:43:36', 3);
+(1111112, 'Guilherme Araujo', '144.684.996-13', 1, '2002-02-27', 'guiboas298@gmail.com', '123456789', '2023-10-26 18:43:36', 3),
+(1111115, 'Gabriel', '000.000.000-00', 1, '0000-00-00', 'gabriel@gmail.com', '123456789', '2023-10-27 12:33:12', 3),
+(1111120, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'matheus@gmail.com', '123456789', '2023-10-27 12:35:26', 3);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `view_alunos_turmas`
+-- Estrutura stand-in para vista `view_alunos`
 -- (Veja abaixo para a view atual)
 --
-CREATE TABLE `view_alunos_turmas` (
+CREATE TABLE `view_alunos` (
 `ra` int(11)
 ,`nome` varchar(50)
+,`idade` bigint(21)
+,`cpf` varchar(14)
 ,`desc_turma` varchar(20)
-,`id` int(3)
 );
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `professores`
+-- Estrutura stand-in para vista `view_professores`
+-- (Veja abaixo para a view atual)
 --
-DROP TABLE IF EXISTS `professores`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `professores`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, `f`.`id` AS `id`, `f`.`dt_CONTRATO` AS `dt_CONTRATO` FROM (`usuarios` `u` join `funcionarios` `f`) WHERE `u`.`ra` = `f`.`ra``ra`  ;
+CREATE TABLE `view_professores` (
+`ra` int(11)
+,`nome` varchar(50)
+,`idade` bigint(21)
+,`cpf` varchar(14)
+);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `view_alunos_turmas`
+-- Estrutura para vista `view_alunos`
 --
-DROP TABLE IF EXISTS `view_alunos_turmas`;
+DROP TABLE IF EXISTS `view_alunos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_alunos_turmas`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, `t`.`desc_turma` AS `desc_turma`, `t`.`id` AS `id` FROM ((`usuarios` `u` join `alunos` `a` on(`u`.`ra` = `a`.`ra`)) join `turmas` `t` on(`a`.`id_turma` = `t`.`id`)) WHERE `u`.`tipo` = 33  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_alunos`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, timestampdiff(YEAR,`u`.`dt_NASC`,curdate()) AS `idade`, `u`.`cpf` AS `cpf`, `t`.`desc_turma` AS `desc_turma` FROM ((`usuarios` `u` join `alunos` `a` on(`u`.`ra` = `a`.`ra`)) join `turmas` `t` on(`a`.`id_turma` = `t`.`id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para vista `view_professores`
+--
+DROP TABLE IF EXISTS `view_professores`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_professores`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, timestampdiff(YEAR,`u`.`dt_NASC`,curdate()) AS `idade`, `u`.`cpf` AS `cpf` FROM (`usuarios` `u` join `funcionarios` `f` on(`u`.`ra` = `f`.`ra`)) WHERE `u`.`tipo` = 22  ;
 
 --
 -- Índices para tabelas despejadas
@@ -342,7 +347,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `frequencia`
@@ -354,7 +359,7 @@ ALTER TABLE `frequencia`
 -- AUTO_INCREMENT de tabela `funcionarios`
 --
 ALTER TABLE `funcionarios`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `materias`
@@ -390,7 +395,7 @@ ALTER TABLE `turmas`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111115;
+  MODIFY `ra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111121;
 
 --
 -- Restrições para despejos de tabelas
