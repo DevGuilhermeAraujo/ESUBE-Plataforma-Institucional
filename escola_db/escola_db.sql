@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29/10/2023 às 21:10
+-- Tempo de geração: 29/10/2023 às 22:30
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -206,7 +206,7 @@ CREATE TABLE `usuarios` (
   `genero` int(1) NOT NULL,
   `dt_NASC` date NOT NULL,
   `email` varchar(50) NOT NULL,
-  `senha` varchar(30) NOT NULL,
+  `senha` varchar(60) NOT NULL,
   `dt_registro` timestamp NOT NULL DEFAULT current_timestamp(),
   `tipo` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -216,7 +216,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senha`, `dt_registro`, `tipo`) VALUES
-(1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', 'admin', '2023-10-26 16:23:30', 1),
+(1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', '$2y$10$FSyo0NpzH5YwMecs.qeHAuExvtGYsunxqNOFiu5gDzZPMuG.W6S/O', '2023-10-26 16:23:30', 1),
 (1111112, 'Guilherme Araujo', '144.684.996-13', 1, '2002-02-27', 'guiboas298@gmail.com', '123456789', '2023-10-26 18:43:36', 3),
 (1111115, 'Gabriel', '000.000.000-00', 1, '0000-00-00', 'gabriel@gmail.com', '123456789', '2023-10-27 12:33:12', 3),
 (1111120, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'matheus@gmail.com', '123456789', '2023-10-27 12:35:26', 3);

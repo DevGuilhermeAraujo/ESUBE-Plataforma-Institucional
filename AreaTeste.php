@@ -23,27 +23,27 @@
         <div class="AreaCadastros">
             <h2>Professores</h2>
             <?php 
-                $result = $db->executar("SELECT u.nome FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'PROFESSOR';");
+                $result = $db->executar("SELECT u.nome, u.ra FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'PROFESSOR';");
                 foreach($result as $c){
-                    echo "<p>".$c[0]."</p>";
+                    echo "<p>".$c[1]." - ".$c[0]."</p>";
                 }
             ?>
         </div>
         <div class="AreaCadastros">
             <h2>Alunos</h2>
             <?php 
-                $result = $db->executar("SELECT u.nome FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'ALUNO';");
+                $result = $db->executar("SELECT u.nome, u.ra FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'ALUNO';");
                 foreach($result as $c){
-                    echo "<p>".$c[0]."</p>";
+                    echo "<p>".$c[1]." - ".$c[0]."</p>";
                 }
             ?>
         </div>
         <div class="AreaCadastros">
             <h2>Gerentes</h2>
             <?php 
-                $result = $db->executar("SELECT u.nome FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'GERENTE';");
+                $result = $db->executar("SELECT u.nome, u.ra FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'GERENTE';");
                 foreach($result as $c){
-                    echo "<p>".$c[0]."</p>";
+                    echo "<p>".$c[1]." - ".$c[0]."</p>";
                 }
             ?>
         </div>

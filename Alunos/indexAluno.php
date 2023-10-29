@@ -30,7 +30,7 @@
 
             <!--Aqui deve aparecer qual usuário está logado-->
             <p></p>
-            
+            <p><?= getNome() ?></p>
             <img src="../Imgs/usuario.png" alt="iconeUsuario">
         </div>
         <iframe src="InicioAluno.php" name="index"></iframe>    

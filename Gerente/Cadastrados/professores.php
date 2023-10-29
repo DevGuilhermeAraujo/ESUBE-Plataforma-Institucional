@@ -22,14 +22,12 @@ $result = $db->executar("SELECT ra, nome FROM view_professores");
             <?php
             // Loop para exibir os professores
             foreach ($result as $professor) {
-                $id = $aluno['id'];
-                $nome = $aluno['nome'];
-                $ra = $aluno['ra'];
+                $id = $professor['ra'];
+                $nome = $professor['nome'];
                 // Faça o que for necessário com os dados do professor
                 echo "<tr>";
-                echo "<td>{$aluno['id']}</td>";
-                echo "<td>{$aluno['nome']}</td>";
-                echo "<td>{$aluno['ra']}</td>";
+                echo "<td>{$id}</td>";
+                echo "<td>{$nome}</td>";
                 echo "</tr>";
             }
             ?>
