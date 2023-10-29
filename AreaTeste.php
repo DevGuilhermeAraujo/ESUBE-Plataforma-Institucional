@@ -23,7 +23,7 @@
         <div class="AreaCadastros">
             <h2>Professores</h2>
             <?php 
-                $result = $db->executar("SELECT u.nome, f.tipo, t.nomeTipo FROM usuarios as u JOIN funcionarios as f ON u.id = f.id JOIN tipos as t ON f.tipo = t.cod WHERE t.nomeTipo = 'Professor';");
+                $result = $db->executar("SELECT u.nome FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'PROFESSOR';");
                 foreach($result as $c){
                     echo "<p>".$c[0]."</p>";
                 }
@@ -32,7 +32,7 @@
         <div class="AreaCadastros">
             <h2>Alunos</h2>
             <?php 
-                $result = $db->executar("SELECT u.nome from usuarios as u LEFT JOIN funcionarios as f ON u.id = f.id WHERE f.id IS null;");
+                $result = $db->executar("SELECT u.nome FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'ALUNO';");
                 foreach($result as $c){
                     echo "<p>".$c[0]."</p>";
                 }
@@ -41,7 +41,7 @@
         <div class="AreaCadastros">
             <h2>Gerentes</h2>
             <?php 
-                $result = $db->executar("SELECT u.nome, f.tipo, t.nomeTipo FROM usuarios as u JOIN funcionarios as f ON u.id = f.id JOIN tipos as t ON f.tipo = t.cod WHERE t.nomeTipo = 'Gerente';");
+                $result = $db->executar("SELECT u.nome FROM usuarios AS u JOIN tipo as t ON u.tipo = t.id WHERE UPPER(t.descricao) = 'GERENTE';");
                 foreach($result as $c){
                     echo "<p>".$c[0]."</p>";
                 }

@@ -1,7 +1,7 @@
 <?php
 require_once('../../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT id, nome, ra FROM view_professores");
+$result = $db->executar("SELECT ra, nome FROM view_professores");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

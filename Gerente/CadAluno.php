@@ -1,7 +1,7 @@
 <?php
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT MAX(id) as proximo_ra FROM usuarios", true);
+$result = $db->executar("SELECT MAX(ra) as proximo_ra FROM usuarios", true);
 if ($result) {
     $row = $result->fetch(PDO::FETCH_ASSOC);
     $raAtual = $row['proximo_ra'] + 1;
