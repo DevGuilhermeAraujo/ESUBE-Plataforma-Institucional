@@ -8,6 +8,8 @@ $result = $db->executar("SELECT COUNT(*) FROM view_professores;");
 $quantProf = $result;
 $result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
 $quantAlunos = $result;
+$result = $db->executar("SELECT COUNT(*) FROM turmas;");
+$quantTurmas = $result;
 //Deve estar presente se o login for obrigatório 
 //requiredLogin(); <- Desativado até a conexão do banco
 ?>
@@ -27,16 +29,23 @@ $quantAlunos = $result;
         <div class="painel">
             <div class="conteudo">
                 <h3>Professores</h3>
-                <p>Total cadastrados: <span><?php echo$quantProf[0][0] ?></span></p>
+                <p>Total cadastrados: <span><?php echo $quantProf[0][0] ?></span></p>
             </div>
-            <a href="Cadastrados/professores.php" class="ver">Ver</a>
+            <a href="../Cadastrados/professores.php" class="ver">Ver</a>
         </div>
         <div class="painel">
             <div class="conteudo">
                 <h3>Alunos</h3>
                 <p>Total cadastrados: <span><?php echo $quantAlunos[0][0] ?></span></p>
             </div>
-            <a href="Cadastrados/alunos.php" class="ver">Ver</a>
+            <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
+        </div>
+        <div class="painel">
+            <div class="conteudo">
+                <h3>Turmas</h3>
+                <p>Total cadastrados: <span><?php echo $quantTurmas[0][0] ?></span></p>
+            </div>
+            <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
     </div>
 </body>

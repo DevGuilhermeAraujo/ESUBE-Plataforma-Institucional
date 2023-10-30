@@ -1,7 +1,6 @@
 <?php
-require_once('../../BackEnd/conexao.php');
+require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT ra, nome, idade, desc_turma FROM view_alunos");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,6 +22,7 @@ $result = $db->executar("SELECT ra, nome, idade, desc_turma FROM view_alunos");
                 <th>TURMA</th>
             </tr>
             <?php
+            $result = $db->executar("SELECT ra, nome, idade, desc_turma FROM view_alunos");
             // Loop para exibir os alunos
             foreach ($result as $aluno) {
                 $ra = $aluno['ra'];
