@@ -30,7 +30,7 @@ h2{
     margin-top: 0;
     text-align: center;
     font-size: 40px;
-    color: rgb(7, 7, 48);
+    color: rgb(35, 35, 54);
     height: 30vh;
 }
 img{
@@ -38,7 +38,7 @@ img{
 }
 .btnCad{
     display: flex;
-    background-color: rgb(8, 8, 61);
+    background-color: rgb(35, 35, 54);
     color: white;
     justify-content: center;
     height: 10vh;
