@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Out-2023 às 21:30
--- Versão do servidor: 10.4.25-MariaDB
--- versão do PHP: 8.1.10
+-- Tempo de geração: 29/10/2023 às 22:30
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,11 +20,13 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `escola_db`
 --
+CREATE DATABASE IF NOT EXISTS `escola_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `escola_db`;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `alunos`
+-- Estrutura para tabela `alunos`
 --
 
 CREATE TABLE `alunos` (
@@ -32,10 +34,10 @@ CREATE TABLE `alunos` (
   `id` int(9) NOT NULL,
   `dt_MATRICULA` date NOT NULL,
   `id_turma` int(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `alunos`
+-- Despejando dados para a tabela `alunos`
 --
 
 INSERT INTO `alunos` (`ra`, `id`, `dt_MATRICULA`, `id_turma`) VALUES
@@ -46,7 +48,7 @@ INSERT INTO `alunos` (`ra`, `id`, `dt_MATRICULA`, `id_turma`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `frequencia`
+-- Estrutura para tabela `frequencia`
 --
 
 CREATE TABLE `frequencia` (
@@ -55,22 +57,22 @@ CREATE TABLE `frequencia` (
   `id_materia` int(5) DEFAULT NULL,
   `data_atribuida` date NOT NULL,
   `desc_frequencia` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura para tabela `funcionarios`
 --
 
 CREATE TABLE `funcionarios` (
   `ra` int(9) DEFAULT NULL,
   `id` int(9) NOT NULL,
   `dt_CONTRATO` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `funcionarios`
+-- Despejando dados para a tabela `funcionarios`
 --
 
 INSERT INTO `funcionarios` (`ra`, `id`, `dt_CONTRATO`) VALUES
@@ -79,17 +81,17 @@ INSERT INTO `funcionarios` (`ra`, `id`, `dt_CONTRATO`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `materias`
+-- Estrutura para tabela `materias`
 --
 
 CREATE TABLE `materias` (
   `id` int(5) NOT NULL,
   `nome` varchar(30) NOT NULL,
   `quant_aulas` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `materias`
+-- Despejando dados para a tabela `materias`
 --
 
 INSERT INTO `materias` (`id`, `nome`, `quant_aulas`) VALUES
@@ -108,7 +110,7 @@ INSERT INTO `materias` (`id`, `nome`, `quant_aulas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `notas`
+-- Estrutura para tabela `notas`
 --
 
 CREATE TABLE `notas` (
@@ -118,45 +120,45 @@ CREATE TABLE `notas` (
   `nota` decimal(3,2) NOT NULL,
   `data_atribuida` date NOT NULL,
   `tipo` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `professor_materia`
+-- Estrutura para tabela `professor_materia`
 --
 
 CREATE TABLE `professor_materia` (
   `id` int(5) NOT NULL,
   `id_prof` int(9) DEFAULT NULL,
   `id_materia` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `professor_turma`
+-- Estrutura para tabela `professor_turma`
 --
 
 CREATE TABLE `professor_turma` (
   `id` int(5) NOT NULL,
   `id_prof` int(9) DEFAULT NULL,
   `id_turma` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tipo`
+-- Estrutura para tabela `tipo`
 --
 
 CREATE TABLE `tipo` (
   `id` int(1) NOT NULL,
   `descricao` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tipo`
+-- Despejando dados para a tabela `tipo`
 --
 
 INSERT INTO `tipo` (`id`, `descricao`) VALUES
@@ -167,16 +169,16 @@ INSERT INTO `tipo` (`id`, `descricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `turmas`
+-- Estrutura para tabela `turmas`
 --
 
 CREATE TABLE `turmas` (
   `id` int(3) NOT NULL,
   `desc_turma` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `turmas`
+-- Despejando dados para a tabela `turmas`
 --
 
 INSERT INTO `turmas` (`id`, `desc_turma`) VALUES
@@ -194,7 +196,7 @@ INSERT INTO `turmas` (`id`, `desc_turma`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -204,17 +206,17 @@ CREATE TABLE `usuarios` (
   `genero` int(1) NOT NULL,
   `dt_NASC` date NOT NULL,
   `email` varchar(50) NOT NULL,
-  `senha` varchar(30) NOT NULL,
+  `senha` varchar(60) NOT NULL,
   `dt_registro` timestamp NOT NULL DEFAULT current_timestamp(),
   `tipo` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senha`, `dt_registro`, `tipo`) VALUES
-(1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', 'admin', '2023-10-26 16:23:30', 1),
+(1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', '$2y$10$FSyo0NpzH5YwMecs.qeHAuExvtGYsunxqNOFiu5gDzZPMuG.W6S/O', '2023-10-26 16:23:30', 1),
 (1111112, 'Guilherme Araujo', '144.684.996-13', 1, '2002-02-27', 'guiboas298@gmail.com', '123456789', '2023-10-26 18:43:36', 3),
 (1111115, 'Gabriel', '000.000.000-00', 1, '0000-00-00', 'gabriel@gmail.com', '123456789', '2023-10-27 12:33:12', 3),
 (1111120, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'matheus@gmail.com', '123456789', '2023-10-27 12:35:26', 3);
@@ -222,8 +224,8 @@ INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senh
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `view_alunos`
--- (Veja abaixo para a view atual)
+-- Estrutura stand-in para view `view_alunos`
+-- (Veja abaixo para a visão atual)
 --
 CREATE TABLE `view_alunos` (
 `ra` int(11)
@@ -236,8 +238,8 @@ CREATE TABLE `view_alunos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `view_professores`
--- (Veja abaixo para a view atual)
+-- Estrutura stand-in para view `view_professores`
+-- (Veja abaixo para a visão atual)
 --
 CREATE TABLE `view_professores` (
 `ra` int(11)
@@ -249,27 +251,27 @@ CREATE TABLE `view_professores` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `view_alunos`
+-- Estrutura para view `view_alunos`
 --
 DROP TABLE IF EXISTS `view_alunos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_alunos`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, timestampdiff(YEAR,`u`.`dt_NASC`,curdate()) AS `idade`, `u`.`cpf` AS `cpf`, `t`.`desc_turma` AS `desc_turma` FROM ((`usuarios` `u` join `alunos` `a` on(`u`.`ra` = `a`.`ra`)) join `turmas` `t` on(`a`.`id_turma` = `t`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_alunos`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, timestampdiff(YEAR,`u`.`dt_NASC`,curdate()) AS `idade`, `u`.`cpf` AS `cpf`, `t`.`desc_turma` AS `desc_turma` FROM ((`usuarios` `u` join `alunos` `a` on(`u`.`ra` = `a`.`ra`)) join `turmas` `t` on(`t`.`id` = `a`.`id_turma`)) ;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `view_professores`
+-- Estrutura para view `view_professores`
 --
 DROP TABLE IF EXISTS `view_professores`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_professores`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, timestampdiff(YEAR,`u`.`dt_NASC`,curdate()) AS `idade`, `u`.`cpf` AS `cpf` FROM (`usuarios` `u` join `funcionarios` `f` on(`u`.`ra` = `f`.`ra`)) WHERE `u`.`tipo` = 22  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_professores`  AS SELECT `u`.`ra` AS `ra`, `u`.`nome` AS `nome`, timestampdiff(YEAR,`u`.`dt_NASC`,curdate()) AS `idade`, `u`.`cpf` AS `cpf` FROM (`usuarios` `u` join `funcionarios` `f` on(`u`.`ra` = `f`.`ra`)) WHERE `u`.`tipo` = 2 ;
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `alunos`
+-- Índices de tabela `alunos`
 --
 ALTER TABLE `alunos`
   ADD PRIMARY KEY (`id`),
@@ -277,7 +279,7 @@ ALTER TABLE `alunos`
   ADD KEY `id_turma` (`id_turma`);
 
 --
--- Índices para tabela `frequencia`
+-- Índices de tabela `frequencia`
 --
 ALTER TABLE `frequencia`
   ADD PRIMARY KEY (`id`),
@@ -285,20 +287,20 @@ ALTER TABLE `frequencia`
   ADD KEY `id_materia` (`id_materia`);
 
 --
--- Índices para tabela `funcionarios`
+-- Índices de tabela `funcionarios`
 --
 ALTER TABLE `funcionarios`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ra` (`ra`);
 
 --
--- Índices para tabela `materias`
+-- Índices de tabela `materias`
 --
 ALTER TABLE `materias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `notas`
+-- Índices de tabela `notas`
 --
 ALTER TABLE `notas`
   ADD PRIMARY KEY (`id`),
@@ -306,7 +308,7 @@ ALTER TABLE `notas`
   ADD KEY `id_materia` (`id_materia`);
 
 --
--- Índices para tabela `professor_materia`
+-- Índices de tabela `professor_materia`
 --
 ALTER TABLE `professor_materia`
   ADD PRIMARY KEY (`id`),
@@ -314,7 +316,7 @@ ALTER TABLE `professor_materia`
   ADD KEY `id_materia` (`id_materia`);
 
 --
--- Índices para tabela `professor_turma`
+-- Índices de tabela `professor_turma`
 --
 ALTER TABLE `professor_turma`
   ADD PRIMARY KEY (`id`),
@@ -322,25 +324,25 @@ ALTER TABLE `professor_turma`
   ADD KEY `id_turma` (`id_turma`);
 
 --
--- Índices para tabela `tipo`
+-- Índices de tabela `tipo`
 --
 ALTER TABLE `tipo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `turmas`
+-- Índices de tabela `turmas`
 --
 ALTER TABLE `turmas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`ra`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -398,49 +400,28 @@ ALTER TABLE `usuarios`
   MODIFY `ra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111121;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `alunos`
+-- Restrições para tabelas `alunos`
 --
 ALTER TABLE `alunos`
   ADD CONSTRAINT `alunos_ibfk_1` FOREIGN KEY (`ra`) REFERENCES `usuarios` (`ra`),
   ADD CONSTRAINT `alunos_ibfk_2` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`);
 
 --
--- Limitadores para a tabela `frequencia`
+-- Restrições para tabelas `frequencia`
 --
 ALTER TABLE `frequencia`
   ADD CONSTRAINT `frequencia_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `alunos` (`ra`),
   ADD CONSTRAINT `frequencia_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`);
 
 --
--- Limitadores para a tabela `funcionarios`
+-- Restrições para tabelas `funcionarios`
 --
 ALTER TABLE `funcionarios`
   ADD CONSTRAINT `funcionarios_ibfk_1` FOREIGN KEY (`ra`) REFERENCES `usuarios` (`ra`);
-
---
--- Limitadores para a tabela `notas`
---
-ALTER TABLE `notas`
-  ADD CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `alunos` (`ra`),
-  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`);
-
---
--- Limitadores para a tabela `professor_materia`
---
-ALTER TABLE `professor_materia`
-  ADD CONSTRAINT `professor_materia_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `funcionarios` (`ra`),
-  ADD CONSTRAINT `professor_materia_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`);
-
---
--- Limitadores para a tabela `professor_turma`
---
-ALTER TABLE `professor_turma`
-  ADD CONSTRAINT `professor_turma_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `funcionarios` (`ra`),
-  ADD CONSTRAINT `professor_turma_ibfk_2` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -29,10 +29,15 @@
             <p>Página do professor</p>
             
             <!--Aqui deve aparecer qual usuário está logado-->
+<<<<<<< HEAD
             <p>
                 
             </p>
 
+=======
+            <p></p>
+            <p><?= getNome() ?></p>
+>>>>>>> b964822e4f55e4f9152cc52da918697bb94c3d50
             <img src="../Imgs/usuario.png" alt="iconeUsuario">
         </div>
         <iframe src="inicioProfessores.php" name="index"></iframe>    
