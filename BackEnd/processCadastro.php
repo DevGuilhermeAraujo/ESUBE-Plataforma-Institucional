@@ -25,8 +25,8 @@
             $result = $db->executar("INSERT INTO usuarios(nome, cpf, genero, dt_NASC, email, senha, tipo) VALUES ('$nome', '$cpf', $genero, '$dataNasc', '$email', '$senha', $tipo)", true);
 
             if ($result) {
-                echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
-                //header("Location: ../Gerente/inicioGerente.php");
+                //echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
+                header("Location: ../Gerente/inicioGerente.php?cadSucess");
             } else {
                 
             }

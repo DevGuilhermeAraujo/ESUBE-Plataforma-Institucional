@@ -21,8 +21,8 @@ requiredLogin(PERMISSION_GERENTE);
             <h1>ADA <br><span>ESUBE</span></h1>
             <div class="links">
                 <a target="index" href="inicioGerente.php">Destaques</a>
-                <a target="index" href="CadAluno.php">Cadastrar aluno</a>
-                <a target="index" href="CadProfessor.php">Cadastrar professor</a>
+                <a target="index" href="../Cadastrados/Turmas.php">Turmas</a>
+                <a target="index" href="CadProfessor.php">Cadastrar usuário</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
                 <a href="../AreaTeste.php">Area de testes</a>
             </div>

@@ -1,7 +1,6 @@
 <?php
-require_once('../../BackEnd/conexao.php');
+require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT ra, nome FROM view_professores");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -17,9 +16,10 @@ $result = $db->executar("SELECT ra, nome FROM view_professores");
             <tr>
                 <th>ID</th>
                 <th>NOME</th>
-                <th>RA</th>
+                <th>RA</th> 
             </tr>
             <?php
+            $result = $db->executar("SELECT ra, nome FROM view_professores");
             // Loop para exibir os professores
             foreach ($result as $professor) {
                 $id = $professor['ra'];

@@ -1,3 +1,16 @@
+<?php
+//Deve estar presente em todas as paginas
+
+include_once '../BackEnd/sessao.php';
+require_once('../BackEnd/conexao.php');
+$db = new Conexao();
+$result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
+$quantAlunos = $result;
+$result = $db->executar("SELECT COUNT(*) FROM turmas;");
+$quantTurmas = $result;
+//Deve estar presente se o login for obrigatório 
+//requiredLogin(); <- Desativado até a conexão do banco
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,18 +21,19 @@
 </head>
 <body>
     <div class="inicio">
-        <div class="painel">
+    <div class="painel">
             <div class="conteudo">
                 <h3>Alunos</h3>
-
-                <!--x = a todos os alunos nesta matéria-->
-                <p>Total alunos: <span>x</span></p>
-
-                <!--x = nome da materia deste professor-->
-                <p>Matéria: <span>x</span></p>
-
+                <p>Total cadastrados: <span><?php echo $quantAlunos[0][0] ?></span></p>
             </div>
-            <a href="meusAlunos.php" class="ver">Ver</a>
+            <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
+        </div>
+        <div class="painel">
+            <div class="conteudo">
+                <h3>Turmas</h3>
+                <p>Total cadastrados: <span><?php echo $quantTurmas[0][0] ?></span></p>
+            </div>
+            <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
         <div class="painel">
             <div class="conteudo">
