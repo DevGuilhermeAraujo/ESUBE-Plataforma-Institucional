@@ -48,10 +48,10 @@ $quantTurmas = $result;
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
     </div>
-    <!-- Menssagem de sucesso cadastro -->
     <?php
-        if (isset($_GET["invalidLogin"])) {
+        if (isset($_GET["cadSucess"])) {
         ?>
+            <!-- Menssagem de sucesso cadastro -->
             <span class="msgV">
                 Usuário cadastrado com sucesso!
             </span>
