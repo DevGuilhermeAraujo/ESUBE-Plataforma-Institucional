@@ -22,7 +22,7 @@ requiredLogin(PERMISSION_GERENTE);
             <div class="links">
                 <a target="index" href="inicioGerente.php">Destaques</a>
                 <a target="index" href="../Cadastrados/Turmas.php">Cadastrar turma</a>
-                <a target="index" href="CadProfessor.php">Cadastrar usuário</a>
+                <a target="index" href="cadPUser.php">Cadastrar usuário</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
             </div>
         </div>
