@@ -90,6 +90,26 @@ if ($result) {
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
         <p id="mensagem"></p>
     </form>
+    <!-- Menssagem de falha no Banco -->
+    <?php
+        if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
+        ?>
+            <span class="msgN">
+                Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.
+            </span>
+        <?php
+        }
+        ?>
+        <!-- Menssagem de erro geral -->
+        <?php
+        if (isset($_GET["ERROR"]) && $_GET["ERROR"] == null) {
+        ?>
+            <span class="msgN">
+                Erro desconhecido, por favor entre em contato com o adminstrador do sistema.
+            </span>
+        <?php
+        }
+        ?>
 </body>
 
 </html>
