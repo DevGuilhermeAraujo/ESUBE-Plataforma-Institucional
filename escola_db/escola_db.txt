@@ -10,6 +10,7 @@ CREATE TABLE usuarios (
     tipo INT(1) NOT NULL
 );
 
+
 CREATE TABLE funcionarios (
     ra INT(9),
     id INT(9) PRIMARY KEY AUTO_INCREMENT,
@@ -17,9 +18,10 @@ CREATE TABLE funcionarios (
     FOREIGN KEY (ra) REFERENCES usuarios(ra)
 );
 
+
+
 INSERT INTO usuarios (ra, nome, cpf, genero, dt_nasc, email, senha, tipo)
 VALUES (1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', 'admin', 1);
-
 
 INSERT INTO funcionarios (ra, dt_CONTRATO)
 VALUES (1111111, '2015-02-27');
@@ -28,12 +30,12 @@ ALTER TABLE escola_db.usuarios
 AUTO_INCREMENT = 1111112;
 
 
-
-    
 CREATE TABLE tipo(
 	id INT(1) PRIMARY KEY,
 	descricao VARCHAR(20) NOT NULL
 	);
+
+
 INSERT INTO tipo(id, descricao) VALUES (1, 'Gerente');
 INSERT INTO tipo(id, descricao) VALUES (2, 'Professor')	;
 INSERT INTO tipo(id, descricao) VALUES (3, 'Aluno');
@@ -45,6 +47,7 @@ CREATE TABLE turmas (
     id INT(3) PRIMARY KEY AUTO_INCREMENT,
     desc_turma VARCHAR(20)
 	);
+
 
 INSERT INTO turmas(desc_turma) VALUES('Turma A');
 INSERT INTO turmas(desc_turma) VALUES('Turma B');
@@ -58,16 +61,15 @@ INSERT INTO turmas(desc_turma) VALUES('Turma I');
 INSERT INTO turmas(desc_turma) VALUES('Turma J');
 
 
-
-
 CREATE TABLE alunos (
     ra INT(9),
     id INT(9) PRIMARY KEY AUTO_INCREMENT,
     dt_MATRICULA DATE NOT NULL,
-    id_turma INT(3),
+    turma INT(3),
     FOREIGN KEY (ra) REFERENCES usuarios(ra),
-    FOREIGN KEY (id_turma) REFERENCES turmas(id)
+    FOREIGN KEY (turma) REFERENCES turmas(id)
 );
+
 
 
 CREATE TABLE materias (
@@ -89,7 +91,6 @@ INSERT INTO materias (nome, quant_aulas) VALUES ('Artes', 40);
 INSERT INTO materias (nome, quant_aulas) VALUES ('Educação Física', 40);
 
 
-	
 CREATE TABLE notas (
     id INT(20) PRIMARY KEY AUTO_INCREMENT,
     id_aluno INT(9),
@@ -97,22 +98,22 @@ CREATE TABLE notas (
     nota DECIMAL(3,2) NOT NULL,
     data_atribuida DATE NOT NULL,
     tipo INT(1) NOT NULL,
-    FOREIGN KEY (id_aluno) REFERENCES alunos(ra),
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id),
     FOREIGN KEY (id_materia) REFERENCES materias(id)
 );
 
-	
+
 CREATE TABLE frequencia (
     id INT(20) PRIMARY KEY AUTO_INCREMENT,
     id_aluno INT(9),
     id_materia INT(5),
     data_atribuida DATE NOT NULL,
     desc_frequencia INT(1) NOT NULL,
-    FOREIGN KEY (id_aluno) REFERENCES alunos(ra),
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id),
     FOREIGN KEY (id_materia) REFERENCES materias(id)
 );
 
-	
+
 	
 CREATE TABLE professor_materia (
     id INT(5) PRIMARY KEY AUTO_INCREMENT,
@@ -121,6 +122,22 @@ CREATE TABLE professor_materia (
     FOREIGN KEY (id_prof) REFERENCES funcionarios(ra),
     FOREIGN KEY (id_materia) REFERENCES materias(id)
 );
+
+
+	
+CREATE VIEW view_alunos AS 
+SELECT u.ra,u.nome,timestampdiff(YEAR,u.dt_NASC,curdate()) AS idade,u.cpf, t.desc_turma, t.id AS id_turma, a.id AS id_aluno
+FROM escola_db.usuarios AS u
+JOIN escola_db.alunos AS a ON u.ra = a.ra
+JOIN escola_db.turmas AS t ON t.id = a.id_turma;
+
+
+CREATE VIEW view_professores AS 
+SELECT u.ra,u.nome,timestampdiff(YEAR,u.dt_NASC,curdate()) AS idade,u.cpf, f.id
+FROM escola_db.usuarios AS u
+JOIN escola_db.funcionarios AS f ON u.ra = f.ra
+WHERE u.tipo = 2;
+
 
 	
 	
@@ -131,21 +148,4 @@ CREATE TABLE professor_turma (
     FOREIGN KEY (id_prof) REFERENCES funcionarios(ra),
     FOREIGN KEY (id_turma) REFERENCES turmas(id)
 );
-
-
-
-
-
-
-	
-CREATE VIEW view_alunos_turmas AS
-SELECT u.ra, u.nome, t.desc_turma, t.id
-FROM usuarios AS u
-JOIN alunos AS a ON u.ra = a.ra
-JOIN turmas AS t ON a.id_turma = t.id
-WHERE u.tipo = 3;
-
-
-
-
 
