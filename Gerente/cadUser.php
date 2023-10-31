@@ -23,7 +23,7 @@ if ($result) {
 </head>
 <body>
     <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
-        <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
+        <h2>Cadastro</h2>
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
         <span id="nomeError"><?php if (isset($nomeError)) {
@@ -82,10 +82,10 @@ if ($result) {
                 ?>
             </select>
         </div>
-
-
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
-        <p id="mensagem"></p>
+        <span class="msgN">
+            <!--Mensagens de erro aqui (preferência: 1 por vez)-->
+        </span>
     </form>
 </body>
 
