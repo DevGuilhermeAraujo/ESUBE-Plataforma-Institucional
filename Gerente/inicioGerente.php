@@ -65,6 +65,7 @@ if ($db->errorCode == 0) {
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
         <?php
+        //Menssagem de sucesso de cadastro
         if (isset($_GET["cadSucess"])) {
             msg(1, "Usuário cadastrado com sucesso!",null,"bottom: 4%; position: fixed;");
         }

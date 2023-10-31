@@ -29,10 +29,6 @@ if ($db->errorCode == 0) {
 </head>
 
 <body>
-<<<<<<< HEAD:Gerente/CadProfessor.php
-    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
-        <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
-=======
     <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
         <h2>Cadastro</h2>
 
@@ -48,7 +44,6 @@ if ($db->errorCode == 0) {
         }
         ?>
 
->>>>>>> 4ab4b8bee1f3769fc17f6db9c9d994ed3bb25346:Gerente/cadUser.php
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
         <span id="nomeError"><?php if (isset($nomeError)) {
