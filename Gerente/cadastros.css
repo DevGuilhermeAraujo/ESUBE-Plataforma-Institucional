@@ -1,56 +1,42 @@
-.IcoCad {
-    width: 40%;
-    margin-top: 1%;
-    height: 80vh;
-}
-
-.cadastro {
-    width: 48%;
-    margin-top: 1%;
-    height: 96vh;
-    padding: 3%;
-}
-
-form {
+form{
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
     border-radius: 20px;
     background-color: rgb(190, 188, 188);
     box-shadow: 10px 10px 10px gray;
+    width: 70%;
+    margin: 1% 0% 15% 0%;
+    height: 80vh;
+    padding: 3%;
 }
-
-input,
-select {
+input,select{
     width: 48%;
     margin: 1%;
-    height: 5vh;
+    height: 7vh;
     border: none;
     border-radius: 10px;
     padding: 0 0 0 3%;
     display: flex;
 }
-
-h2 {
+h2{
     margin-top: 0;
     text-align: center;
     font-size: 40px;
     color: rgb(35, 35, 54);
     height: 30vh;
 }
-
-img {
+img{
     width: 35%;
 }
-
-.btnCad {
+.btnCad{
     display: flex;
     background-color: rgb(35, 35, 54);
     color: white;
     justify-content: center;
     height: 10vh;
+    width: 100%;
 }
-
 /* Estilos do modal */
 .modal {
     display: none;

@@ -9,22 +9,20 @@ if ($result) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro</title>
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="cadastros.css">
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
-
 <body>
-    <img class="IcoCad" src="../Imgs/professor.png" alt="IconeCadastro">
-    <form method="POST" action="../BackEnd/processCadastro.php" class="cadastro" onsubmit="return validateForm()" novalidate>
+    <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
         <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
@@ -41,7 +39,6 @@ if ($result) {
             <option value="2">Feminino</option>
             <option value="3">Outro</option>
         </select>
-        <label for="">Data de nascimento</label>
         <input type="date" placeholder="Data de nascimento" name="dtNasc" id="data">
         <span id="dtError"><?php if (isset($dtError)) {
                                 echo $dtError;
