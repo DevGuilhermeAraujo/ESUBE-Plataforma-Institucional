@@ -4,7 +4,6 @@ include_once '../BackEnd/sessao.php';
 //Deve estar presente se o login for obrigatório (parametro opcional, exige determinada permissão para acessar a pagina)
 requiredLogin(PERMISSION_GERENTE);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,7 +20,6 @@ requiredLogin(PERMISSION_GERENTE);
             <h1>ADA <br><span>ESUBE</span></h1>
             <div class="links">
                 <a target="index" href="inicioGerente.php">Destaques</a>
-                <a target="index" href="../Cadastrados/Turmas.php">Cadastrar turma</a>
                 <a target="index" href="cadUser.php">Cadastrar usuário</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
             </div>

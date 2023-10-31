@@ -41,6 +41,13 @@ $quantTurmas = $result;
             <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
         </div>
         <div class="painel">
+            <form id="CadTurma" action="">
+                <h3>Nova turma</h3>
+                <input id="turma" type="text" placeholder="Nome da turma">
+                <input id="btnCadTur" type="submit" value="+">
+            </form>
+        </div>
+        <div class="painel">
             <div class="conteudo">
                 <h3>Turmas</h3>
                 <p>Total cadastrados: <span><?php echo $quantTurmas[0][0] ?></span></p>
