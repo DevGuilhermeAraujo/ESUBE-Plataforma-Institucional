@@ -116,6 +116,12 @@ if ($db->errorCode == 0) {
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 2) {
             msg(2,"O cadastro falhou!");
         }
+
+        //Menssagem de falha no Banco 
+        if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 10) {
+            msg(2,"O campo tipo deve ser preenchido!");
+        }
+
         //Menssagem de erro geral
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == null) {
             msg(2,"Erro desconhecido, por favor entre em contato com o adminstrador do sistema.");
