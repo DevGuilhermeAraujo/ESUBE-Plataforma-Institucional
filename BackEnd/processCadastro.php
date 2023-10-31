@@ -45,6 +45,6 @@ if ($db->errorCode === 0) {
     }
 } else {
     // Lidar com erros de conexão, se houver
-    header("Location: ../Gerente/CadProfessor.php?ERROR=1");
+    header("Location: ../Gerente/cadUser.php?ERROR=1");
     exit();
 }
