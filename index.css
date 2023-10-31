@@ -44,7 +44,7 @@ body{
     border-radius: 20px;
 }
 .links a:hover{
-    background-color: rgb(24, 24, 32);
+    background-color: rgb(35, 35, 54);
 }
 .index:hover .links{
     display: flex;
@@ -93,7 +93,7 @@ iframe{
 }
 .painel h3{
     text-align: center;
-    color: rgb(21, 21, 121); 
+    color: rgb(35, 35, 54); 
     font-size: 25px;   
 }
 .painel p{
@@ -106,7 +106,7 @@ iframe{
     padding: 2%;
 }
 .conteudo span{
-    color: rgb(24, 24, 110);
+    color: rgb(35, 35, 54);
     font-size: 20px;
 }
 .ver{
@@ -116,13 +116,13 @@ iframe{
     text-align: center;
     border-radius: 0px 0px 20px 20px;
     margin-top: 2%;
-    background-color: rgb(17, 17, 68);
+    background-color: rgb(35, 35, 54);
     font-size: 25px;
     padding: 2%;
     text-decoration: none;
 }
 .top{
-    background-color: rgb(11, 11, 46);
+    background-color: rgb(35, 35, 54);
     width: 100%;
     color: white;
     text-align: center;
@@ -147,25 +147,39 @@ iframe{
     background-color: rgb(206, 203, 203);
     box-shadow: 10px 10px 5px gray;
     border-radius: 20px;
-    color: rgb(24, 24, 78);
+    color: rgb(35, 35, 54);
     font-size: 20px;
     padding: 2%;
 }
-@media screen and (max-width: 350px){
-    .index{
-        display: none;
-    }
-    .desc{
-        display: none;
-    }
-    .full{
-        width: 100%;
-    }
-    .painel{
-        width: 90%;
-        margin: 5%;
-    }
-    .usuario{
-        justify-content: center;
-    }
+.msgN{
+    width: 80%;
+    background-color: rgb(224, 95, 95);
+    border: 2px solid rgb(184, 19, 19);
+    border-radius: 20px;
+    width: 100%;
+    color: rgb(184, 19, 19);
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+form h3{
+    margin-left: 20%;
+    width: 100%;
+    text-align: center;
+}
+#btnCadTur{
+    font-size: 40px;
+    height: 10vh;
+    color: white;
+    border-radius: 0px 0px 10px 10px;
+    background-color: rgb(15, 15, 48);
+}
+input{
+    height: 10vh;
+    border: none;
+    width: 100%;
+    padding: 2%;
+    margin-left: 20%;
+    border-radius: 10px 10px 0px 0px;
 }
