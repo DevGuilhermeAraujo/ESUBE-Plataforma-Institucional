@@ -9,15 +9,17 @@ $db = new Conexao();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professores</title>
     <link rel="stylesheet" href="../../index.css">
+    <link rel="stylesheet" href="tabelas.css">
 </head>
 <body>
 <div id="exib">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>NOME</th>
-                <th>RA</th> 
-            </tr>
+        <div class="dados">
+            <div class="titulos">
+                <p>
+                    <span>RA</span>
+                    <span>Nome</span>
+                </p>
+            </div>
             <?php
             $result = $db->executar("SELECT ra, nome FROM view_professores");
             // Loop para exibir os professores
@@ -25,13 +27,10 @@ $db = new Conexao();
                 $id = $professor['ra'];
                 $nome = $professor['nome'];
                 // Faça o que for necessário com os dados do professor
-                echo "<tr>";
-                echo "<td>{$id}</td>";
-                echo "<td>{$nome}</td>";
-                echo "</tr>";
+                echo "<p><span>{$id}</span><span>{$nome}</span></p>";
             }
             ?>
-        </table>
+        </div>
     </div>
 </body>
 </html>

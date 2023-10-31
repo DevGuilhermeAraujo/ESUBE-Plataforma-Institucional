@@ -10,18 +10,21 @@ $db = new Conexao();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alunos</title>
     <link rel="stylesheet" href="../../index.css">
+    <link rel="stylesheet" href="tabelas.css">
 </head>
 
 <body>
     <div id="exib">
-        <table>
-            <tr>
-                <th>RA</th>
-                <th>NOME</th>
-                <th>IDADE</th>
-                <th>TURMA</th>
-            </tr>
-            <?php
+        <div class="dados">
+        <div class="titulos">
+            <p>
+                <span>Nome</span>
+                <span>RA</span>
+                <span>Idade</span>
+                <span>Turma</span>
+            </p>
+        </div>
+        <?php
             $result = $db->executar("SELECT ra, nome, idade, desc_turma FROM view_alunos");
             // Loop para exibir os alunos
             foreach ($result as $aluno) {
@@ -30,15 +33,10 @@ $db = new Conexao();
                 $idade = $aluno['idade'];
                 $turma = $aluno['desc_turma'];
                 // Faça o que for necessário com os dados do aluno
-                echo "<tr>";
-                echo "<td>{$ra}</td>";
-                echo "<td>{$nome}</td>";
-                echo "<td>{$idade}</td>";
-                echo "<td>{$turma}</td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
+                echo "<p><span>{$nome}</span> <span>{$ra}</span>  <span>{$idade}</span> <span>{$turma}</span></p>"; 
+                }
+                ?>
+        </div>
     </div>
 </body>
 

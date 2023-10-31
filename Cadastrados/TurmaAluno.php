@@ -6,7 +6,7 @@ $db = new Conexao();
 $idTurma = $_GET['id'];
 $raUsuario = $_SESSION[SESSION_USER_RA_ID];
 $result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE u.ra = $raUsuario;");
-$idUser = $result;
+$idUser = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">

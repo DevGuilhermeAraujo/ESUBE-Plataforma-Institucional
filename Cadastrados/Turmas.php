@@ -39,8 +39,6 @@ $db = new Conexao();
         }
         ?>
     </div>
-
-
 </body>
 
 </html>
