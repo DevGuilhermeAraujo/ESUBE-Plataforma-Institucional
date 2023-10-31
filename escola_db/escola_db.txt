@@ -129,7 +129,7 @@ CREATE VIEW view_alunos AS
 SELECT u.ra,u.nome,timestampdiff(YEAR,u.dt_NASC,curdate()) AS idade,u.cpf, t.desc_turma, t.id AS id_turma, a.id AS id_aluno
 FROM escola_db.usuarios AS u
 JOIN escola_db.alunos AS a ON u.ra = a.ra
-JOIN escola_db.turmas AS t ON t.id = a.id_turma;
+JOIN escola_db.turmas AS t ON t.id = a.turma;
 
 
 CREATE VIEW view_professores AS 
