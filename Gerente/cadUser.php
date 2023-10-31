@@ -1,11 +1,17 @@
 <?php
+require_once '../BackEnd/sessao.php';
+requiredLogin(PERMISSION_GERENTE);
+
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT MAX(ra) as proximo_ra FROM usuarios", true);
-if ($result) {
-    $row = $result->fetch(PDO::FETCH_ASSOC);
-    $raAtual = $row['proximo_ra'] + 1;
-    $result->closeCursor();
+if ($db->errorCode == 0) {
+
+    $result = $db->executar("SELECT MAX(ra) as proximo_ra FROM usuarios", true);
+    if ($result) {
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $raAtual = $row['proximo_ra'] + 1;
+        $result->closeCursor();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -21,9 +27,23 @@ if ($result) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
+
 <body>
     <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
         <h2>Cadastro</h2>
+
+        <?php
+        //Validação Banco
+        if ($db->errorCode != 0) {
+            msg(2,"Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+
+            if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
+                msg(2,"Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+            }
+            exit();
+        }
+        ?>
+
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
         <span id="nomeError"><?php if (isset($nomeError)) {
@@ -83,9 +103,25 @@ if ($result) {
             </select>
         </div>
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
-        <span class="msgN">
-            <!--Mensagens de erro aqui (preferência: 1 por vez)-->
-        </span>
+
+
+        <!--Mensagens de erro aqui (preferência: 1 por vez)-->
+        <?php
+        //Menssagem de falha no Banco
+        if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
+            msg(2,"Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+        }
+        
+        //Menssagem de falha no Banco 
+        if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 2) {
+            msg(2,"O cadastro falhou!");
+        }
+        //Menssagem de erro geral
+        if (isset($_GET["ERROR"]) && $_GET["ERROR"] == null) {
+            msg(2,"Erro desconhecido, por favor entre em contato com o adminstrador do sistema.");
+        }
+        ?>
+
     </form>
 </body>
 

@@ -6,18 +6,14 @@ requiredLogin(PERMISSION_GERENTE);
 
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-if ($db->errorCode != 0) {
-    echo '<span class="msgN">
-            Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.
-        </span>';
-    exit();
-}
+if ($db->errorCode == 0) {
     $result = $db->executar("SELECT COUNT(*) FROM view_professores;");
     $quantProf = $result;
     $result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
     $quantAlunos = $result;
     $result = $db->executar("SELECT COUNT(*) FROM turmas;");
     $quantTurmas = $result;
+}
 
 ?>
 
@@ -32,6 +28,13 @@ if ($db->errorCode != 0) {
 </head>
 
 <body>
+    <?php
+        //Validar Banco de Dados
+        if ($db->errorCode != 0) {
+            msg(2,"Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+            exit();
+        }
+    ?>
     <div class="inicio">
         <div class="painel">
             <div class="conteudo">

@@ -37,10 +37,11 @@ if ($db->errorCode === 0) {
         }
 
         if ($result) {
-            echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
-            //header("Location: ../Gerente/inicioGerente.php");
+            //echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
+            header("Location: ../Gerente/inicioGerente.php?cadSucess");
         } else {
-            echo "<script> alert('O cadastro falhou!'); </script>";
+            //echo "<script> alert('O cadastro falhou!'); </script>";
+            header("Location: ../Gerente/cadUser.php?ERROR=2");
         }
     }
 } else {
