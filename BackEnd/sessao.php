@@ -83,4 +83,19 @@ function getPermission(){
     return $_SESSION[SESSION_USER_IDPERMISSION];
 }
 
+function msg(int $type, string $message){
+    switch($type){
+        case 1:
+            //Menssangem positiva
+            echo '<span class="msgV">'.$message.'</span>';
+            break;
+        case 2:
+            //Menssagem negativa
+            echo '<span class="msgN">'.$message.'</span>';
+            break;
+        default:
+            throw new Exception('Entrada invalida na função msg().');
+    }
+}
+
 ?>

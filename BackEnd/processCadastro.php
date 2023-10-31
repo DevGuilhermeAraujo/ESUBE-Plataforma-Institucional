@@ -33,18 +33,19 @@ if ($db->errorCode === 0) {
         if ($tipo == 1 or $tipo == 2) {
             $result = $db->executar("INSERT INTO funcionarios(ra, dt_CONTRATO) VALUES ('$ra', '$dtContrato')", true);
         } elseif ($tipo == 3) {
-            $result = $db->executar("INSERT INTO alunos(ra, dt_MATRICULA, id_turma) VALUES ('$ra', '$dtMatricula', '$idTurma')", true);
+            $result = $db->executar("INSERT INTO alunos(ra, dt_MATRICULA, turma) VALUES ('$ra', '$dtMatricula', '$idTurma')", true);
         }
 
         if ($result) {
-            echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
-            //header("Location: ../Gerente/inicioGerente.php");
+            //echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
+            header("Location: ../Gerente/inicioGerente.php?cadSucess");
         } else {
-            echo "<script> alert('O cadastro falhou!'); </script>";
+            //echo "<script> alert('O cadastro falhou!'); </script>";
+            header("Location: ../Gerente/cadUser.php?ERROR=2");
         }
     }
 } else {
     // Lidar com erros de conexão, se houver
-    header("Location: ../Gerente/CadProfessor.php?ERROR=1");
+    header("Location: ../Gerente/cadUser.php?ERROR=1");
     exit();
 }

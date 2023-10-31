@@ -17,7 +17,7 @@ class Conexao
             $this->pdo = new PDO("mysql:dbname=$this->dbName;host=$this->host;port=$this->port", $this->user, $this->pass);
         } catch (Exception $e) {
             $this->errorCode = $e->getCode();
-            error_log("Falha ao conectar com o banco, código: '" . $e->getCode() . "', Erro: '" . $e->getMessage() . "'.", 3, "C:\PhpSiteEscolaErrorsLog.log");
+            error_log(date("d-m-Y H:i:s")." - Falha ao conectar com o banco, código: '" . $e->getCode() . "', Erro: '" . $e->getMessage() . "'.\n", 3, "C:\\xampp\PhpSiteEscolaErrorsLog.log");
         }
     }
 

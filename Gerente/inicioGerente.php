@@ -1,17 +1,20 @@
 <?php
 //Deve estar presente em todas as paginas
-
 include_once '../BackEnd/sessao.php';
+//Deve estar presente se o login for obrigatório 
+requiredLogin(PERMISSION_GERENTE);
+
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT COUNT(*) FROM view_professores;");
-$quantProf = $result;
-$result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
-$quantAlunos = $result;
-$result = $db->executar("SELECT COUNT(*) FROM turmas;");
-$quantTurmas = $result;
-//Deve estar presente se o login for obrigatório 
-//requiredLogin(); <- Desativado até a conexão do banco
+if ($db->errorCode == 0) {
+    $result = $db->executar("SELECT COUNT(*) FROM view_professores;");
+    $quantProf = $result;
+    $result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
+    $quantAlunos = $result;
+    $result = $db->executar("SELECT COUNT(*) FROM turmas;");
+    $quantTurmas = $result;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +28,13 @@ $quantTurmas = $result;
 </head>
 
 <body>
+    <?php
+        //Validar Banco de Dados
+        if ($db->errorCode != 0) {
+            msg(2,"Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+            exit();
+        }
+    ?>
     <div class="inicio">
         <div class="painel">
             <div class="conteudo">
@@ -41,6 +51,13 @@ $quantTurmas = $result;
             <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
         </div>
         <div class="painel">
+            <form id="CadTurma" action="">
+                <h3>Nova turma</h3>
+                <input id="turma" type="text" placeholder="Nome da turma">
+                <input id="btnCadTur" type="submit" value="+">
+            </form>
+        </div>
+        <div class="painel">
             <div class="conteudo">
                 <h3>Turmas</h3>
                 <p>Total cadastrados: <span><?php echo $quantTurmas[0][0] ?></span></p>
@@ -48,16 +65,6 @@ $quantTurmas = $result;
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
     </div>
-    <?php
-        if (isset($_GET["cadSucess"])) {
-        ?>
-            <!-- Menssagem de sucesso cadastro -->
-            <span class="msgV">
-                Usuário cadastrado com sucesso!
-            </span>
-        <?php
-        }
-        ?>
 </body>
 
 </html>

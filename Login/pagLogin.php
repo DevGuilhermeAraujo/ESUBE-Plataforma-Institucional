@@ -28,36 +28,6 @@ if (Logued()) {
                 <input id="login" type="submit" value="Login">
                 <a href="../AreaTeste.php">Area de testes</a>
             </form>
-            <!-- Menssagem de login inválido -->
-            <?php
-            if (isset($_GET["invalidLogin"])) {
-            ?>
-                <span class="msgN">
-                    Usuário e/ou senha incorretos.<br>Certifique-se de que a função Caps Lock está desligada e tente novamente.
-                </span>
-            <?php
-            }
-            ?>
-            <!-- Menssagem de falha no Banco -->
-            <?php
-            if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
-            ?>
-                <span class="msgN">
-                    Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.
-                </span>
-            <?php
-            }
-            ?>
-            <!-- Menssagem de erro geral -->
-            <?php
-            if (isset($_GET["ERROR"]) && $_GET["ERROR"] == null) {
-            ?>
-                <span class="msgN">
-                    Erro desconhecido, por favor entre em contato com o adminstrador do sistema.
-                </span>
-            <?php
-            }
-            ?>
         </div>
         <div id="logo">
             <img src="../Imgs/triangulo.webp" alt="triangulo">
