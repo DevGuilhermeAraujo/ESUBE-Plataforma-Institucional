@@ -29,11 +29,11 @@ if ($db->errorCode == 0) {
 
 <body>
     <?php
-        //Validar Banco de Dados
-        if ($db->errorCode != 0) {
-            msg(2,"Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
-            exit();
-        }
+    //Validar Banco de Dados
+    if ($db->errorCode != 0) {
+        msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+        exit();
+    }
     ?>
     <div class="inicio">
         <div class="painel">
@@ -64,7 +64,13 @@ if ($db->errorCode == 0) {
             </div>
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
+        <?php
+        if (isset($_GET["cadSucess"])) {
+            msg(1, "Usuário cadastrado com sucesso!",null,"bottom: 4%; position: fixed;");
+        }
+        ?>
     </div>
+
 </body>
 
 </html>
