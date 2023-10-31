@@ -1,6 +1,11 @@
 <?php
+include_once '../BackEnd/sessao.php';
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
+$raUsuario = getIdRa();
+$result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE u.ra = $raUsuario;");
+$idUser = $result[0][0];
+$tipoUser = getPermission();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +24,11 @@ $db = new Conexao();
 <body>
     <div class="inicio">
         <?php
+        if($tipoUser == 1){
         $result = $db->executar("SELECT id, desc_turma FROM turmas");
+        } elseif($tipoUser == 2){
+        $result = $db->executar("SELECT t.id, t.desc_turma FROM turmas AS t JOIN professor_turma AS pt ON t.id = pt.id_turma JOIN view_professores AS vp ON pt.id_prof = vp.id WHERE vp.id = $idUser");
+        }
         // Loop para exibir os professores
         foreach ($result as $turmas) {
             $idTurma = $turmas['id'];

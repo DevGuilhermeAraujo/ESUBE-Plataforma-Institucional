@@ -22,7 +22,7 @@ if ($result) {
 
 </head>
 <body>
-    <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
+    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
         <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
