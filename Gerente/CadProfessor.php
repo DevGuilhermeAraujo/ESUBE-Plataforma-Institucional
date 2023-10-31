@@ -24,7 +24,7 @@ if ($result) {
 
 <body>
     <img class="IcoCad" src="../Imgs/professor.png" alt="IconeCadastro">
-    <form method="POST" action="../BackEnd/processCadastro.php" class="cadastro" onsubmit="return validateForm()" novalidate>
+    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" class="cadastro" onsubmit="return validateForm()" novalidate>
         <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" placeholder="Nome" name="nome" id="nome">
@@ -72,6 +72,18 @@ if ($result) {
             <!-- Campos específicos para aluno -->
             <label for="">Data Matrícula</label>
             <input type="date" name="dtMatricula" id="dtMatricula">
+            <select name="idTurma">
+                <option value="">Selecione a turma</option>
+                <?php
+                $result = $db->executar("SELECT id, desc_turma FROM turmas");
+                // Loop para exibir os professores
+                foreach ($result as $turmas) {
+                    $idTurma = $turmas['id'];
+                    $descTurma = $turmas['desc_turma'];
+                    echo "<option value='$idTurma'>$descTurma</option>";
+                }
+                ?>
+            </select>
         </div>
 
 
