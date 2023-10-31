@@ -1,12 +1,15 @@
 <?php
 //Deve estar presente em todas as paginas
 include_once '../BackEnd/sessao.php';
+requiredLogin();
+
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
 $idTurma = $_GET['id'];
-$raUsuario = $_SESSION[SESSION_USER_RA_ID];
+$raUsuario = getIdRa();
 $result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE u.ra = $raUsuario;");
-$idUser = 1;
+$idUser = $result[0][0];
+$tipoUser = getPermission();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,12 +68,30 @@ $idUser = 1;
         $nomeTurma = $result;
         ?>
         <h3><?php echo $nomeTurma[0][0]; ?></h3>
-        <button id="btnModalLancarNotas">Lançar notas</button>
-        <div id="myModal" class="modal">
+        <?php if ($tipoUser == 2) { ?>
+            <button id="btnModalLancarNotas">Lançar notas</button>
+            <button id="btnModalLancaPresenca">Lançar presença</button>
+        <?php
+        }
+        ?>
+
+        <?php
+        $result = $db->executar("SELECT ra, nome FROM view_alunos");
+        // Loop para exibir os alunos
+        foreach ($result as $aluno) {
+            $ra = $aluno['ra'];
+            $nome = $aluno['nome'];
+            // Faça o que for necessário com os dados do aluno
+            echo "<p><span>{$ra}</span><span>{$nome}</span>  </p>";
+        }
+        ?>
+
+        <div id="modalNotas" class="modal">
             <div class="modalContent">
+                <!-- Conteúdo do modal de lançamento de notas -->
                 <form method="POST" action="../BackEnd/processLancamentoDeNotas.php?id=<?php echo $idTurma ?>">
                     <select name='materia' style='border: 1px solid black; width: 150px;'>
-                    <option value ="">Matérias </option>
+                        <option value="">Matérias </option>
                         <?php
                         $result = $db->executar("SELECT m.nome, m.id FROM materias AS m JOIN professor_materia AS pm ON m.id = pm.id_materia JOIN view_professores AS p ON pm.id_prof = p.id WHERE p.id = $idUser;");
                         foreach ($result as $professorMaterias) {
@@ -81,13 +102,14 @@ $idUser = 1;
                         ?>
                     </select>
                     <span class="close" id="closeModal">&times;</span>
-                    <table class="tableModal">
-                        <tr>
-                            <th>Nome do Aluno</th>
-                            <th>Nota</th>
-                            <th>Tipo de Nota</th>
-                        </tr>
-
+                    <div class="dados">
+                        <div class="titulos">
+                            <p>
+                                <span>Nome do Aluno</span>
+                                <span>Nota</span>
+                                <span>Tipo de nota</span>
+                            </p>
+                        </div>
                         <?php
                         $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurma");
                         // Aqui você fará um loop para buscar os alunos da turma e exibi-los
@@ -95,75 +117,127 @@ $idUser = 1;
                             $ra = $aluno['ra'];
                             $nomeAluno = $aluno['nome'];
                             $idAluno = $aluno['id_aluno'];
-                            echo "<tr>";
-                            echo "<td>$nomeAluno</td>";
-                            echo "<td><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></td>";
-                            echo "<td>
-                            <select name='tipoNota" . $idAluno . "' style='border: 1px solid black; width: 150px;'>
+
+
+                            echo "<p><span>{$nomeAluno}</span> <span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></span> 
+                            <span> <select name='tipoNota" . $idAluno . "' style='border: 1px solid black; width: 150px;'>
                                 <option value=''>Lançar notas</option>
                                 <option value='1'>Trabalho</option>
                                 <option value='2'>Prova</option>
                                 <option value='3'>Participação</option>
-                            </select>
-                        </td>";
-                            echo "</tr>";
+                            </select> </span>";
                         }
                         ?>
                         <input type="submit" value="Enviar Notas">
 
-                    </table>
+                    </div>
                 </form>
             </div>
         </div>
 
-        <button>Lançar presença</button>
-        <table>
-            <tr>
-                <th>RA</th>
-                <th>NOME</th>
-                <th>TURMA</th>
-            </tr>
-            <?php
-            $result = $db->executar("SELECT ra, nome, desc_turma FROM view_alunos WHERE id_turma = $idTurma");
-            // Loop para exibir os alunos
-            foreach ($result as $aluno) {
-                $ra = $aluno['ra'];
-                $nome = $aluno['nome'];
-                $turma = $aluno['desc_turma'];
-                // Faça o que for necessário com os dados do aluno
-                echo "<tr>";
-                echo "<td>{$ra}</td>";
-                echo "<td>{$nome}</td>";
-                echo "<td>{$turma}</td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
+        <div id="modalPresenca" class="modal">
+            <div class="modalContent">
+                <!-- Conteúdo do modal de lançamento de presença -->
+                <form method="POST" action="../BackEnd/processLancamentoDePresencas.php?id=<?php echo $idTurma ?>">
+                    <select name='materia' style='border: 1px solid black; width: 150px;'>
+                        <option value="">Matérias </option>
+                        <?php
+                        $result = $db->executar("SELECT m.nome, m.id FROM materias AS m JOIN professor_materia AS pm ON m.id = pm.id_materia JOIN view_professores AS p ON pm.id_prof = p.id WHERE p.id = $idUser;");
+                        foreach ($result as $professorMaterias) {
+                            $nomeMateria = $professorMaterias['nome'];
+                            $idMateria = $professorMaterias['id'];
+                            echo "<option value='$idMateria'>$nomeMateria</option>";
+                        }
+                        ?>
+                    </select>
+                    <span class="close" id="closeModal">&times;</span>
+                    <div class="dados">
+                        <div class="titulos">
+                            <p>
+                                <span>Nome do Aluno</span>
+                                <span>Presença</span>
+                            </p>
+                        </div>
+                        <?php
+                        $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurma");
+                        // Aqui você fará um loop para buscar os alunos da turma e exibi-los
+                        foreach ($result as $aluno) {
+                            $ra = $aluno['ra'];
+                            $nomeAluno = $aluno['nome'];
+                            $idAluno = $aluno['id_aluno'];
+                            echo "<p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia". $idAluno . "' value='1'></span>";
+                        }
+                        ?>
+                        <br>
+                        <button id="lançar-presença">Lançar Presença</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 
     <script>
-        // Obtenha referências para os elementos do modal
-        var modal = document.getElementById('myModal');
-        var btnOpen = document.getElementById('btnModalLancarNotas');
-        var btnClose = document.getElementById('closeModal');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtenha referências para os botões e modais
+            var btnModalLancarNotas = document.getElementById("btnModalLancarNotas");
+            var btnModalLancaPresenca = document.getElementById("btnModalLancaPresenca");
 
-        // Quando o botão "Abrir Modal" é clicado, exiba o modal
-        btnOpen.onclick = function() {
-            modal.style.display = "block";
-        }
+            var modalNotas = document.getElementById("modalNotas");
+            var modalPresenca = document.getElementById("modalPresenca");
 
-        // Quando o botão "Fechar" no modal é clicado, oculte o modal
-        btnClose.onclick = function() {
-            modal.style.display = "none";
-        }
+            // Associe eventos de clique aos botões
+            btnModalLancarNotas.addEventListener("click", function() {
+                // Abra o modal de lançamento de notas
+                modalNotas.style.display = "block";
+            });
 
-        // Quando o usuário clicar fora do modal, feche-o
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+            btnModalLancaPresenca.addEventListener("click", function() {
+                // Abra o modal de lançamento de presença
+                modalPresenca.style.display = "block";
+            });
+
+            // Adicione funcionalidade para fechar os modais
+            var closeButtons = document.querySelectorAll(".close");
+            closeButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    // Feche o modal
+                    modalNotas.style.display = "none";
+                    modalPresenca.style.display = "none";
+                });
+            });
+        });
+
+
+        // Adicione um código JavaScript para alternar entre "Presente" e "Falta"
+        const buttons = document.querySelectorAll('.presenca-toggle');
+        const lancarPresencaButton = document.getElementById('lançar-presença');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const alunoId = this.getAttribute('data-aluno-id');
+                const status = this.getAttribute('data-status');
+                
+
+                if (status === '1') {
+
+                    this.textContent = 'Falta';
+                    this.style.backgroundColor = 'red';
+                    this.setAttribute('data-status', '0'); // Define o status como falta
+                } else {
+                    this.textContent = 'Presente';
+                    this.style.backgroundColor = 'green';
+                    this.setAttribute('data-status', '1'); // Define o status como presente
+                }
+            });
+        });
+        
+
+        lancarPresencaButton.addEventListener('click', function() {
+            // Aqui você pode coletar os registros de presença e enviá-los ao banco de dados
+            // Certifique-se de que o JavaScript envie os dados para o servidor, por exemplo, usando AJAX.
+        });
     </script>
 </body>
 

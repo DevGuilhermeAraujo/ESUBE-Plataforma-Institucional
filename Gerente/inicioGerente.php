@@ -1,17 +1,20 @@
 <?php
 //Deve estar presente em todas as paginas
-
 include_once '../BackEnd/sessao.php';
+//Deve estar presente se o login for obrigatório 
+requiredLogin(PERMISSION_GERENTE);
+
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$result = $db->executar("SELECT COUNT(*) FROM view_professores;");
-$quantProf = $result;
-$result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
-$quantAlunos = $result;
-$result = $db->executar("SELECT COUNT(*) FROM turmas;");
-$quantTurmas = $result;
-//Deve estar presente se o login for obrigatório 
-//requiredLogin(); <- Desativado até a conexão do banco
+if ($db->errorCode == 0) {
+    $result = $db->executar("SELECT COUNT(*) FROM view_professores;");
+    $quantProf = $result;
+    $result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
+    $quantAlunos = $result;
+    $result = $db->executar("SELECT COUNT(*) FROM turmas;");
+    $quantTurmas = $result;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +28,13 @@ $quantTurmas = $result;
 </head>
 
 <body>
+    <?php
+    //Validar Banco de Dados
+    if ($db->errorCode != 0) {
+        msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+        exit();
+    }
+    ?>
     <div class="inicio">
         <div class="painel">
             <div class="conteudo">
@@ -54,7 +64,14 @@ $quantTurmas = $result;
             </div>
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
+        <?php
+        //Menssagem de sucesso de cadastro
+        if (isset($_GET["cadSucess"])) {
+            msg(1, "Usuário cadastrado com sucesso!",null,"bottom: 4%; position: fixed;");
+        }
+        ?>
     </div>
+
 </body>
 
 </html>

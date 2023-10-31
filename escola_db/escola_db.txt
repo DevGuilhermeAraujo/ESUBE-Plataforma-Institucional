@@ -65,9 +65,9 @@ CREATE TABLE alunos (
     ra INT(9),
     id INT(9) PRIMARY KEY AUTO_INCREMENT,
     dt_MATRICULA DATE NOT NULL,
-    turma INT(3),
+    id_turma INT(3),
     FOREIGN KEY (ra) REFERENCES usuarios(ra),
-    FOREIGN KEY (turma) REFERENCES turmas(id)
+    FOREIGN KEY (id_turma) REFERENCES turmas(id)
 );
 
 
@@ -104,10 +104,10 @@ CREATE TABLE notas (
 
 
 CREATE TABLE frequencia (
-    id INT(20) PRIMARY KEY AUTO_INCREMENT,
+    id INT(9) PRIMARY KEY AUTO_INCREMENT,
     id_aluno INT(9),
     id_materia INT(5),
-    data_atribuida DATE NOT NULL,
+    data_atribuida TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     desc_frequencia INT(1) NOT NULL,
     FOREIGN KEY (id_aluno) REFERENCES alunos(id),
     FOREIGN KEY (id_materia) REFERENCES materias(id)
@@ -119,8 +119,19 @@ CREATE TABLE professor_materia (
     id INT(5) PRIMARY KEY AUTO_INCREMENT,
     id_prof INT(9),
     id_materia INT(5),
-    FOREIGN KEY (id_prof) REFERENCES funcionarios(ra),
+    FOREIGN KEY (id_prof) REFERENCES funcionarios(id),
     FOREIGN KEY (id_materia) REFERENCES materias(id)
+);
+
+
+	
+	
+CREATE TABLE professor_turma (
+    id INT(5) PRIMARY KEY AUTO_INCREMENT,
+    id_prof INT(9),
+    id_turma INT(5),
+    FOREIGN KEY (id_prof) REFERENCES funcionarios(id),
+    FOREIGN KEY (id_turma) REFERENCES turmas(id)
 );
 
 
@@ -138,14 +149,11 @@ FROM escola_db.usuarios AS u
 JOIN escola_db.funcionarios AS f ON u.ra = f.ra
 WHERE u.tipo = 2;
 
+INSERT INTO professor_materia(id_prof, id_materia) VALUES(2, 1);
+INSERT INTO professor_materia(id_prof, id_materia) VALUES(2, 8)
 
-	
-	
-CREATE TABLE professor_turma (
-    id INT(5) PRIMARY KEY AUTO_INCREMENT,
-    id_prof INT(9),
-    id_turma INT(5),
-    FOREIGN KEY (id_prof) REFERENCES funcionarios(ra),
-    FOREIGN KEY (id_turma) REFERENCES turmas(id)
-);
+INSERT INTO professor_turma(id_prof, id_turma) VALUES(2, 1);
+INSERT INTO professor_turma(id_prof, id_turma) VALUES(2, 5);
+INSERT INTO professor_turma(id_prof, id_turma) VALUES(2, 7);
+INSERT INTO professor_turma(id_prof, id_turma) VALUES(2, 9);
 

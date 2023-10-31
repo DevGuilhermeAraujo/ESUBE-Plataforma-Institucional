@@ -16,15 +16,15 @@ $db = new Conexao();
 <body>
     <div id="exib">
         <div class="dados">
-        <div class="titulos">
-            <p>
-                <span>Nome</span>
-                <span>RA</span>
-                <span>Idade</span>
-                <span>Turma</span>
-            </p>
-        </div>
-        <?php
+            <div class="titulos">
+                <p>
+                    <span>Nome</span>
+                    <span>RA</span>
+                    <span>Idade</span>
+                    <span>Turma</span>
+                </p>
+            </div>
+            <?php
             $result = $db->executar("SELECT ra, nome, idade, desc_turma FROM view_alunos");
             // Loop para exibir os alunos
             foreach ($result as $aluno) {
@@ -33,9 +33,9 @@ $db = new Conexao();
                 $idade = $aluno['idade'];
                 $turma = $aluno['desc_turma'];
                 // Faça o que for necessário com os dados do aluno
-                echo "<p><span>{$nome}</span> <span>{$ra}</span>  <span>{$idade}</span> <span>{$turma}</span></p>"; 
-                }
-                ?>
+                echo "<p><span>{$nome}</span> <span>{$ra}</span>  <span>{$idade}</span> <span>{$turma}</span></p>";
+            }
+            ?>
         </div>
     </div>
 </body>

@@ -1,6 +1,6 @@
 <?php
 // Coleta os dados do formulário
-$ra = $_GET['ra'];
+$ra = $_POST['ra'];
 $nome = $_POST['nome'];
 $cpf = $_POST['cpf'];
 $genero = $_POST['genero'];
@@ -15,7 +15,7 @@ $idTurma = $_POST['idTurma'];
 
 //Se tipo for ""
 if ($tipo == "") {
-    header("Location: ../Gerente/CadProfessor.php?ERROR=7&nome=$nome&cpf=$cpf&genero=$genero&dtNasc=$dataNasc&email=$email");
+    header("Location: ../Gerente/cadUser.php?ERROR=10");
 }
 
 // Inclua o arquivo de conexão com o banco de dados
@@ -37,10 +37,11 @@ if ($db->errorCode === 0) {
         }
 
         if ($result) {
-            echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
-            //header("Location: ../Gerente/inicioGerente.php");
+            //echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
+            header("Location: ../Gerente/inicioGerente.php?cadSucess");
         } else {
-            echo "<script> alert('O cadastro falhou!'); </script>";
+            //echo "<script> alert('O cadastro falhou!'); </script>";
+            header("Location: ../Gerente/cadUser.php?ERROR=2");
         }
     }
 } else {
