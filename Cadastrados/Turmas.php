@@ -22,9 +22,9 @@ $db = new Conexao();
         $result = $db->executar("SELECT id, desc_turma FROM turmas");
         // Loop para exibir os professores
         foreach ($result as $turmas) {
-            $id_turma = $turmas['id'];
+            $idTurma = $turmas['id'];
             $descTurma = $turmas['desc_turma'];
-            $result = $db->executar("SELECT COUNT(*) FROM view_alunos WHERE  id_turma = $id_turma ;");
+            $result = $db->executar("SELECT COUNT(*) FROM view_alunos WHERE  id_turma = $idTurma ;");
             $quantAlunosTurmas = $result;
             // Faça o que for necessário com os dados do professor
         ?>
@@ -33,7 +33,7 @@ $db = new Conexao();
                     <h3><?php echo $descTurma ?> </h3>
                     <p>Total cadastrados: <span><?php echo $quantAlunosTurmas[0][0] ?></span></p>
                 </div>
-                <a href="TurmaAluno.php?id=<?php echo $id_turma ?>" class="ver" name="">Ver</a>
+                <a href="TurmaAluno.php?id=<?php echo $idTurma ?>" class="ver" name="">Ver</a>
             </div>
         <?php
         }

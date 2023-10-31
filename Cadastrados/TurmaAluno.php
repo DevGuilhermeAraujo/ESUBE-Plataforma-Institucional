@@ -70,6 +70,7 @@ $idUser = 1;
             <div class="modalContent">
                 <form method="POST" action="../BackEnd/processLancamentoDeNotas.php?id=<?php echo $idTurma ?>">
                     <select name='materia' style='border: 1px solid black; width: 150px;'>
+                    <option value ="">Matérias </option>
                         <?php
                         $result = $db->executar("SELECT m.nome, m.id FROM materias AS m JOIN professor_materia AS pm ON m.id = pm.id_materia JOIN view_professores AS p ON pm.id_prof = p.id WHERE p.id = $idUser;");
                         foreach ($result as $professorMaterias) {
@@ -96,9 +97,9 @@ $idUser = 1;
                             $idAluno = $aluno['id_aluno'];
                             echo "<tr>";
                             echo "<td>$nomeAluno</td>";
-                            echo "<td><input type='number' min='0' max='100' name='nota[$idAluno]' style='border: 1px solid black;''></td>";
+                            echo "<td><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></td>";
                             echo "<td>
-                            <select name='tipoNota[$idAluno]' style='border: 1px solid black; width: 150px;'>
+                            <select name='tipoNota" . $idAluno . "' style='border: 1px solid black; width: 150px;'>
                                 <option value=''>Lançar notas</option>
                                 <option value='1'>Trabalho</option>
                                 <option value='2'>Prova</option>
