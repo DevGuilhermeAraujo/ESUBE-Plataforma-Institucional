@@ -34,6 +34,7 @@ body{
 .links{
     display: none;
     width: 100%;
+    
 }
 .links a{
     color: white;
@@ -42,6 +43,7 @@ body{
     height: 50px;
     padding: 5%;
     border-radius: 20px;
+
 }
 .links a:hover{
     background-color: rgb(49, 49, 78);

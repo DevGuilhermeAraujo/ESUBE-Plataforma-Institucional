@@ -17,8 +17,8 @@ requiredLogin(PERMISSION_GERENTE);
 <body>
     <div class="index">
         <div class="nav">
-            <h1>ADA <br><span>ESUBE</span></h1>
             <div class="links">
+                <img src="../Imgs/eva2.jpg">
                 <a target="index" href="inicioGerente.php">Destaques</a>
                 <a target="index" href="cadUser.php">Cadastrar usuário</a>
                 <a target="index" href="vincProf.php">Víncular Professor</a>
