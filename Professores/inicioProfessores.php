@@ -48,13 +48,11 @@ if ($db->errorCode == 0) {
         </div>
         <div class="painel">
             <div class="conteudo">
-                <h3>Aplicar notas</h3>
+                <h3>Enviar mensagem</h3>
 
-                <!--total de notas aplicadas-->
-                <p>Notas aplicadas: <span>x</span></p>
+                <!--total de mensagens-->
+                <p>Enviadas: <span>x</span></p>
 
-                <!--total de alunos com notas não recebidas-->
-                <p>Notas a aplicar: <span>x</span></p>
 
             </div>
             <a href="aplicarNota.php" class="ver">Ver</a>
