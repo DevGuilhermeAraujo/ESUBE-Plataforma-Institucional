@@ -21,10 +21,11 @@ class Conexao
         }
     }
 
-    public function executar($sql, $fullObject = false)
+    public function executar($sql, $fullObject = false, $autoExec = true)
     {
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
+        if($autoExec || !$fullObject)
+            $stmt->execute();
 
         if ($fullObject) {
             return $stmt;

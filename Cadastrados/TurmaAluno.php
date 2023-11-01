@@ -1,6 +1,8 @@
 <?php
 //Deve estar presente em todas as paginas
 include_once '../BackEnd/sessao.php';
+requiredLogin();
+
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
 $idTurma = $_GET['id'];

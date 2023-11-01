@@ -1,6 +1,6 @@
 <?php
 // Coleta os dados do formulário
-$ra = $_GET['ra'];
+$ra = $_POST['ra'];
 $nome = $_POST['nome'];
 $cpf = $_POST['cpf'];
 $genero = $_POST['genero'];
@@ -13,7 +13,7 @@ $dtMatricula = $_POST['dtMatricula'];
 $idTurma = $_POST['idTurma'];
 //Se tipo for ""
 if ($tipo == "") {
-    header("Location: ../Gerente/CadProfessor.php?ERROR=7&nome=$nome&cpf=$cpf&genero=$genero&dtNasc=$dataNasc&email=$email");
+    header("Location: ../Gerente/cadUser.php?ERROR=10");
 }
 
 // Inclua o arquivo de conexão com o banco de dados

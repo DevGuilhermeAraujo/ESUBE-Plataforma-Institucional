@@ -1,5 +1,7 @@
 <?php
 include_once '../BackEnd/sessao.php';
+requiredLogin();
+
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
 $raUsuario = getIdRa();
