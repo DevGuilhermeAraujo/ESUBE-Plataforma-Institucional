@@ -33,7 +33,7 @@ if ($db->errorCode === 0) {
         if ($tipo == 1 or $tipo == 2) {
             $result = $db->executar("INSERT INTO funcionarios(ra, dt_CONTRATO) VALUES ('$ra', '$dtContrato')", true);
         } elseif ($tipo == 3) {
-            $result = $db->executar("INSERT INTO alunos(ra, dt_MATRICULA, turma) VALUES ('$ra', '$dtMatricula', '$idTurma')", true);
+            $result = $db->executar("INSERT INTO alunos(ra, dt_MATRICULA, id_turma) VALUES ('$ra', '$dtMatricula', '$idTurma')", true);
         }
 
         if ($result) {
