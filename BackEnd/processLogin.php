@@ -21,8 +21,7 @@
     }
 
     //Buscar usuário
-    //$result = $db->executar("SELECT u.id from usuarios as u LEFT JOIN funcionarios as f ON u.id = f.id WHERE f.id IS null;");
-    $result = $db->executar("SELECT ra from usuarios;");
+    /*$result = $db->executar("SELECT ra from usuarios;");
     $userValid = false;
     foreach($result as $c){
         //Valida usuário
@@ -30,19 +29,25 @@
             $userValid = true;
             break;
         }
-    }
+    }*/
+    $userValid = $db->executar("SELECT ra from usuarios WHERE ra = :ra",true,false);
+    $userValid->bindParam(":ra",$ra_id);
+    $userValid->execute();
+    $userValid = $userValid->rowCount();
     if(!$userValid){
         header("Location: ../Login/pagLogin.php?invalidLogin");
         exit();
     }
 
     //Valida senha
-    $result = $db->executar("SELECT senha FROM usuarios WHERE ra = $ra_id;");
+    $result = $db->executar("SELECT senha FROM usuarios WHERE ra = :ra;",true,false);
+    $result->bindParam(":ra",$ra_id);
+    $result->execute();
+    $result = $result->fetchAll();
     if(!password_verify($password, $result[0]['senha']) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
-        header("Location: ../Login/pagLogin.php?invalidLogin=".$result[0]['senha']);
+        header("Location: ../Login/pagLogin.php?invalidLogin");
         exit();
     }
-
 
     //Concluir login na sessão e Indentificar tipo de usuário
     include_once "sessao.php";
