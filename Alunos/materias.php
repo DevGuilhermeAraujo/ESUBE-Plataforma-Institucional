@@ -28,7 +28,7 @@ $idUser = $result[0][0];
         $result = $db->executar("SELECT id , nome FROM materias");
         // Loop para exibir os professores
         foreach ($result as $materias) {
-            $frequencia = 0;
+            $frequencia = 100;
             $idMateria = $materias['id'];
             $nomeMateria = $materias['nome'];
             // Faça o que for necessário com os dados do professor
