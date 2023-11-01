@@ -19,6 +19,7 @@ CREATE TABLE funcionarios (
 );
 
 
+
 INSERT INTO usuarios (ra, nome, cpf, genero, dt_nasc, email, senha, tipo)
 VALUES (1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', 'admin', 1);
 
@@ -27,6 +28,26 @@ VALUES (1111111, '2015-02-27');
 
 ALTER TABLE escola_db.usuarios
 AUTO_INCREMENT = 1111112;
+
+INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
+VALUES ('Professor1', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', 'professor', 2);
+
+INSERT INTO funcionarios (ra, dt_CONTRATO)
+VALUES (1111112, '2015-02-27');
+
+INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
+VALUES ('Professor2', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', 'professor', 2);
+
+INSERT INTO funcionarios (ra, dt_CONTRATO)
+VALUES (1111113, '2015-02-27');
+
+INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
+VALUES ('Professor3', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', 'professor', 2);
+
+INSERT INTO funcionarios (ra, dt_CONTRATO)
+VALUES (1111114, '2015-02-27');
+
+
 
 
 CREATE TABLE tipo(
@@ -66,6 +87,24 @@ CREATE TABLE alunos (
     FOREIGN KEY (ra) REFERENCES usuarios(ra),
     FOREIGN KEY (id_turma) REFERENCES turmas(id)
 );
+
+INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
+VALUES ('Guilherme Araujo', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', 'aluno', 3);
+
+INSERT INTO alunos(ra, dt_MATRICULA, id_turma)
+VALUES (1111115, '2015-02-27', 1);
+
+INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
+VALUES ('Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', 'aluno', 3);
+
+INSERT INTO alunos(ra, dt_MATRICULA, id_turma)
+VALUES (1111116, '2015-02-27', 1);
+
+INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
+VALUES ('Gabriel', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', 'aluno', 3);
+
+INSERT INTO alunos(ra, dt_MATRICULA, id_turma)
+VALUES (1111116, '2015-02-27', 1);
 
 
 CREATE TABLE materias (
@@ -132,7 +171,7 @@ CREATE VIEW view_alunos AS
 SELECT u.ra,u.nome,timestampdiff(YEAR,u.dt_NASC,curdate()) AS idade,u.cpf, t.desc_turma, t.id AS id_turma, a.id AS id_aluno
 FROM escola_db.usuarios AS u
 JOIN escola_db.alunos AS a ON u.ra = a.ra
-JOIN escola_db.turmas AS t ON t.id = a.turma;
+JOIN escola_db.turmas AS t ON t.id = a.id_turma;
 
 
 CREATE VIEW view_professores AS 
@@ -142,7 +181,7 @@ JOIN escola_db.funcionarios AS f ON u.ra = f.ra
 WHERE u.tipo = 2;
 
 INSERT INTO professor_materia(id_prof, id_materia) VALUES(2, 1);
-INSERT INTO professor_materia(id_prof, id_materia) VALUES(2, 8)
+INSERT INTO professor_materia(id_prof, id_materia) VALUES(2, 8);
 
 INSERT INTO professor_turma(id_prof, id_turma) VALUES(2, 1);
 INSERT INTO professor_turma(id_prof, id_turma) VALUES(2, 5);
