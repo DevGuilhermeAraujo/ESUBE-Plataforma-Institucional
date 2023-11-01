@@ -84,6 +84,28 @@ $tipoUser = getPermission();
             }
             ?>
         </div>
+        <!-- Ligação Professor Turma -->
+        <h3>Professor/Turma:</h3>
+        <div class="dados" style="box-shadow: none;">
+            <div class="titulos">
+                <p>
+                    <span>RA</span>
+                    <span>Nome</span>
+                    <span>Turma</span>
+                    <span></span>
+                </p>
+            </div>
+            <?php
+                $result = $db->executar("SELECT p.ra AS ra, p.nome AS nome, t.desc_turma AS turma FROM view_professores as p JOIN professor_turma AS pt ON p.id = pt.id_prof JOIN turmas as t ON pt.id_turma = t.id");
+                $nomeProfessores = $result;
+            foreach ($nomeProfessores as $professores) {
+                $ra = $professores['ra'];
+                $nome = $professores['nome'];
+                $turma = $professores['turma'];
+                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span></span></p>";
+            }
+            ?>
+        </div>
     </div>
 </body>
 
