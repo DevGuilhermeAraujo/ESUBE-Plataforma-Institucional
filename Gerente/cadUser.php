@@ -14,6 +14,7 @@ if ($db->errorCode == 0) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,16 +24,17 @@ if ($db->errorCode == 0) {
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
+    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
         <h2>Cadastro</h2>
         <?php
         //Validação Banco
         if ($db->errorCode != 0) {
-            msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+            msg(MSG_NEGATIVE_BG, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
 
             if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
-                msg(2, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+                msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
             }
             exit();
         }
@@ -40,14 +42,14 @@ if ($db->errorCode == 0) {
         <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
         <input type="text" name="cpf" id="cpf" class="inputUser" placeholder="CPF" oninput="maskCPF()">
         <input type="text" placeholder="Nome" name="nome" id="nome">
+        <input type="email" name="email" id="email" placeholder="Email">
+        <input type="date" name="dtNasc" id="data">
         <select id="genero" name="genero">
-            <option value="">Gênero</option>
+            <option value="">Sexo</option>
             <option value="1">Masculino</option>
             <option value="2">Feminino</option>
             <option value="3">Outro</option>
         </select>
-        <input type="email" name="email" id="email" placeholder="Email">
-        <input type="date" name="dtNasc" id="data">
         <input type="password" placeholder="Código de confirmação" name="senha" id="senha">
         <select id="tipo" name="tipo" onchange="validarTipo()">
             <option value="">Selecione o tipo</option>
@@ -55,13 +57,13 @@ if ($db->errorCode == 0) {
             <option value="2">Professor</option>
             <option value="3">Aluno</option>
         </select>
-        <!-- Partes específicas ocultas -->
-        
-            <!-- Campos específicos para gerente -->
-            <input type="date" name="dtContrato" id="parteFuncionario" style="display: none">
-        
+
+        <!-- Campos específicos para gerente -->
+        <div id="parteFuncionario" style="display:none">
+            <input type="date" name="dtContrato" id="dtContrato">
+        </div>
+        <!-- Campos específicos para aluno -->
         <div id="parteAluno" style="display: none">
-            <!-- Campos específicos para aluno -->
             <input type="date" name="dtMatricula" id="dtMatricula">
             <select name="idTurma">
                 <option value="">Selecione a turma</option>
@@ -73,22 +75,11 @@ if ($db->errorCode == 0) {
                     $descTurma = $turmas['desc_turma'];
                     echo "<option value='$idTurma'>$descTurma</option>";
                 }
-?>
-    <form method="POST" id="form2" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
-        <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
-        <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
-            <h2>Cadastro</h2>
-            <?php
-            //Validação Banco
-            if ($db->errorCode != 0) {
-                msg(MSG_NEGATIVE_BG, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
-                if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
-                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
-                }
-                exit();
-            }
-            ?>
-        <input type="submit" name="submit"  class="btnCad" value="Cadastrar">
+                ?>
+            </select>
+        </div>
+        <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
+
         <div class="msgN">
             <span id="nomeError">
                 <?php if (isset($nomeError)) {
@@ -111,7 +102,6 @@ if ($db->errorCode == 0) {
                                             echo $passwordError;
                                         } ?></span>
         </div>
-
         <!--Mensagens de erro aqui (preferência: 1 por vez)-->
         <?php
         //Menssagem de falha no Banco
@@ -134,6 +124,7 @@ if ($db->errorCode == 0) {
             msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.");
         }
         ?>
+
 
     </form>
 </body>
