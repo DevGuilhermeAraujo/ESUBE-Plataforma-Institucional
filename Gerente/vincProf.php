@@ -24,10 +24,10 @@ $tipoUser = getPermission();
 
 <body>
     <div id="exib">
-        <form method="POST" action="">
+        <form method="POST" action="" class="Vincula">
             <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor">
         </form>
-        <form method="POST" action="../BackEnd/processVincProf.php">
+        <form method="POST" action="../BackEnd/processVincProf.php" class="Vincula">
             <input type="text" name="raProf" placeholder="RA">
             <select name='materias' style='border: 1px solid black; width: 150px;'>
                 <option value="">Matérias </option>

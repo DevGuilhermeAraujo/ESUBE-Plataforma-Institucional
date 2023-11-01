@@ -51,9 +51,9 @@ if ($db->errorCode == 0) {
             <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
         </div>
         <div class="painel">
-            <form class="fm" id="CadTurma" action="">
+            <form class="fm" id="CadTurma" action="../BackEnd/processAddTurma.php" method="POST">
                 <h3>Nova turma</h3>
-                <input class="in" id="turma" type="text" placeholder="Nome da turma">
+                <input class="in" id="turma" name="nomeTurma" type="text" placeholder="Nome da turma">
                 <input class="in" id="btnCadTur" type="submit" value="+">
             </form>
         </div>
@@ -64,11 +64,52 @@ if ($db->errorCode == 0) {
             </div>
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
+        <!--Mensagens aqui (preferência: 1 por vez)-->
         <?php
         //Menssagem de sucesso de cadastro
         if (isset($_GET["cadSucess"])) {
-            msg(MSG_NEGATIVE_BG, "Usuário cadastrado com sucesso!",null,"bottom: 4%; position: fixed;");
+            msg(MSG_POSITIVE_BG, "Usuário cadastrado com sucesso!", null, "bottom: 4%; position: fixed;");
         }
+
+        if (isset($_GET["Sucess"])) {
+            switch ($_GET["Sucess"]) {
+                case 2:
+                    //Menssagem de sucesso de cadastro de turma
+                    msg(MSG_POSITIVE_BG, "Turma cadastrada com sucesso!", null, "bottom: 4%; position: fixed;");
+                    break;
+                default:
+                    msg(MSG_POSITIVE_BG, "Operação concluida com sucesso!", null, "bottom: 4%; position: fixed;");
+            }
+        }
+
+        if (isset($_GET["ERROR"])) {
+            switch ($_GET["ERROR"]) {
+                case 1:
+                    //Menssagem de falha no Banco
+                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+                    break;
+                case 2:
+                    //Menssagem de falha no Banco 
+                    msg(MSG_NEGATIVE_BG, "O cadastro falhou!");
+                    break;
+                case 10:
+                    //Menssagem de falha no Banco 
+                    msg(MSG_NEGATIVE_BG, "O campo tipo deve ser preenchido!");
+                    break;
+                case 20:
+                    //Menssagem de falha POST para processAddTurma
+                    msg(MSG_NEGATIVE_BG, "Falha!");
+                    break;
+                case 21:
+                    //Menssagem de falha cadastro turma
+                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar turma!");
+                    break;
+                default:
+                    //Menssagem de erro geral
+                    msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.");
+            }
+        }
+
         ?>
     </div>
 

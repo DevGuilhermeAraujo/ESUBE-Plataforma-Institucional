@@ -26,7 +26,7 @@ if ($db->errorCode == 0) {
 </head>
 
 <body>
-    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
+    <form style="box-shadow: none; width:100%; margin:0;" method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
         <h2>Cadastro</h2>
         <?php
         //Validação Banco
@@ -73,7 +73,7 @@ if ($db->errorCode == 0) {
                 foreach ($result as $turmas) {
                     $idTurma = $turmas['id'];
                     $descTurma = $turmas['desc_turma'];
-                    echo "<option value='$idTurma'>$descTurma</option>";
+                    echo "<option  value='$idTurma'>$descTurma</option>";
                 }
                 ?>
             </select>
