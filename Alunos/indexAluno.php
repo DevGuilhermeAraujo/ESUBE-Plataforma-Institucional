@@ -16,8 +16,8 @@
 <body>
     <div class="index">
         <div class="nav">
-            <h1>ADA <br><span>ESUBE</span></h1>
             <div class="links">
+                <img src="../Imgs/eva2.jpg" style="width: 80%; margin: 5% 0% 5% 10%">
                 <a target="index" href="InicioAluno.php">Destaques</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
             </div>
