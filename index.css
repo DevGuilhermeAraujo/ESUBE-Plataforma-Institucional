@@ -153,8 +153,6 @@ iframe{
 }
 .msgN{
     width: 80%;
-    background-color: rgb(224, 95, 95);
-    border: 2px solid rgb(184, 19, 19);
     border-radius: 20px;
     width: 100%;
     color: rgb(184, 19, 19);
@@ -174,12 +172,4 @@ form h3{
     color: white;
     border-radius: 0px 0px 10px 10px;
     background-color: rgb(15, 15, 48);
-}
-input{
-    height: 10vh;
-    border: none;
-    width: 100%;
-    padding: 2%;
-    margin-left: 20%;
-    border-radius: 10px 10px 0px 0px;
 }

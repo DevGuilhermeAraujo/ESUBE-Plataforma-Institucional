@@ -7,11 +7,11 @@ form{
     box-shadow: 10px 10px 10px gray;
     width: 70%;
     margin: 1% 0% 0% 15%;
-    height: 90vh;
     padding: 3%;
+    height: auto;
 }
 input,select{
-    width: 49%;
+    flex: 49%;
     margin: 0.5%;
     height: 7vh;
     border: none;
@@ -19,6 +19,7 @@ input,select{
     padding: 0 0 0 3%;
     display: flex;
 }
+
 h2{
     width: 100%;
     text-align: center;
@@ -32,7 +33,7 @@ h2{
     color: white;
     justify-content: center;
     height: 10vh;
-    width: 100%;
+    flex: 100%;
 }
 /* Estilos do modal */
 .modal {
@@ -62,4 +63,15 @@ h2{
     color: #555;
     float: right;
     font-size: 24px;
+}
+
+.parteAluno, .parteFuncionario{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-items: center;
+    flex: 100%;
+}
+label{
+    flex: 100%;
 }
