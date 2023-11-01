@@ -130,7 +130,7 @@ CREATE TABLE notas (
     id INT(20) PRIMARY KEY AUTO_INCREMENT,
     id_aluno INT(9),
     id_materia INT(5),
-    nota DECIMAL(3,2) NOT NULL,
+    nota DECIMAL NOT NULL,
     data_atribuida DATE NOT NULL,
     tipo INT(1) NOT NULL,
     FOREIGN KEY (id_aluno) REFERENCES alunos(id),

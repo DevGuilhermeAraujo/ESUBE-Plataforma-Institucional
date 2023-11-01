@@ -76,7 +76,7 @@ $tipoUser = getPermission();
         ?>
 
         <?php
-        $result = $db->executar("SELECT ra, nome FROM view_alunos");
+        $result = $db->executar("SELECT ra, nome FROM view_alunos WHERE id_turma = $idTurma");
         // Loop para exibir os alunos
         foreach ($result as $aluno) {
             $ra = $aluno['ra'];
@@ -165,7 +165,7 @@ $tipoUser = getPermission();
                             $ra = $aluno['ra'];
                             $nomeAluno = $aluno['nome'];
                             $idAluno = $aluno['id_aluno'];
-                            echo "<p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia". $idAluno . "' value='1'></span>";
+                            echo "<p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia" . $idAluno . "' value='1'></span>";
                         }
                         ?>
                         <br>
@@ -209,34 +209,31 @@ $tipoUser = getPermission();
             });
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const presencaButtons = document.querySelectorAll('.presenca-toggle');
 
-        // Adicione um código JavaScript para alternar entre "Presente" e "Falta"
-        const buttons = document.querySelectorAll('.presenca-toggle');
-        const lancarPresencaButton = document.getElementById('lançar-presença');
+            presencaButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Evite a ação padrão do link
+                    const alunoId = this.getAttribute('data-aluno-id');
+                    const hiddenInput = document.querySelector(`input[name='${alunoId}']`);
+                    const status = this.getAttribute('data-status');
 
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                const alunoId = this.getAttribute('data-aluno-id');
-                const status = this.getAttribute('data-status');
-                
-
-                if (status === '1') {
-
-                    this.textContent = 'Falta';
-                    this.style.backgroundColor = 'red';
-                    this.setAttribute('data-status', '0'); // Define o status como falta
-                } else {
-                    this.textContent = 'Presente';
-                    this.style.backgroundColor = 'green';
-                    this.setAttribute('data-status', '1'); // Define o status como presente
-                }
+                    if (status === '1') {
+                        // Alternando para falta (0)
+                        this.textContent = 'Falta';
+                        this.style.background = 'red';
+                        this.setAttribute('data-status', '0');
+                        hiddenInput.value = '1'; // Troque '1' para '0' se desejar que o padrão seja falta
+                    } else {
+                        // Alternando de volta para presente (1)
+                        this.textContent = 'Presente';
+                        this.style.background = 'green';
+                        this.setAttribute('data-status', '1');
+                        hiddenInput.value = '0'; // Troque '0' para '1' se desejar que o padrão seja presente
+                    }
+                });
             });
-        });
-        
-
-        lancarPresencaButton.addEventListener('click', function() {
-            // Aqui você pode coletar os registros de presença e enviá-los ao banco de dados
-            // Certifique-se de que o JavaScript envie os dados para o servidor, por exemplo, usando AJAX.
         });
     </script>
 </body>
