@@ -19,7 +19,6 @@ CREATE TABLE funcionarios (
 );
 
 
-
 INSERT INTO usuarios (ra, nome, cpf, genero, dt_nasc, email, senha, tipo)
 VALUES (1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', 'admin', 1);
 
@@ -39,8 +38,6 @@ CREATE TABLE tipo(
 INSERT INTO tipo(id, descricao) VALUES (1, 'Gerente');
 INSERT INTO tipo(id, descricao) VALUES (2, 'Professor')	;
 INSERT INTO tipo(id, descricao) VALUES (3, 'Aluno');
-
-
 
 
 CREATE TABLE turmas (
@@ -69,7 +66,6 @@ CREATE TABLE alunos (
     FOREIGN KEY (ra) REFERENCES usuarios(ra),
     FOREIGN KEY (id_turma) REFERENCES turmas(id)
 );
-
 
 
 CREATE TABLE materias (
@@ -113,7 +109,6 @@ CREATE TABLE frequencia (
     FOREIGN KEY (id_materia) REFERENCES materias(id)
 );
 
-
 	
 CREATE TABLE professor_materia (
     id INT(5) PRIMARY KEY AUTO_INCREMENT,
@@ -122,8 +117,6 @@ CREATE TABLE professor_materia (
     FOREIGN KEY (id_prof) REFERENCES funcionarios(id),
     FOREIGN KEY (id_materia) REFERENCES materias(id)
 );
-
-
 	
 	
 CREATE TABLE professor_turma (
@@ -135,7 +128,6 @@ CREATE TABLE professor_turma (
 );
 
 
-	
 CREATE VIEW view_alunos AS 
 SELECT u.ra,u.nome,timestampdiff(YEAR,u.dt_NASC,curdate()) AS idade,u.cpf, t.desc_turma, t.id AS id_turma, a.id AS id_aluno
 FROM escola_db.usuarios AS u

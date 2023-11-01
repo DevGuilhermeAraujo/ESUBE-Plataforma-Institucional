@@ -11,8 +11,6 @@ $tipo = $_POST['tipo'];
 $dtContrato = $_POST['dtContrato'];
 $dtMatricula = $_POST['dtMatricula'];
 $idTurma = $_POST['idTurma'];
-
-
 //Se tipo for ""
 if ($tipo == "") {
     header("Location: ../Gerente/cadUser.php?ERROR=10");
@@ -37,10 +35,10 @@ if ($db->errorCode === 0) {
         }
 
         if ($result) {
-            //echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
+            echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
             header("Location: ../Gerente/inicioGerente.php?cadSucess");
         } else {
-            //echo "<script> alert('O cadastro falhou!'); </script>";
+            echo "<script> alert('O cadastro falhou!'); </script>";
             header("Location: ../Gerente/cadUser.php?ERROR=2");
         }
     }

@@ -9,55 +9,50 @@ function validateForm() {
         emailIsValid = false;
     } else {
         emailError.innerHTML = "";
-    }
+        //Expressão regular para validar senha
+        var password = document.getElementById("senha").value;
+        var passwordError = document.getElementById("passwordError");
+        var passwordIsValid = true;
 
-    //Expressão regular para validar senha
-    var password = document.getElementById("senha").value;
-    var passwordError = document.getElementById("passwordError");
-    var passwordIsValid = true;
+        if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            passwordError.innerHTML = "A senha deve conter pelo menos 8 caracteres e incluir caracteres especiais.";
+            passwordIsValid = false;
+        } else {
+            passwordError.innerHTML = "";
+            //Expressão regular para validar nome
+            var nome = document.getElementById("nome").value;
+            var nomeError = document.getElementById("nomeError");
+            var nomelsValid = true;
 
-    if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        passwordError.innerHTML = "A senha deve conter pelo menos 8 caracteres e incluir caracteres especiais.";
-        passwordIsValid = false;
-    } else {
-        passwordError.innerHTML = "";
-    }
+            if (nome.trim() === '') {
+                nomeError.innerHTML = "Nome - Campo obrigatório";
+                nomelsValid = false;
+            } else {
+                nomeError.innerHTML = "";
+                //Expressão regular para validar cpf
+                var cpf = document.getElementById("cpf").value;
+                var cpfError = document.getElementById("cpfError");
+                var cpflsValid = true;
 
+                if (cpf.length < 14) {
+                    cpfError.innerHTML = "CPF inválido";
+                    cpflsValid = false;
+                } else {
+                    cpfError.innerHTML = "";
+                    //Expressão regular para validar data
+                    var data = document.getElementById("data").value;
+                    var dataError = document.getElementById("dtError");
+                    var datalsValid = true;
 
-    //Expressão regular para validar nome
-    var nome = document.getElementById("nome").value;
-    var nomeError = document.getElementById("nomeError");
-    var nomelsValid = true;
-
-    if (nome.trim() === '') {
-        nomeError.innerHTML = "Campo obrigatório";
-        nomelsValid = false;
-    } else {
-        nomeError.innerHTML = "";
-    }
-
-    //Expressão regular para validar cpf
-    var cpf = document.getElementById("cpf").value;
-    var cpfError = document.getElementById("cpfError");
-    var cpflsValid = true;
-
-    if (cpf.length < 14) {
-        cpfError.innerHTML = "CPF inválido";
-        cpflsValid = false;
-    } else {
-        cpfError.innerHTML = "";
-    }
-
-    //Expressão regular para validar data
-    var data = document.getElementById("data").value;
-    var dataError = document.getElementById("dtError");
-    var datalsValid = true;
-
-    if (nome.trim() === '') {
-        dataError.innerHTML = "Campo obrigatório";
-        datalsValid = false;
-    } else {
-        dataError.innerHTML = "";
+                    if (nome.trim() === '') {
+                        dataError.innerHTML = "Data de Nascimento - Campo obrigatório";
+                        datalsValid = false;
+                    } else {
+                        dataError.innerHTML = "";
+                    }
+                }
+            }
+        }
     }
 
     // Retorna true se ambos email e senha forem válidos, caso contrário, retorna false

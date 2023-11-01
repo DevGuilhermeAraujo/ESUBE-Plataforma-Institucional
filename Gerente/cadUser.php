@@ -4,7 +4,6 @@ requiredLogin(PERMISSION_GERENTE);
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
 if ($db->errorCode == 0) {
-
     $result = $db->executar("SELECT MAX(ra) as proximo_ra FROM usuarios", true);
     if ($result) {
         $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -25,6 +24,7 @@ if ($db->errorCode == 0) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD
     <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
         <h2>Cadastro</h2>
         <?php
@@ -73,8 +73,30 @@ if ($db->errorCode == 0) {
                     $idTurma = $turmas['id'];
                     $descTurma = $turmas['desc_turma'];
                     echo "<option value='$idTurma'>$descTurma</option>";
+=======
+    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
+        <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
+        <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
+            <h2>Cadastro</h2>
+            <?php
+            //Validação Banco
+            if ($db->errorCode != 0) {
+                msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+                if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
+                    msg(2, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+>>>>>>> 243d549f12b6fccd4692370c53fa1badf93eea97
                 }
-                ?>
+                exit();
+            }
+            ?>
+            <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
+            <input type="text" placeholder="Nome" name="nome" id="nome">
+            <input type="text" name="cpf" id="cpf" class="inputUser" placeholder="CPF" oninput="maskCPF()">
+            <select id="genero" name="genero">
+                <option value="">Sexo</option>
+                <option value="1">Masculino</option>
+                <option value="2">Feminino</option>
+                <option value="3">Outro</option>
             </select>
         </div>
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
