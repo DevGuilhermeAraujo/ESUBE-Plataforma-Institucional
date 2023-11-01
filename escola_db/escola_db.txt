@@ -110,7 +110,7 @@ INSERT INTO usuarios (nome, cpf, genero, dt_nasc, email, senha, tipo)
 VALUES ('Gabriel', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', 'aluno', 3);
 
 INSERT INTO alunos(ra, dt_MATRICULA, id_turma)
-VALUES (1111116, '2015-02-27', 1);
+VALUES (1111117, '2015-02-27', 1);
 
 
 CREATE TABLE materias (
