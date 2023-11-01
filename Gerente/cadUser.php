@@ -74,7 +74,7 @@ if ($db->errorCode == 0) {
                     echo "<option value='$idTurma'>$descTurma</option>";
                 }
 ?>
-    <form method="POST" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
+    <form method="POST" id="form2" action="../BackEnd/processCadastro.php?ra=<?php echo $raAtual ?>" onsubmit="return validateForm()" novalidate>
         <h2><img src="../Imgs/triangulo.webp" alt="triangulo"><br> Cadastro </h2>
         <form method="POST" action="../BackEnd/processCadastro.php" onsubmit="return validateForm()" novalidate>
             <h2>Cadastro</h2>
@@ -88,17 +88,7 @@ if ($db->errorCode == 0) {
                 exit();
             }
             ?>
-            <input type="text" id="ra" name="ra" value="<?php echo $raAtual ?>" readonly>
-            <input type="text" placeholder="Nome" name="nome" id="nome">
-            <input type="text" name="cpf" id="cpf" class="inputUser" placeholder="CPF" oninput="maskCPF()">
-            <select id="genero" name="genero">
-                <option value="">Sexo</option>
-                <option value="1">Masculino</option>
-                <option value="2">Feminino</option>
-                <option value="3">Outro</option>
-            </select>
-        </div>
-        <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
+        <input type="submit" name="submit"  class="btnCad" value="Cadastrar">
         <div class="msgN">
             <span id="nomeError">
                 <?php if (isset($nomeError)) {

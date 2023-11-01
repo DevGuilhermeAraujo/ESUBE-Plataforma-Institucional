@@ -5,14 +5,6 @@ form{
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
-<<<<<<< HEAD
-=======
-    border-radius: 20px;
-    background-color: rgb(190, 188, 188);
-    box-shadow: 10px 10px 10px gray;
-    width: 70%;
-    margin: 1% 0% 0% 15%;
->>>>>>> 243d549f12b6fccd4692370c53fa1badf93eea97
     padding: 3%;
     height: auto;
 }
@@ -24,22 +16,22 @@ input,select{
     border-radius: 10px;
     padding: 0 0 0 3%;
     display: flex;
+    width: 49%;
 }
-
 h2{
     width: 100%;
     text-align: center;
     font-size: 40px;
-    color: rgb(64, 64, 97);
+    color: rgb(49, 49, 78);
     height: 10vh;
 }
 .btnCad{
     display: flex;
-    background-color: rgb(35, 35, 54);
+    background-color: rgb(49, 49, 78);
     color: white;
     justify-content: center;
     height: 10vh;
-    flex: 100%;
+    width: 100%;
 }
 /* Estilos do modal */
 .modal {
