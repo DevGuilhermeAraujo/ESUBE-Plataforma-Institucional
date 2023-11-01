@@ -151,11 +151,25 @@ iframe{
     font-size: 20px;
     padding: 2%;
 }
-.msgN{
+.msgV{
     width: 80%;
+    background-color: rgb(99, 224, 95);
+    border: 2px solid rgb(19, 184, 55);
     border-radius: 20px;
     width: 100%;
-    color: rgb(184, 19, 19);
+    color: rgb(14, 145, 21);
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.msgN{
+    width: 80%;
+    background-color: rgb(224, 95, 95);
+    border: 2px solid rgb(184, 19, 19);
+    border-radius: 20px;
+    width: 100%;
+    color: rgb(161, 20, 20);
     padding: 1%;
     display: flex;
     align-items: center;
