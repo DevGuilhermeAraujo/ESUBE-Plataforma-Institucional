@@ -20,16 +20,10 @@ $idUser = $result[0][0];
 </head>
 
 <body>
-    <div class="inicio">
-        <div class="painel">
-            <div class="conteudo">
-                <form action="../BackEnd/processComunicacao.php?id=<?php echo $idUser ?>" method="POST">
-                    <textarea name="comunicacao" rows="4" cols="50" placeholder="Digite seu comunicado aqui..."></textarea>
-                    <input type="submit" name="submit" id="submit" class="btnComunic" value="Enviar">
-                </form>
-            </div>
-        </div>
-    </div>
+    <form id="msgs" action="">
+        <input id="txt" type="text" placeholder="Digite sua mensagem">
+        <input id="sub" type="submit" value="Enviar">
+    </form>
 </body>
 
 </html>

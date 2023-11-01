@@ -26,3 +26,24 @@ h3{
 #formulario2{
     display: none;
 }
+#msgs{
+    width: 80%;
+    margin: 2% 0% 0% 10%;
+    background-color: rgb(49, 49, 78);
+    box-shadow: 10px 10px 5px gray;
+    padding: 2%;
+    border-radius: 20px;
+}
+#msgs input{
+    margin: 2%;
+    border-radius: 20px;
+    width: 95%;
+}
+#txt{
+    height: 40vh;
+    display: flex;
+    justify-items: flex-start;
+}
+#sub{
+    background-color: rgb(8, 8, 78);
+}
