@@ -224,13 +224,13 @@ $tipoUser = getPermission();
                         this.textContent = 'Falta';
                         this.style.background = 'red';
                         this.setAttribute('data-status', '0');
-                        hiddenInput.value = '1'; // Troque '1' para '0' se desejar que o padrão seja falta
+                        hiddenInput.value = '0'; // Troque '1' para '0' se desejar que o padrão seja falta
                     } else {
                         // Alternando de volta para presente (1)
                         this.textContent = 'Presente';
                         this.style.background = 'green';
                         this.setAttribute('data-status', '1');
-                        hiddenInput.value = '0'; // Troque '0' para '1' se desejar que o padrão seja presente
+                        hiddenInput.value = '1'; // Troque '0' para '1' se desejar que o padrão seja presente
                     }
                 });
             });
