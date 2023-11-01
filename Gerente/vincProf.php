@@ -10,8 +10,6 @@ $result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u O
 $idUser = $result[0][0];
 $tipoUser = getPermission();
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -26,11 +24,11 @@ $tipoUser = getPermission();
 
 <body>
     <div id="exib">
-        <form method="POST" action="">
+        <form method="POST" action="processVincProf.php">
             <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor">
         </form>
-        <form action="">
-            <input type="text" placeholder="RA">
+        <form method="POST" action="../BackEnd/processVincProf.php">
+            <input type="text" name="raProf" placeholder="RA">
             <select name='materias' style='border: 1px solid black; width: 150px;'>
                 <option value="">Matérias </option>
                 <?php
@@ -54,7 +52,6 @@ $tipoUser = getPermission();
                 ?>
             </select>
             <button>Víncular</button>
-
         </form>
         <div class="dados">
             <div class="titulos">

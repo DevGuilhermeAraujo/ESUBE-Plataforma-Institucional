@@ -26,7 +26,6 @@ class Conexao
         $stmt = $this->pdo->prepare($sql);
         if($autoExec || !$fullObject)
             $stmt->execute();
-
         if ($fullObject) {
             return $stmt;
         } else {
