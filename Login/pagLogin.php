@@ -33,18 +33,18 @@ if (Logued()) {
             <?php
                 if (isset($_GET["invalidLogin"])) {
                     //Menssagem de login inválido
-                    msg(2, "Usuário e/ou senha incorretos.<br>Certifique-se de que a função Caps Lock está desligada e tente novamente.",null,"width: 40%; margin-top: 2%");
+                    msg(MSG_NEGATIVE_BG, "Usuário e/ou senha incorretos.<br>Certifique-se de que a função Caps Lock está desligada e tente novamente.",null,"width: 40%; margin-top: 2%");
                 }
 
                 if (isset($_GET["ERROR"])) {
                     switch ($_GET["ERROR"]) {
                         case 1:
                             //Menssagem de falha no Banco
-                            msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.",null,"width: 40%; margin-top: 2%");
+                            msg(MSG_NEGATIVE_BG, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.",null,"width: 40%; margin-top: 2%");
                             break;
                         default:
                             //Menssagem de erro geral
-                            msg(2, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.",null,"width: 40%; margin-top: 2%");
+                            msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.",null,"width: 40%; margin-top: 2%");
                     }
                 }
                 ?>

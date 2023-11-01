@@ -17,13 +17,14 @@ const PERMISSION_ALUNO = 3;
 
 
 //Funções para o Front-End
-function Logued(?Int $permission = null){
-    if(isset($_SESSION[SESSION_USER_RA_ID]) && $_SESSION[SESSION_USER_RA_ID] != ""){
-        if($permission != null)
-            if($_SESSION[SESSION_USER_IDPERMISSION] != $permission)
+function Logued(?Int $permission = null)
+{
+    if (isset($_SESSION[SESSION_USER_RA_ID]) && $_SESSION[SESSION_USER_RA_ID] != "") {
+        if ($permission != null)
+            if ($_SESSION[SESSION_USER_IDPERMISSION] != $permission)
                 return false;
-        if(isset($_SESSION[SESSION_USERNAME]) || $_SESSION[SESSION_USERNAME] != "")
-            if(isset($_SESSION[SESSION_USER_IDPERMISSION]) || $_SESSION[SESSION_USER_IDPERMISSION] != "")
+        if (isset($_SESSION[SESSION_USERNAME]) || $_SESSION[SESSION_USERNAME] != "")
+            if (isset($_SESSION[SESSION_USER_IDPERMISSION]) || $_SESSION[SESSION_USER_IDPERMISSION] != "")
                 return true;
     }
     return false;
@@ -31,16 +32,17 @@ function Logued(?Int $permission = null){
 
 function requiredLogin(?Int $permission = null, ?String $URL = null)
 {
-    if(!Logued($permission)){
-        if(is_null($URL)){
+    if (!Logued($permission)) {
+        if (is_null($URL)) {
             header("Location: ../Login/pagLogin.php");
-        }else{
-            header("Location: ".$URL);
+        } else {
+            header("Location: " . $URL);
         }
     }
 }
 
-function logout(){
+function logout()
+{
     //Sair do usuario (deslogar)
     unset($_SESSION[SESSION_USER_RA_ID]);
     unset($_SESSION[SESSION_USERNAME]);
@@ -49,53 +51,70 @@ function logout(){
     session_destroy();
 }
 
-function redirectByPermission($_permission){
-    if($_permission == PERMISSION_ALUNO){
+function redirectByPermission($_permission)
+{
+    if ($_permission == PERMISSION_ALUNO) {
         //header("Location: ")
         header("Location: ../Alunos/indexAluno.php");
         exit();
     }
-    if($_permission == PERMISSION_PROFESSOR){
+    if ($_permission == PERMISSION_PROFESSOR) {
         header("Location: ../Professores/indexProfessores.php");
         exit();
     }
-    if($_permission == PERMISSION_GERENTE){
+    if ($_permission == PERMISSION_GERENTE) {
         header("Location: ../Gerente/indexGerente.php");
         exit();
     }
     //Se algo der errado
     //Limpar sessão e reportar erro
-    error_log("Falha ao tentar fazer login, Cógido = Erro processLogin, return 2, Erro: Não foi possivel determinar o tipo do usuário; Falha ocorreu na tentativa do usuário: id=".$_SESSION[SESSION_USER_RA_ID].", Falha de permissão retornado=$_permission",3,"C:\PhpSiteEscolaErrorsLog.log");
+    error_log("Falha ao tentar fazer login, Cógido = Erro processLogin, return 2, Erro: Não foi possivel determinar o tipo do usuário; Falha ocorreu na tentativa do usuário: id=" . $_SESSION[SESSION_USER_RA_ID] . ", Falha de permissão retornado=$_permission", 3, "C:\PhpSiteEscolaErrorsLog.log");
     logout();
     header("Location: ../Login/pagLogin.php?ERROR=2");
 }
 
 
-function getIdRa(){
+function getIdRa()
+{
     return $_SESSION[SESSION_USER_RA_ID];
 }
 
-function getNome(){
+function getNome()
+{
     return $_SESSION[SESSION_USERNAME];
 }
 
-function getPermission(){
+function getPermission()
+{
     return $_SESSION[SESSION_USER_IDPERMISSION];
 }
 
-function msg(int $type, string $message, ?string $class = "", ?string $style = "", ?string $id = ""){
-    switch($type){
+
+const MSG_POSITIVE = 1;
+const MSG_NEGATIVE = 2;
+const MSG_POSITIVE_BG = 3;
+const MSG_NEGATIVE_BG = 4;
+
+function msg(int $type, string $message, ?string $class = "", ?string $style = "", ?string $id = "")
+{
+    switch ($type) {
         case 1:
             //Menssangem positiva
-            echo '<span id="'.$id.'" class="msgV '.$class.'" style="'.$style.'">'.$message.'</span>';
+            echo '<span id="' . $id . '" class="msgV ' . $class . '" style="' . $style . '">' . $message . '</span>';
             break;
         case 2:
             //Menssagem negativa
-            echo '<span id="'.$id.'" class="msgN '.$class.'" style="'.$style.'">'.$message.'</span>';
+            echo '<span id="' . $id . '" class="msgN ' . $class . '" style="' . $style . '">' . $message . '</span>';
+            break;
+        case 3:
+            //Menssagem negativa
+            echo '<span id="' . $id . '" class="msgV-bg ' . $class . '" style="' . $style . '">' . $message . '</span>';
+            break;
+        case 4:
+            //Menssagem negativa
+            echo '<span id="' . $id . '" class="msgN-bg ' . $class . '" style="' . $style . '">' . $message . '</span>';
             break;
         default:
             throw new Exception('Entrada invalida na função msg().');
     }
 }
-
-?>
