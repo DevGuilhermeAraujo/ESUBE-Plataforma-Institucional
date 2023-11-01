@@ -96,13 +96,14 @@ $tipoUser = getPermission();
                 </p>
             </div>
             <?php
-                $result = $db->executar("SELECT p.ra AS ra, p.nome AS nome, t.desc_turma AS turma FROM view_professores as p JOIN professor_turma AS pt ON p.id = pt.id_prof JOIN turmas as t ON pt.id_turma = t.id");
+                $result = $db->executar("SELECT p.ra AS ra, p.nome AS nome, t.desc_turma AS turma, pt.id as id FROM view_professores as p JOIN professor_turma AS pt ON p.id = pt.id_prof JOIN turmas as t ON pt.id_turma = t.id");
                 $nomeProfessores = $result;
             foreach ($nomeProfessores as $professores) {
                 $ra = $professores['ra'];
                 $nome = $professores['nome'];
                 $turma = $professores['turma'];
-                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span></span></p>";
+                $id = $professores['id'];
+                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a href='../BackEnd/processRemoveProf.php?id=$id'><button>Remover</button></a></span></p>";
             }
             ?>
         </div>
