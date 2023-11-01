@@ -81,9 +81,9 @@ if ($db->errorCode == 0) {
             <?php
             //Validação Banco
             if ($db->errorCode != 0) {
-                msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+                msg(MSG_NEGATIVE_BG, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
                 if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
-                    msg(2, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
                 }
                 exit();
             }
@@ -116,22 +116,22 @@ if ($db->errorCode == 0) {
         <?php
         //Menssagem de falha no Banco
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 1) {
-            msg(2, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+            msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
         }
 
         //Menssagem de falha no Banco 
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 2) {
-            msg(2, "O cadastro falhou!");
+            msg(MSG_NEGATIVE_BG, "O cadastro falhou!");
         }
 
         //Menssagem de falha no Banco 
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 10) {
-            msg(2, "O campo tipo deve ser preenchido!");
+            msg(MSG_NEGATIVE_BG, "O campo tipo deve ser preenchido!");
         }
 
         //Menssagem de erro geral
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == null) {
-            msg(2, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.");
+            msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.");
         }
         ?>
 
