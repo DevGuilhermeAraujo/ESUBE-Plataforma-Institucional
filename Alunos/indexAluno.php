@@ -20,7 +20,6 @@
             <div class="links">
                 <a target="index" href="InicioAluno.php">Destaques</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
-                <a href="../AreaTeste.php">Area de testes</a>
             </div>
         </div>
     </div>

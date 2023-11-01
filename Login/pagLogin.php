@@ -50,10 +50,10 @@ if (Logued()) {
                 ?>
         </div>
         <div id="logo">
-            <img src="../Imgs/triangulo.webp" alt="triangulo">
+            <img src="../Imgs/triangulo.jpg" alt="triangulo">
             <h1>ESUBE</h1>
-            <p>Ensino de qualidade</p>
-            <p>Escola de verdade desde 2023</p>
+            <p class="white_p">Ensino de qualidade</p>
+            <p class="white_p">Escola de verdade desde 2023</p>
         </div>
 
     </div>

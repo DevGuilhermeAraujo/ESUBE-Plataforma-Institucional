@@ -21,7 +21,6 @@
                 <a target="index" href="inicioProfessores.php">Destaques</a>
                 <a target="index" href="../Cadastrados/Turmas.php">Turmas</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
-                <a href="../AreaTeste.php">Area de testes</a>
             </div>
         </div>
     </div>

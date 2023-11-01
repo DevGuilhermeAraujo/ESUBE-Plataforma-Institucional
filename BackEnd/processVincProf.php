@@ -21,7 +21,7 @@ if ($db->errorCode === 0) {
 
     if ($insertMateria and $insertTurma) {
         echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
-        header("Location: ../Gerente/inicioGerente.php?cadSucess");
+        header("Location: ../Gerente/inicioGerente.php?Sucess");
     } else {
         echo "<script> alert('O cadastro falhou!'); </script>";
         header("Location: ../Gerente/cadUser.php?ERROR=2");
