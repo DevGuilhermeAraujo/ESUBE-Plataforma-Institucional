@@ -1,6 +1,6 @@
 <?php 
     include_once "sessao.php";
-    requiredLogin(PERMISSION_GERENTE);
+    //requiredLogin(PERMISSION_GERENTE);
 
     echo "<h3>Criptografar senhas não criptografas do banco.</h3>";
 
