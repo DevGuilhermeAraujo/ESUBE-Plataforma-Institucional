@@ -24,19 +24,11 @@ $tipoUser = getPermission();
 
 <body>
     <div id="exib">
-<<<<<<< HEAD
-        <form method="POST" action="processVincProf.php">
+        <form method="POST" action="">
             <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor">
         </form>
         <form method="POST" action="../BackEnd/processVincProf.php">
             <input type="text" name="raProf" placeholder="RA">
-=======
-        <form class="Vincula" method="POST" action="">
-            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor">
-        </form>
-        <form class="Vincula" action="">
-            <input type="text" placeholder="RA">
->>>>>>> f62da41ce05f6d3beaa971a58b27731b4c885e22
             <select name='materias' style='border: 1px solid black; width: 150px;'>
                 <option value="">Matérias </option>
                 <?php
@@ -59,7 +51,7 @@ $tipoUser = getPermission();
                 }
                 ?>
             </select>
-            <button>Víncular</button>
+            <input type="submit" name="submit" id="submit" class="btnVinc" value="Vincular">
         </form>
         <div class="dados" style="box-shadow: none;">
             <div class="titulos">
@@ -90,7 +82,6 @@ $tipoUser = getPermission();
                 $nome = $professores['nome'];
                 echo "<p><span>{$ra}</span><span>{$nome}</span></p>";
             }
-
             ?>
         </div>
     </div>

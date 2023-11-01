@@ -13,9 +13,9 @@ $idProf = $result[0][0];
 // Verificar se a conexão foi estabelecida com sucesso
 if ($db->errorCode === 0) {
     // Preparar a consulta SQL para inserção de dados na tabela de professores com espaços reservados
-    $result = $db->executar("INSERT INTO professor_materia(id_prof, id_materia) VALUES ('$idProf', '$idMateria'", true, false);
+    $result = $db->executar("INSERT INTO professor_materia(id_prof, id_materia) VALUES ('$idProf', '$idMateria')", true);
     $insertMateria = $result;
-    $result = $db->executar("INSERT INTO professor_turma(id_prof, id_turma) VALUES ('$idProf', '$idTurma'", true, false);
+    $result = $db->executar("INSERT INTO professor_turma(id_prof, id_turma) VALUES ('$idProf', '$idTurma')", true);
     $insertTurma = $result;
 
 
