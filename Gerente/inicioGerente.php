@@ -67,7 +67,7 @@ if ($db->errorCode == 0) {
         <?php
         //Menssagem de sucesso de cadastro
         if (isset($_GET["cadSucess"])) {
-            msg(1, "Usuário cadastrado com sucesso!",null,"bottom: 4%; position: fixed;");
+            msg(MSG_NEGATIVE_BG, "Usuário cadastrado com sucesso!",null,"bottom: 4%; position: fixed;");
         }
         ?>
     </div>

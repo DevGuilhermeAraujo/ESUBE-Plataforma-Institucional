@@ -151,11 +151,45 @@ iframe{
     font-size: 20px;
     padding: 2%;
 }
+.msgV{
+    width: 80%;
+    border-radius: 20px;
+    width: 100%;
+    color: rgb(19, 184, 33);
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .msgN{
     width: 80%;
     border-radius: 20px;
     width: 100%;
     color: rgb(184, 19, 19);
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.msgV-bg{
+    width: 80%;
+    background-color: rgb(99, 224, 95);
+    border: 2px solid rgb(19, 184, 55);
+    border-radius: 20px;
+    width: 100%;
+    color: rgb(14, 145, 21);
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.msgN-bg{
+    width: 80%;
+    background-color: rgb(224, 95, 95);
+    border: 2px solid rgb(184, 19, 19);
+    border-radius: 20px;
+    width: 100%;
+    color: rgb(161, 20, 20);
     padding: 1%;
     display: flex;
     align-items: center;
