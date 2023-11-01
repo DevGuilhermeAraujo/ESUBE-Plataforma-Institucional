@@ -79,6 +79,7 @@ if ($db->errorCode == 0) {
             </select>
         </div>
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
+
         <div class="msgN">
             <span id="nomeError">
                 <?php if (isset($nomeError)) {
