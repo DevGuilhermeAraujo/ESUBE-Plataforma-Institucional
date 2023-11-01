@@ -26,10 +26,10 @@ $tipoUser = getPermission();
 
 <body>
     <div id="exib">
-        <form method="POST" action="">
+        <form class="Vincula" method="POST" action="">
             <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor">
         </form>
-        <form action="">
+        <form class="Vincula" action="">
             <input type="text" placeholder="RA">
             <select name='materias' style='border: 1px solid black; width: 150px;'>
                 <option value="">Matérias </option>
@@ -56,7 +56,7 @@ $tipoUser = getPermission();
             <button>Víncular</button>
 
         </form>
-        <div class="dados">
+        <div class="dados" style="box-shadow: none;">
             <div class="titulos">
                 <p>
                     <span>RA</span>
