@@ -44,7 +44,8 @@
     $result->bindParam(":ra",$ra_id);
     $result->execute();
     $result = $result->fetchAll();
-    if(!password_verify($password, $result[0]['senha']) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
+    //if(!password_verify($password, $result[0]['senha']) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
+    if(!password_verify($password, $result[0]['senha'])){
         header("Location: ../Login/pagLogin.php?invalidLogin");
         exit();
     }
