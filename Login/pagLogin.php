@@ -5,10 +5,8 @@ if (Logued()) {
     redirectByPermission(getPermission());
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +14,6 @@ if (Logued()) {
     <link rel="stylesheet" href="pagLogin.css">
     <link rel="stylesheet" href="../index.css">
 </head>
-
 <body>
     <div id="pagLogin">
         <div id="formulario">
@@ -26,7 +23,6 @@ if (Logued()) {
                 <input type="text" name="RA_ID" placeholder="ID">
                 <input type="password" name="password" placeholder="Senha">
                 <input id="login" type="submit" value="Login">
-                <a href="../AreaTeste.php">Area de testes</a>
             </form>
         </div>
         <div id="logo">
@@ -37,5 +33,4 @@ if (Logued()) {
         </div>
     </div>
 </body>
-
 </html>

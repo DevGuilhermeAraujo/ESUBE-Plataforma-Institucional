@@ -51,10 +51,10 @@ if ($db->errorCode == 0) {
             <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
         </div>
         <div class="painel">
-            <form id="CadTurma" action="">
+            <form class="fm" id="CadTurma" action="">
                 <h3>Nova turma</h3>
-                <input id="turma" type="text" placeholder="Nome da turma">
-                <input id="btnCadTur" type="submit" value="+">
+                <input class="in" id="turma" type="text" placeholder="Nome da turma">
+                <input class="in" id="btnCadTur" type="submit" value="+">
             </form>
         </div>
         <div class="painel">

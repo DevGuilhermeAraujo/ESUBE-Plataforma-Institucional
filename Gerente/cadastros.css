@@ -1,12 +1,18 @@
+body{
+    background-color: rgb(190, 188, 188);
+}
 form{
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
+<<<<<<< HEAD
+=======
     border-radius: 20px;
     background-color: rgb(190, 188, 188);
     box-shadow: 10px 10px 10px gray;
     width: 70%;
     margin: 1% 0% 0% 15%;
+>>>>>>> 243d549f12b6fccd4692370c53fa1badf93eea97
     padding: 3%;
     height: auto;
 }
@@ -47,7 +53,6 @@ h2{
     justify-content: center;
     align-items: center;
 }
-
 .modalContent {
     background-color: #fff;
     border: 1px solid #000;
@@ -57,21 +62,9 @@ h2{
     transform: translate(-50%, -50%);
     padding: 20px;
 }
-
 /* Estilos do botão de fechar */
 .close {
     color: #555;
     float: right;
     font-size: 24px;
-}
-
-.parteAluno, .parteFuncionario{
-    display: flex;
-    justify-content: center;
-    flex-flow: row wrap;
-    align-items: center;
-    flex: 100%;
-}
-label{
-    flex: 100%;
 }
