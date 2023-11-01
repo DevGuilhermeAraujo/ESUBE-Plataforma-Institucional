@@ -55,7 +55,7 @@ if ($db->errorCode == 0) {
 
 
             </div>
-            <a href="aplicarNota.php" class="ver">Ver</a>
+            <a href="comunicacao.php" class="ver">Ver</a>
         </div>
 
     </div>

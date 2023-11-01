@@ -35,6 +35,17 @@ $raUsuario = getIdRa();
             </div>
             <a class="ver" href="materias.php">Ver</a>
         </div>
+        <div class="painel">
+            <div class="conteudo">
+                <h3>Comunicação</h3>
+
+                <!--total de mensagens-->
+                <p>Recebidas: <span>x</span></p>
+
+
+            </div>
+            <a href="aplicarNota.php" class="ver">Ver</a>
+        </div>
     </div>
 </body>
 

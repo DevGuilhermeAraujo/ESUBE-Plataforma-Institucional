@@ -5,7 +5,7 @@ CREATE TABLE usuarios (
 	genero INT(1) NOT NULL,
 	dt_NASC DATE NOT NULL,
 	email VARCHAR(50) NOT NULL,
-    senha VARCHAR(30) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     dt_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     tipo INT(1) NOT NULL
 );
@@ -48,6 +48,12 @@ INSERT INTO funcionarios (ra, dt_CONTRATO)
 VALUES (1111114, '2015-02-27');
 
 
+CREATE TABLE comunicacao(
+    id INT(9) PRIMARY KEY AUTO_INCREMENT,
+    descricao LONGTEXT,
+    id_professor INT(9),
+    FOREIGN KEY (id_professor) REFERENCES funcionarios(id)
+    );
 
 
 CREATE TABLE tipo(
