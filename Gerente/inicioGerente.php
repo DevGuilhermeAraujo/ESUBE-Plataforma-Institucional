@@ -31,7 +31,7 @@ if ($db->errorCode == 0) {
     <?php
     //Validar Banco de Dados
     if ($db->errorCode != 0) {
-        msg(2, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
+        msg(MSG_NEGATIVE_BG, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
         exit();
     }
     ?>
