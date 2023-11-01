@@ -49,7 +49,7 @@ $idUser = $result[0][0];
                     <p>Nota: <span><?php echo $notas ?></span></p>
                     <p>Frequência: <span><?php echo $frequencia ?>%</span></p>
                 </div>
-                <a href="TurmaAluno.php?id=<?php echo $idTurma ?>" class="ver" name="">Ver</a>
+                <a href="infoMaterias.php?id=<?php echo $idMateria ?>" class="ver" name="">Ver</a>
             </div>
         <?php
         }
