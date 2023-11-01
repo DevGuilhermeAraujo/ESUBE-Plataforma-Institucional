@@ -165,7 +165,8 @@ $tipoUser = getPermission();
                             $ra = $aluno['ra'];
                             $nomeAluno = $aluno['nome'];
                             $idAluno = $aluno['id_aluno'];
-                            echo "<p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia" . $idAluno . "' value='1'></span>";
+                            echo "
+                            <p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia" . $idAluno . "' value='1'></span>";
                         }
                         ?>
                         <br>

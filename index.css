@@ -226,8 +226,11 @@ iframe{
     border: none;
     border-radius: 10px;
 }
-
 .Vincula button,select{
+    color: white;
+    background-color: rgb(49, 49, 78);
+}
+#submit{
     color: white;
     background-color: rgb(49, 49, 78);
 }
