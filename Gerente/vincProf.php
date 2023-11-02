@@ -103,7 +103,7 @@ $tipoUser = getPermission();
                 $nome = $professores['nome'];
                 $turma = $professores['turma'];
                 $id = $professores['id'];
-                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a href='../BackEnd/processRemoveProf.php?id=$id'><button>Remover</button></a></span></p>";
+                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a href='../BackEnd/processVincProf.php?remove&id=$id'><button>Remover</button></a></span></p>";
             }
             ?>
         </div>
