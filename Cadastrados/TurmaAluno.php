@@ -20,6 +20,7 @@ $tipoUser = getPermission();
     <title>Document</title>
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="cadastros.css">
+    <link rel="stylesheet" href="tabelas.css">
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -74,18 +75,25 @@ $tipoUser = getPermission();
         <?php
         }
         ?>
-
-        <?php
-        $result = $db->executar("SELECT ra, nome FROM view_alunos WHERE id_turma = $idTurma");
-        // Loop para exibir os alunos
-        foreach ($result as $aluno) {
-            $ra = $aluno['ra'];
-            $nome = $aluno['nome'];
-            // Faça o que for necessário com os dados do aluno
-            echo "
+        <div class="dados">
+            <div class="titulos">
+                <p>
+                    <span>RA</span>
+                    <span>Nome</span>
+                </p>
+            </div>
+            <?php
+            $result = $db->executar("SELECT ra, nome FROM view_alunos WHERE id_turma = $idTurma");
+            // Loop para exibir os alunos
+            foreach ($result as $aluno) {
+                $ra = $aluno['ra'];
+                $nome = $aluno['nome'];
+                // Faça o que for necessário com os dados do aluno
+                echo "
             <p><span>{$ra}</span><span>{$nome}</span>  </p>";
-        }
-        ?>
+            }
+            ?>
+        </div>
         <div id="modalNotas" class="modal">
             <div class="modalContent">
                 <!-- Conteúdo do modal de lançamento de notas -->
@@ -100,6 +108,12 @@ $tipoUser = getPermission();
                             echo "<option value='$idMateria'>$nomeMateria</option>";
                         }
                         ?>
+                    </select>
+                    <select name='tipoNota' style='border: 1px solid black; width: 150px;'>
+                        <option value=''>Lançar notas</option>
+                        <option value='1'>Trabalho</option>
+                        <option value='2'>Prova</option>
+                        <option value='3'>Participação</option>
                     </select>
                     <span class="close" id="closeModal">&times;</span>
                     <div class="dados">
@@ -119,13 +133,7 @@ $tipoUser = getPermission();
                             $idAluno = $aluno['id_aluno'];
 
 
-                            echo "<p><span>{$nomeAluno}</span> <span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></span> 
-                            <span> <select name='tipoNota" . $idAluno . "' style='border: 1px solid black; width: 150px;'>
-                                <option value=''>Lançar notas</option>
-                                <option value='1'>Trabalho</option>
-                                <option value='2'>Prova</option>
-                                <option value='3'>Participação</option>
-                            </select> </span>";
+                            echo "<p><span>{$nomeAluno}</span> <span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></span>";
                         }
                         ?>
                         <input type="submit" value="Enviar Notas">
@@ -176,6 +184,7 @@ $tipoUser = getPermission();
                 </form>
             </div>
         </div>
+
     </div>
 
 
