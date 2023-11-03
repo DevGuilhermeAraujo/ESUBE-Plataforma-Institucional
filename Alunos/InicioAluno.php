@@ -4,8 +4,12 @@ requiredLogin();
 
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
-$raUsuario = getIdRa();
-
+if ($db->errorCode == 0) {
+    $result = $db->executar("SELECT COUNT(*) FROM materias;");
+    $quantMaterias = $result[0][0];
+    $result = $db->executar("SELECT COUNT(*) FROM comunicacao;");
+    $quantComunicacao = $result[0][0];
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,10 +26,6 @@ $raUsuario = getIdRa();
         <div class="painel">
             <div class="conteudo">
                 <h3>Minhas matérias</h3>
-                <?php
-                $result = $db->executar("SELECT COUNT(*) FROM materias;");
-                $quantMaterias = $result[0][0];
-                ?>
                 <!--x = numero total de materias deste aluno-->
                 <p>Matérias registradas: <span><?php echo $quantMaterias ?></span></p>
 
@@ -40,11 +40,11 @@ $raUsuario = getIdRa();
                 <h3>Comunicação</h3>
 
                 <!--total de mensagens-->
-                <p>Recebidas: <span>x</span></p>
+                <p>Recebidas: <span><?php echo $quantComunicacao ?></span></p>
 
 
             </div>
-            <a href="aplicarNota.php" class="ver">Ver</a>
+            <a href="comunicacaoAluno.php" class="ver">Ver</a>
         </div>
     </div>
 </body>
