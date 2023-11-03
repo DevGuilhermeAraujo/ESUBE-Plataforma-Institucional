@@ -118,11 +118,11 @@ function validarTipo() {
 }
 
 //Animação de desaparecer menssagem na tela
-async function hideMsg(_timer,_idObject){
+async function hideMsg(_timer, _idObject) {
     //await new Promise(r => setTimeout(r, 5000));
     //Pegar objeto por id
     obj = document.getElementById(_idObject);
-    if(obj == null)
+    if (obj == null)
         //Se for null; O PHP já manda o objeto inteiro.
         obj = _idObject;
     //Aguarda o tempo determinado

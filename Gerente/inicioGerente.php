@@ -25,6 +25,7 @@ if ($db->errorCode == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerente/inicio</title>
     <link rel="stylesheet" href="../index.css">
+    <script src="../BackEnd/script.js"></script>
 </head>
 
 <body>
@@ -53,8 +54,15 @@ if ($db->errorCode == 0) {
         <div class="painel">
             <form class="fm" id="CadTurma" action="../BackEnd/processAddTurma.php" method="POST">
                 <h3>Nova turma</h3>
-                <input class="in" id="turma" name="nomeTurma" type="text" placeholder="Nome da turma">
+                <input class="in" id="turma" name="nomeTurma" type="text" placeholder="Nome da turma" required>
                 <input class="in" id="btnCadTur" type="submit" value="+">
+
+                <div class="msgN">
+                    <span id="turmaError">
+                        <?php if (isset($turmaError)) {
+                            echo $turmaError;
+                        } ?></span>
+                </div>
             </form>
         </div>
         <div class="painel">
@@ -68,17 +76,17 @@ if ($db->errorCode == 0) {
         <?php
         //Menssagem de sucesso de cadastro
         if (isset($_GET["cadSucess"])) {
-            msg(MSG_POSITIVE_BG, "Usuário cadastrado com sucesso!", null, "bottom: 4%; position: fixed;","msg1",4000);
+            msg(MSG_POSITIVE_BG, "Usuário cadastrado com sucesso!", null, "bottom: 4%; position: fixed;", "msg1", 4000);
         }
 
         if (isset($_GET["Sucess"])) {
             switch ($_GET["Sucess"]) {
                 case 2:
                     //Menssagem de sucesso de cadastro de turma
-                    msg(MSG_POSITIVE_BG, "Turma cadastrada com sucesso!", null, "bottom: 4%; position: fixed;","msg2",4000);
+                    msg(MSG_POSITIVE_BG, "Turma cadastrada com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
                     break;
                 default:
-                    msg(MSG_POSITIVE_BG, "Operação concluida com sucesso!", null, "bottom: 4%; position: fixed;","msg2",4000);
+                    msg(MSG_POSITIVE_BG, "Operação concluida com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
             }
         }
 
@@ -86,27 +94,27 @@ if ($db->errorCode == 0) {
             switch ($_GET["ERROR"]) {
                 case 1:
                     //Menssagem de falha no Banco
-                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.","msg3",4000);
+                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.", "msg3", 4000);
                     break;
                 case 2:
                     //Menssagem de falha no Banco 
-                    msg(MSG_NEGATIVE_BG, "O cadastro falhou!",null,null,"msg3",4000);
+                    msg(MSG_NEGATIVE_BG, "O cadastro falhou!", null, null, "msg3", 4000);
                     break;
                 case 10:
                     //Menssagem de falha no Banco 
-                    msg(MSG_NEGATIVE_BG, "O campo tipo deve ser preenchido!",null,null,"msg3",4000);
+                    msg(MSG_NEGATIVE_BG, "O campo tipo deve ser preenchido!", null, null, "msg3", 4000);
                     break;
                 case 20:
                     //Menssagem de falha POST para processAddTurma
-                    msg(MSG_NEGATIVE_BG, "Falha!",null,null,"msg3",2000);
+                    msg(MSG_NEGATIVE_BG, "Falha!", null, null, "msg3", 2000);
                     break;
                 case 21:
                     //Menssagem de falha cadastro turma
-                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar turma!",null,null,"msg3",4000);
+                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar turma!", null, null, "msg3", 4000);
                     break;
                 default:
                     //Menssagem de erro geral
-                    msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.",null,null,"msg3",4000);
+                    msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.", null, null, "msg3", 4000);
             }
         }
 
