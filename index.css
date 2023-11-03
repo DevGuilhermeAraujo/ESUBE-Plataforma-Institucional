@@ -201,6 +201,14 @@ iframe{
     justify-content: center;
     transition: 1s linear;
 }
+.msgPopUp{
+    bottom: 4%; 
+    position: fixed;
+}
+.msgMargin{
+    width: 90%;
+    margin-left: 5%;
+}
 .msgHide{
     opacity: 0;
 }

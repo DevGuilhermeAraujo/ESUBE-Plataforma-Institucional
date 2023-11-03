@@ -4,6 +4,7 @@ session_start();
 //Constantes de ambiente
 const SESSION_USER_RA_ID = "UserRaId";
 const SESSION_USERNAME = "UserName";
+//Legado (Falha de segurança) - Retirar em breve
 const SESSION_USER_IDPERMISSION = "UserIdPermission";
 
 const PERMISSION_GERENTE = 1;
@@ -86,7 +87,9 @@ function getNome()
 
 function getPermission()
 {
-    return $_SESSION[SESSION_USER_IDPERMISSION];
+    //return $_SESSION[SESSION_USER_IDPERMISSION];
+    $db = new Conexao();
+    return $db->executar("SELECT tipo FROM usuarios WHERE ra = '".$_SESSION[SESSION_USER_RA_ID]."'")[0][0];
 }
 
 
@@ -95,7 +98,7 @@ const MSG_NEGATIVE = 2;
 const MSG_POSITIVE_BG = 3;
 const MSG_NEGATIVE_BG = 4;
 
-function msg(int $type, string $message, ?string $class = "", ?string $style = "", ?string $id = "", ?int $hideTimer = 0)
+function msg(int $type, string $message, ?string $class = "", ?string $style = "", ?string $id = "", ?int $hideTimer = 0, ?string $importJsUri = null)
 {
     switch ($type) {
         case 1:
@@ -121,10 +124,14 @@ function msg(int $type, string $message, ?string $class = "", ?string $style = "
     if(!$hideTimer == 0){
         //Se a menssagem vai desaparecer
         //Tenta inserir o javascript caso não esteja na pagina (melhorar depois)
-        echo '<script src="../BackEnd/script.js"></script>';
+        if($importJsUri == null){
+            //Tenta importar de um caminho padrão
+            echo '<script src="../BackEnd/script.js"></script>';
+        }else{
+            //Importa de um caminho determinado
+            echo '<script src="'.$importJsUri.'"></script>';
+        }
         //Chamar o metodo javascript para interação no lado cliente
         echo "<script>hideMsg($hideTimer,$id);</script>";
     }
-
-    //echo '<script src="../BackEnd/script.js"></script>';
 }
