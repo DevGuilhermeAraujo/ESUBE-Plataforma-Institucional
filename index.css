@@ -243,3 +243,38 @@ iframe{
     color: white;
     background-color: rgb(49, 49, 78);
 }
+.dados button{
+    background-color: rgb(49, 49, 78);
+    color: white;
+    font-size: 20px;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: underline rgb(49, 49, 78);
+}
+.dados button img{
+    width: 10%;
+}
+.dados i{
+    margin: 10%;
+}
+.DelTurma{
+    background-color: rgb(49, 49, 78);
+    color: white;
+    font-size: 20px;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    width: 55%;
+    margin-left: 25%;
+    justify-content: center;
+    text-decoration: underline rgb(49, 49, 78);
+}
+.DelTurma img{
+    width: 18%;
+    margin: 1%;
+}
+.DelTurma i{
+    margin: 10%;
+}

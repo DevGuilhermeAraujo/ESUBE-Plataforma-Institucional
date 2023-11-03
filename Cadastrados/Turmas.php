@@ -41,7 +41,7 @@ $tipoUser = getPermission();
         ?>
             <div class="painel">
                 <div class="conteudo">
-                    <h3><?php echo $descTurma; if($tipoUser == 1){ echo "<a href='../BackEnd/processRemoverTurma.php?remove&id=$idTurma''><button>Remover</button></a>"; } ?> </h3>
+                    <h3><?php echo $descTurma; if($tipoUser == 1){ echo "<a href='../BackEnd/processRemoverTurma.php?remove&id=$idTurma''><button class='DelTurma'><img src='../imgs/iconLixeira.png'><i>Remover</i></button></a>"; } ?> </h3>
                     <p>Total cadastrados: <span><?php echo $quantAlunosTurmas[0][0] ?></span></p>
                 </div>
                 <a href="TurmaAluno.php?id=<?php echo $idTurma ?>" class="ver" name="">Ver</a>

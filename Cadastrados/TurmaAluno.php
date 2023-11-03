@@ -82,10 +82,10 @@ $tipoUser = getPermission();
             $ra = $aluno['ra'];
             $nome = $aluno['nome'];
             // Faça o que for necessário com os dados do aluno
-            echo "<p><span>{$ra}</span><span>{$nome}</span>  </p>";
+            echo "
+            <p><span>{$ra}</span><span>{$nome}</span>  </p>";
         }
         ?>
-
         <div id="modalNotas" class="modal">
             <div class="modalContent">
                 <!-- Conteúdo do modal de lançamento de notas -->
