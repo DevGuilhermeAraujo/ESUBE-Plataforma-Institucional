@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03/11/2023 às 05:53
+-- Tempo de geração: 03/11/2023 às 17:34
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -55,7 +55,8 @@ INSERT INTO `alunos` (`ra`, `id`, `dt_MATRICULA`, `id_turma`) VALUES
 CREATE TABLE `comunicacao` (
   `id` int(9) NOT NULL,
   `descricao` longtext DEFAULT NULL,
-  `id_professor` int(9) DEFAULT NULL
+  `id_professor` int(9) DEFAULT NULL,
+  `titulo` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -134,7 +135,7 @@ CREATE TABLE `notas` (
   `id_aluno` int(9) DEFAULT NULL,
   `id_materia` int(5) DEFAULT NULL,
   `nota` decimal(10,0) NOT NULL,
-  `data_atribuida` date NOT NULL,
+  `data_atribuida` timestamp NOT NULL DEFAULT current_timestamp(),
   `tipo` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
