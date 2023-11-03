@@ -59,11 +59,11 @@ if ($db->errorCode == 0) {
         </select>
 
         <!-- Campos específicos para gerente -->
-        <div id="parteFuncionario" style="display:none">
+        <div class="tipo" id="parteFuncionario" style="display:none">
             <input type="date" name="dtContrato" id="dtContrato">
         </div>
         <!-- Campos específicos para aluno -->
-        <div id="parteAluno" style="display: none">
+        <div class="tipo" id="parteAluno" style="display: none">
             <input type="date" name="dtMatricula" id="dtMatricula">
             <select name="idTurma">
                 <option value="">Selecione a turma</option>
