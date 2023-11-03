@@ -85,7 +85,7 @@ $tipoUser = getPermission();
             ?>
         </div>
         <!-- Ligação Professor Turma -->
-        <h3>Professor/Turma:</h3>
+        <h3>Professor/Turma</h3>
         <div class="dados" style="box-shadow: none;">
             <div class="titulos">
                 <p>
@@ -103,7 +103,7 @@ $tipoUser = getPermission();
                 $nome = $professores['nome'];
                 $turma = $professores['turma'];
                 $id = $professores['id'];
-                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a href='../BackEnd/processVincProf.php?remove&id=$id'><button>Remover</button></a></span></p>";
+                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a href='../BackEnd/processVincProf.php?remove&id=$id'><button><img src='../imgs/iconLixeira.png'><i>Remover</i></button></a></span></p>";
             }
             ?>
         </div>

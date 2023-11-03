@@ -65,6 +65,12 @@ h2{
     float: right;
     font-size: 24px;
 }
-#parteFuncionario{
-    border: 2px solid green;
+.tipo{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.tipo input,select{
+    width: 48%;
+    margin: 0.5%;
 }
