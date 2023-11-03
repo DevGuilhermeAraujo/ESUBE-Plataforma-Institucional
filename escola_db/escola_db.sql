@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/11/2023 às 22:49
+-- Tempo de geração: 03/11/2023 às 05:53
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -43,7 +43,8 @@ CREATE TABLE `alunos` (
 INSERT INTO `alunos` (`ra`, `id`, `dt_MATRICULA`, `id_turma`) VALUES
 (1111115, 1, '2015-02-27', 1),
 (1111116, 2, '2015-02-27', 1),
-(1111117, 3, '2015-02-27', 1);
+(1111117, 3, '2015-02-27', 1),
+(1111118, 4, '2015-02-27', 1);
 
 -- --------------------------------------------------------
 
@@ -255,7 +256,8 @@ INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senh
 (1111114, 'Professor3', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', '$2y$10$E1tmLsTldcL1tMlNg9Zp/.5K6F.RTvVwV58ALS0jxSjidhUm8OFDG', '2023-11-01 21:47:21', 2),
 (1111115, 'Guilherme Araujo', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$pR1a7VLNKBTirO2aHK6mO.ZBYfTR.UNZgLpoMWGFT5s6DHt6BO56O', '2023-11-01 21:47:21', 3),
 (1111116, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$dBAyhTDu8CjWnjAV6qL2P.NFRns0rUysMhNca6uqTKtxQBsxZ6kpe', '2023-11-01 21:47:21', 3),
-(1111117, 'Gabriel', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$DV7G2IgSH8DI0ek.k8w/bOfdHbKjjEDh1hwtfWJopVx5lYAIWd14W', '2023-11-01 21:47:21', 3);
+(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$DV7G2IgSH8DI0ek.k8w/bOfdHbKjjEDh1hwtfWJopVx5lYAIWd14W', '2023-11-01 21:47:21', 3),
+(1111118, 'Alexandre Borges', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$wP3qzeEJaUV5RR/Ryu.vwuDwOeK5B13mk9CQ0cMqoc1Yb8GjNQASS', '2023-11-03 04:50:48', 3);
 
 -- --------------------------------------------------------
 
@@ -395,7 +397,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `alunos`
 --
 ALTER TABLE `alunos`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `comunicacao`
@@ -449,7 +451,7 @@ ALTER TABLE `turmas`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ra` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111118;
+  MODIFY `ra` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111119;
 
 --
 -- Restrições para tabelas despejadas
