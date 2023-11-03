@@ -11,6 +11,8 @@ if ($db->errorCode == 0) {
     $quantAlunos = $result;
     $result = $db->executar("SELECT COUNT(*) FROM turmas;");
     $quantTurmas = $result;
+    $result = $db->executar("SELECT COUNT(*) FROM comunicacao;");
+    $quantComunicacao = $result;
 }
 ?>
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ if ($db->errorCode == 0) {
                 <h3>Enviar mensagem</h3>
 
                 <!--total de mensagens-->
-                <p>Enviadas: <span>x</span></p>
+                <p>Enviadas: <span><?php echo $quantComunicacao[0][0] ?></span></p>
 
 
             </div>
