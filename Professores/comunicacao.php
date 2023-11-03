@@ -5,7 +5,7 @@ requiredLogin(PERMISSION_PROFESSOR);
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
 $raUsuario = getIdRa();
-$result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE u.ra = $raUsuario;");
+$result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE f.ra = $raUsuario;");
 $idUser = $result[0][0];
 ?>
 <!DOCTYPE html>
@@ -20,8 +20,9 @@ $idUser = $result[0][0];
 </head>
 
 <body>
-    <form id="msgs" action="">
-        <input id="txt" type="text" placeholder="Digite sua mensagem">
+    <form id="msgs" method="POST" action="../BackEnd/processComunicacao.php?id=<?php echo $idUser ?>">
+        <input id="txt" type="text" name="titulo" placeholder="Título" >
+        <input id="txt" type="text" name="comunicacao" placeholder="Digite sua mensagem">
         <input id="sub" type="submit" value="Enviar">
     </form>
 </body>
