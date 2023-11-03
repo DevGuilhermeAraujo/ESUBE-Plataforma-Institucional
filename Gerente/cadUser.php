@@ -116,7 +116,7 @@ if ($db->errorCode == 0) {
 
         //Menssagem de falha no Banco 
         if (isset($_GET["ERROR"]) && $_GET["ERROR"] == 10) {
-            msg(MSG_NEGATIVE_BG, "O campo tipo deve ser preenchido!");
+            msg(MSG_NEGATIVE, "O campo tipo deve ser preenchido!");
         }
 
         //Menssagem de erro geral

@@ -96,8 +96,8 @@ $tipoUser = getPermission();
                 </p>
             </div>
             <?php
-                $result = $db->executar("SELECT p.ra AS ra, p.nome AS nome, t.desc_turma AS turma, pt.id as id FROM view_professores as p JOIN professor_turma AS pt ON p.id = pt.id_prof JOIN turmas as t ON pt.id_turma = t.id");
-                $nomeProfessores = $result;
+            $result = $db->executar("SELECT p.ra AS ra, p.nome AS nome, t.desc_turma AS turma, pt.id as id FROM view_professores as p JOIN professor_turma AS pt ON p.id = pt.id_prof JOIN turmas as t ON pt.id_turma = t.id");
+            $nomeProfessores = $result;
             foreach ($nomeProfessores as $professores) {
                 $ra = $professores['ra'];
                 $nome = $professores['nome'];
@@ -108,6 +108,31 @@ $tipoUser = getPermission();
             ?>
         </div>
     </div>
+    <?php
+        //Menssagem de sucesso de cadastro
+        if (isset($_GET["Sucess"])) {
+            switch ($_GET["Sucess"]) {
+                case 1:
+                    //Menssagem de sucesso de cadastro de turma
+                    msg(MSG_POSITIVE_BG, "Professor desvinculado com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
+                    break;
+                default:
+                    msg(MSG_POSITIVE_BG, "Operação concluida com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
+            }
+        }
+
+        if (isset($_GET["ERROR"])) {
+            switch ($_GET["ERROR"]) {
+                case 1:
+                    //Menssagem de falha no Banco
+                    msg(MSG_NEGATIVE_BG, "Falha ao desvincular professor. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.",null,"bottom: 4%; position: fixed;", "msg3", 4000);
+                    break;
+                default:
+                    //Menssagem de erro geral
+                    msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.", null, "bottom: 4%; position: fixed;", "msg3", 4000);
+            }
+        }
+        ?>
 </body>
 
 </html>

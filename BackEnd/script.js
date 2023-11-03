@@ -116,3 +116,20 @@ function validarTipo() {
         $("#tipo").change();
     });
 }
+
+//Animação de desaparecer menssagem na tela
+async function hideMsg(_timer,_idObject){
+    //await new Promise(r => setTimeout(r, 5000));
+    //Pegar objeto por id
+    obj = document.getElementById(_idObject);
+    if(obj == null)
+        //Se for null; O PHP já manda o objeto inteiro.
+        obj = _idObject;
+    //Aguarda o tempo determinado
+    await new Promise(r => setTimeout(r, _timer));
+    //Chama a animação de desaparecer
+    obj.classList.toggle("msgHide");
+    //Aguarda o tempo de 1s da animação CSS para remover o elemento do HTML
+    await new Promise(r => setTimeout(r, 1000));
+    obj.remove();
+}

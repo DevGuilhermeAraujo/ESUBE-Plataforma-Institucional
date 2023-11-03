@@ -50,9 +50,9 @@ if(!isset($_GET["remove"])){
     $db->executar("DELETE FROM professor_turma WHERE id = '$id';");
     $db = $db->executar("SELECT id FROM professor_turma WHERE id = '$id'",true);
     if($db->rowCount() == 0){
-        header("Location: ../Gerente/vincProf.php?Sucess=2");
+        header("Location: ../Gerente/vincProf.php?Sucess=1");
     }else{
-        header("Location: ../Gerente/vincProf.php?ERRO=21");
+        header("Location: ../Gerente/vincProf.php?ERROR=1");
     }
 }
 ?>

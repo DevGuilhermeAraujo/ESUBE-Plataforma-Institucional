@@ -162,6 +162,7 @@ iframe{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 1s linear;
 }
 .msgN{
     width: 80%;
@@ -172,6 +173,7 @@ iframe{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 1s linear;
 }
 .msgV-bg{
     width: 80%;
@@ -184,6 +186,7 @@ iframe{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 1s linear;
 }
 .msgN-bg{
     width: 80%;
@@ -196,6 +199,10 @@ iframe{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 1s linear;
+}
+.msgHide{
+    opacity: 0;
 }
 .fm h3{
     margin-left: 20%;

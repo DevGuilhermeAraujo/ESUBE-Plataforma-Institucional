@@ -95,7 +95,7 @@ const MSG_NEGATIVE = 2;
 const MSG_POSITIVE_BG = 3;
 const MSG_NEGATIVE_BG = 4;
 
-function msg(int $type, string $message, ?string $class = "", ?string $style = "", ?string $id = "")
+function msg(int $type, string $message, ?string $class = "", ?string $style = "", ?string $id = "", ?int $hideTimer = 0)
 {
     switch ($type) {
         case 1:
@@ -107,14 +107,24 @@ function msg(int $type, string $message, ?string $class = "", ?string $style = "
             echo '<span id="' . $id . '" class="msgN ' . $class . '" style="' . $style . '">' . $message . '</span>';
             break;
         case 3:
-            //Menssagem negativa
+            //Menssagem positiva com background
             echo '<span id="' . $id . '" class="msgV-bg ' . $class . '" style="' . $style . '">' . $message . '</span>';
             break;
         case 4:
-            //Menssagem negativa
+            //Menssagem negativa com background
             echo '<span id="' . $id . '" class="msgN-bg ' . $class . '" style="' . $style . '">' . $message . '</span>';
             break;
         default:
             throw new Exception('Entrada invalida na função msg().');
     }
+
+    if(!$hideTimer == 0){
+        //Se a menssagem vai desaparecer
+        //Tenta inserir o javascript caso não esteja na pagina (melhorar depois)
+        echo '<script src="../BackEnd/script.js"></script>';
+        //Chamar o metodo javascript para interação no lado cliente
+        echo "<script>hideMsg($hideTimer,$id);</script>";
+    }
+
+    //echo '<script src="../BackEnd/script.js"></script>';
 }
