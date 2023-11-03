@@ -19,7 +19,21 @@ $idUser = $result[0][0];
     <link rel="stylesheet" href="cadastros.css">
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            border: 1px solid #000;
+            position: relative;
+            border-radius: 50px;
+        }
 
+        .progress {
+            height: 100%;
+            width: <?php echo $frequencia?>; 
+            background-color: green;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,7 +61,11 @@ $idUser = $result[0][0];
                     <h3><?php echo $nomeMateria ?> </h3>
                     <!--nota do aluno-->
                     <p>Nota: <span><?php echo $notas ?></span></p>
-                    <p>Frequência: <span><?php echo $frequencia ?>%</span></p>
+                    <p>Frequência: <span id="barraFrequencia"><?php echo $frequencia ?></span><span>
+                            <div class="progress-bar">
+                                <div class="progress"></div>  
+                            </div>
+                        </span> </p>
                 </div>
                 <a href="infoMaterias.php?id=<?php echo $idMateria ?>" class="ver" name="">Ver</a>
             </div>
@@ -55,6 +73,19 @@ $idUser = $result[0][0];
         }
         ?>
     </div>
+    <script>
+        // Obtenha o valor da frequência do elemento com o ID "barraFrequencia"
+        let frequencia = parseInt(document.getElementById("barraFrequencia").textContent);
+
+        // Se o valor da frequência for menor que 50%, mude a cor para vermelho
+        if (frequencia <30) {
+            document.querySelector(".progress").style.backgroundColor = "red";
+        } else if(frequencia >= 30 && frequencia <= 70){
+            document.querySelector(".progress").style.backgroundColor = "yellow";
+        }
+        // Defina a largura da barra de progresso com base na frequência
+        document.querySelector(".progress").style.width = frequencia + "%";
+    </script>
 </body>
 
 </html>
