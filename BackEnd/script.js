@@ -118,7 +118,7 @@ function validarTipo() {
 }
 
 //Animação de desaparecer menssagem na tela
-async function hideMsg(_timer, _idObject) {
+async function deleteMsg(_timer, _idObject) {
     //await new Promise(r => setTimeout(r, 5000));
     //Pegar objeto por id
     obj = document.getElementById(_idObject);
@@ -132,4 +132,165 @@ async function hideMsg(_timer, _idObject) {
     //Aguarda o tempo de 1s da animação CSS para remover o elemento do HTML
     await new Promise(r => setTimeout(r, 1000));
     obj.remove();
+        
+}
+
+function filterText(text = "", array, caseSensitive = false){
+    var result = [];
+    array.forEach(e => {
+        if(((caseSensitive)?e:e.toUpperCase()).indexOf((caseSensitive)?text:text.toUpperCase()) != -1)
+            result.push(e);   
+    });
+    return result;
+}
+
+function setFilterInnerHTML(array, idObj, estructureInit, estrctureFinal){
+    var obj = document.getElementById(idObj);
+    obj.innerText = "";
+    array.forEach(e => {
+        obj.innerHTML = obj.innerHTML+estructureInit+e+estrctureFinal;
+    });
+}
+
+async function hideObj(idObj, _animation = false ,_timer = 0){
+    //await new Promise(r => setTimeout(r, 5000));
+    //Pegar objeto por id
+    obj = document.getElementById(idObj);
+    if (obj == null)
+        //Se for null; O PHP já manda o objeto inteiro.
+        obj = _idObject;
+    //Aguarda o tempo determinado
+    await new Promise(r => setTimeout(r, _timer));
+    if(_animation){
+        //Chama a animação de desaparecer
+        obj.classList.toggle("msgHide");
+        //Aguarda o tempo de 1s da animação CSS para remover o elemento do HTML
+        await new Promise(r => setTimeout(r, 1000));
+    }
+    //Oculta o objeto de desaparecer
+    var txt = "";
+    txt = obj.getAttribute('class');
+    if(txt.indexOf("hideObj") === -1)
+        obj.classList.toggle("hideObj");
+}
+function viewObj(idObj){
+    obj = document.getElementById(idObj);
+    if (obj == null)
+        //Se for null; O PHP já manda o objeto inteiro.
+        obj = _idObject;
+    var txt = "";
+    txt = obj.getAttribute('class');
+    if(txt.indexOf("hideObj") != -1)
+        obj.classList.toggle("hideObj");
+}
+/*onload = function(){
+    msg = new MsgBox();
+    msg.idName = "msg11";
+    msg.title = "MenssageBox"
+    msg.message = "sdjsidjsijfijs~dkfoeefsdkpdskoefis~kodkfseirfposkçd~kfõpsfodjfsok~dpaoeeufpodj~sçkpekfe9fuo";
+    msg.btnOKName = "testebtnOK";
+    msg.btnOKHref = "#";
+    msg.btnCancelName = "teste"
+    //msg.btnOKAction = "alert('aaa');"
+    msg.type = msg.TYPE_TEXT;
+    msg.show();
+}*/
+//Caixas de menssagens (modal)
+class MsgBox{
+    constructor(){
+        
+    }
+    
+    
+    //Tipos de Entrada/Saida
+    TYPE_TEXT = "../BackEnd/test.html";
+    TYPE_INPUT = ()=>{return this.#request()};
+    TYPE_HTML = (URL)=>{this.#externalURL = true; return URL};
+    TYPE_IFRAME = "";
+
+
+    idName = null;
+    message = null;
+    title = "";
+    type = null;
+    
+    #HTML = null;
+    #externalURL = false;
+    #iframeURL = null;
+    //BtnOK
+    btnOKName = null;
+    btnOKHref = null;
+    btnOKAction = null;
+    //BtnCancel
+    btnCancelName = null;
+    btnCancelHref = null;
+    btnCancelAction = null;
+    
+    show(){
+        if(this.idName != null && this.message != null){
+            this.#request()
+            //this.#inject()
+        }else
+            throw "Menssagem incompleta.";
+    }
+
+    async #request(){
+        var url = this.type;
+        var head = this.#externalURL;
+        var compile = "";
+        var http = new XMLHttpRequest(); // cria o objeto XHR
+        http.open("GET", url); // requisita a página .html
+        http.send();
+        http.onreadystatechange=function(){
+            if(http.readyState == 4){ // retorno do Ajax
+                var body = document.querySelectorAll("body"); // seleciona os <body>
+                
+                if(!head)
+                    compile = http.responseText.replace(/<html[\s\S]*?>([\s\S]*?)<body>/, "").replace(/<\/body>([\s\S]*?)<\/html>/, "").replace("<!DOCTYPE html>","");
+                else
+                    compile = http.responseText.replace(/<html[\s\S]*?>([\s\S]*?)/, "").replace(/(<\/body>)([\s\S]*?)<\/html>/, "</body>").replace("<!DOCTYPE html>","");                
+            }
+        }
+        await new Promise(r => setTimeout(r, 200));
+        this.#HTML = compile;
+
+        this.#inject();
+    }
+
+    #inject(){
+        var idName = this.idName;
+        //Injetar
+        var body = document.querySelectorAll("body");
+        var msgDiv = `<div id='${idName}'>${this.#HTML}</div>`;
+        body[0].innerHTML = body[0].innerHTML + msgDiv;
+
+        //Configurar
+        //Texto
+        obj = document.getElementById(idName).getElementsByClassName('msgTitle');
+        obj[0].innerHTML = this.title;
+        obj = document.getElementById(idName).getElementsByClassName('msgMenssage');
+        obj[0].innerHTML = this.message;
+
+        //Botões
+        if(this.btnOKName != null)
+            for(var i = 0, obj = document.getElementById(idName).getElementsByClassName('msgOkButton'); i < obj.length; i++){
+                obj[i].setAttribute('id',idName+'_btnOk'+i);
+                obj[i].getElementsByTagName('button').innerHTML = this.btnOKName;
+                if(this.btnOKHref != null)
+                    obj[i].setAttribute('href',this.btnOKHref);
+                else
+                    document.getElementById(idName+'_btnOk'+i).remove();
+               obj[i].setAttribute('onclick',"hideMsg(0,'"+idName+"'), " + this.btnOKAction);
+            }
+        if(this.btnCancelName != null)
+            for(var i = 0, obj = document.getElementById(idName).getElementsByClassName('msgCancelButton'); i < obj.length; i++){
+                obj[i].setAttribute('id',idName+'_btnCancel'+i);
+                obj[i].getElementsByTagName('button').innerHTML = this.btnCancelName;
+                if(this.btnCancelHref != null)
+                    obj[i].setAttribute('href',this.btnCancelHref);
+                else
+                    document.getElementById(idName+'_btnCancel'+i).remove();
+                    obj[i].setAttribute('onclick',"hideMsg(0,'"+idName+"'), " + this.btnCancelAction);
+            }
+    }
 }

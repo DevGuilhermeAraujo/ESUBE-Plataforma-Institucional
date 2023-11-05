@@ -88,11 +88,17 @@ function getNome()
 function getPermission()
 {
     //return $_SESSION[SESSION_USER_IDPERMISSION];
-    $db = new Conexao();
-    return $db->executar("SELECT tipo FROM usuarios WHERE ra = '".$_SESSION[SESSION_USER_RA_ID]."'")[0][0];
+    try{
+        $db = new Conexao();
+        return $db->executar("SELECT tipo FROM usuarios WHERE ra = '".$_SESSION[SESSION_USER_RA_ID]."'")[0][0];
+    }catch(Exception $e){
+        logout();
+        header("Location: ../Login/pagLogin.php?ERROR=3");
+    }
 }
 
 
+//Menssagem Pop-up com/sem background
 const MSG_POSITIVE = 1;
 const MSG_NEGATIVE = 2;
 const MSG_POSITIVE_BG = 3;
@@ -132,6 +138,6 @@ function msg(int $type, string $message, ?string $class = "", ?string $style = "
             echo '<script src="'.$importJsUri.'"></script>';
         }
         //Chamar o metodo javascript para interação no lado cliente
-        echo "<script>hideMsg($hideTimer,$id);</script>";
+        echo "<script>deleteMsg($hideTimer,$id);</script>";
     }
 }

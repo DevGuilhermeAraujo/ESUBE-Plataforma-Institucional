@@ -1,7 +1,7 @@
 <?php
 //Deve estar presente em todas as paginas
 include_once '../BackEnd/sessao.php';
-requiredLogin();
+requiredLogin(PERMISSION_GERENTE);
 
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
@@ -10,6 +10,7 @@ $result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u O
 $idUser = $result[0][0];
 $tipoUser = getPermission();
 
+//Carregar 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -20,15 +21,53 @@ $tipoUser = getPermission();
     <title>Professores</title>
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../Cadastrados/tabelas.css">
+    <script src="../BackEnd/script.js"></script>
 </head>
+<script>
+    //Variaveis e metodos exclusivas dessa pagina
+    var dbRaProf = [];
+    var dbNomesProf = [];
+    var estructureInitFilterNome = `<p style='margin: 0px 10px 0px 23px; width: 91%;' onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersNome');"><span style="text-align: left;">`;
+    var estrctureFinalFilterNome = "</span></p>";
+    var estructureInitFilterRA = `<p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('raProf').value = this.children[0].innerText; hideObj('filtersRa');"><span style="text-align: left;">`;
+    var estrctureFinalFilterRA = "</span></p>";
+    async function hidePopUpsObj() {
+        await hideObj('filtersNome');
+        await hideObj('filtersRa');
+    }
+</script>
+<?php
+$dataRa = '';
+$dataNome = '';
+$result = $db->executar("SELECT ra, nome FROM view_professores");
+foreach ($result as $i) {
+    $dataRa .= '"' . $i['ra'] . '",';
+    $dataNome .= '"' . $i['nome'] . '",';
+};
+$dataRa = substr($dataRa, 0, strlen($dataRa) - 1);
+$dataNome = substr($dataNome, 0, strlen($dataNome) - 1);
+echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
+?>
 
-<body>
+<body onclick="hidePopUpsObj();">
     <div id="exib">
         <form method="POST" action="" class="Vincula">
-            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor">
+            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor" oninput="setFilterInnerHTML(filterText(this.value,dbNomesProf),'filtersNome',estructureInitFilterNome,estrctureFinalFilterNome); viewObj('filtersNome'); if(this.value == '')hideObj('filtersNome');">
         </form>
+        <!-- Filtro suspenso -->
+        <div id="filtersNome" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: -2vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersNome');">
+            <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersNome');">
+                <span style="text-align: left;">exemple</span>
+            </p>
+        </div>
         <form method="POST" action="../BackEnd/processVincProf.php" class="Vincula">
-            <input type="text" name="raProf" placeholder="RA">
+            <input type="text" name="raProf" id="raProf" placeholder="RA" oninput="setFilterInnerHTML(filterText(this.value,dbRaProf),'filtersRa',estructureInitFilterRA,estrctureFinalFilterRA); viewObj('filtersRa'); if(this.value == '')hideObj('filtersRa');">
+            <!-- Filtro suspenso -->
+            <div id="filtersRa" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: 11vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersRa');">
+                <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersRa');">
+                    <span style="text-align: left;">exemple</span>
+                </p>
+            </div>
             <select name='materias' style='border: 1px solid black; width: 150px;'>
                 <option value="">Matérias </option>
                 <?php
@@ -53,6 +92,7 @@ $tipoUser = getPermission();
             </select>
             <input type="submit" name="submit" id="submit" class="btnVinc" value="Vincular">
         </form>
+        <!-- Listagem de professores -->
         <div class="dados" style="box-shadow: none;">
             <div class="titulos">
                 <p>
@@ -83,7 +123,7 @@ $tipoUser = getPermission();
                 echo "<p><span>{$ra}</span><span>{$nome}</span></p>";
             }
             ?>
-        </div>
+        </div> 
         <!-- Ligação Professor Turma -->
         <h3>Professor/Turma</h3>
         <div class="dados" style="box-shadow: none;">
@@ -109,30 +149,30 @@ $tipoUser = getPermission();
         </div>
     </div>
     <?php
-        //Menssagem de sucesso de cadastro
-        if (isset($_GET["Sucess"])) {
-            switch ($_GET["Sucess"]) {
-                case 1:
-                    //Menssagem de sucesso de cadastro de turma
-                    msg(MSG_POSITIVE_BG, "Professor desvinculado com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
-                    break;
-                default:
-                    msg(MSG_POSITIVE_BG, "Operação concluida com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
-            }
+    //Menssagem de sucesso de cadastro
+    if (isset($_GET["Sucess"])) {
+        switch ($_GET["Sucess"]) {
+            case 1:
+                //Menssagem de sucesso de cadastro de turma
+                msg(MSG_POSITIVE_BG, "Professor desvinculado com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
+                break;
+            default:
+                msg(MSG_POSITIVE_BG, "Operação concluida com sucesso!", null, "bottom: 4%; position: fixed;", "msg2", 4000);
         }
+    }
 
-        if (isset($_GET["ERROR"])) {
-            switch ($_GET["ERROR"]) {
-                case 1:
-                    //Menssagem de falha no Banco
-                    msg(MSG_NEGATIVE_BG, "Falha ao desvincular professor. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.",null,"bottom: 4%; position: fixed;", "msg3", 4000);
-                    break;
-                default:
-                    //Menssagem de erro geral
-                    msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.", null, "bottom: 4%; position: fixed;", "msg3", 4000);
-            }
+    if (isset($_GET["ERROR"])) {
+        switch ($_GET["ERROR"]) {
+            case 1:
+                //Menssagem de falha no Banco
+                msg(MSG_NEGATIVE_BG, "Falha ao desvincular professor. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.", null, "bottom: 4%; position: fixed;", "msg3", 4000);
+                break;
+            default:
+                //Menssagem de erro geral
+                msg(MSG_NEGATIVE_BG, "Erro desconhecido, por favor entre em contato com o adminstrador do sistema.", null, "bottom: 4%; position: fixed;", "msg3", 4000);
         }
-        ?>
+    }
+    ?>
 </body>
 
 </html>
