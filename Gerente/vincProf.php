@@ -27,14 +27,32 @@ $tipoUser = getPermission();
     //Variaveis e metodos exclusivas dessa pagina
     var dbRaProf = [];
     var dbNomesProf = [];
-    var estructureInitFilterNome = `<p style='margin: 0px 10px 0px 23px; width: 91%;' onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersNome');"><span style="text-align: left;">`;
+    var estructureInitFilterNome = `<p style='margin: 0px 10px 0px 23px; width: 91%;' onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersNome'); document.getElementById('raProf').value = dbRaProf[dbNomesProf.indexOf(this.children[0].innerText)];"><span style="text-align: left;">`;
     var estrctureFinalFilterNome = "</span></p>";
-    var estructureInitFilterRA = `<p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('raProf').value = this.children[0].innerText; hideObj('filtersRa');"><span style="text-align: left;">`;
+    var estructureInitFilterRA = `<p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('raProf').value = this.children[0].innerText; hideObj('filtersRa'); document.getElementById('filtroNome').value = dbNomesProf[dbRaProf.indexOf(this.children[0].innerText)];"><span style="text-align: left;">`;
     var estrctureFinalFilterRA = "</span></p>";
     async function hidePopUpsObj() {
         await hideObj('filtersNome');
         await hideObj('filtersRa');
     }
+    window.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            var fn = document.getElementById("filtersNome");
+            var fr = document.getElementById("filtersRa");
+            var tn = document.getElementById("filtroNome");
+            var tr = document.getElementById("raProf");
+            if (tn.value != "")
+                if (fn.getAttribute("Class").indexOf("hideObj") === -1)
+                    fn.children[0].click();
+            if (tr.value != "")
+                if (fr.getAttribute("Class").indexOf("hideObj") === -1)
+                    fr.children[0].click();
+        }
+    });
 </script>
 <?php
 $dataRa = '';
@@ -51,20 +69,20 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
 
 <body onclick="hidePopUpsObj();">
     <div id="exib">
-        <form method="POST" action="" class="Vincula">
-            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor" oninput="setFilterInnerHTML(filterText(this.value,dbNomesProf),'filtersNome',estructureInitFilterNome,estrctureFinalFilterNome); viewObj('filtersNome'); if(this.value == '')hideObj('filtersNome');">
+        <form method="POST" action="" class="Vincula" autocomplete="off">
+            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor" autocomplete="off" oninput="setFilterInnerHTML(filterText(this.value,dbNomesProf),'filtersNome',estructureInitFilterNome,estrctureFinalFilterNome); viewObj('filtersNome'); if(this.value == '')hideObj('filtersNome');">
         </form>
         <!-- Filtro suspenso -->
         <div id="filtersNome" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: -2vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersNome');">
-            <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersNome');">
+            <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersNome'); document.getElementById('raProf').value = dbRaProf[dbNomesProf.indexOf(this.children[0].innerText)];">
                 <span style="text-align: left;">exemple</span>
             </p>
         </div>
-        <form method="POST" action="../BackEnd/processVincProf.php" class="Vincula">
-            <input type="text" name="raProf" id="raProf" placeholder="RA" oninput="setFilterInnerHTML(filterText(this.value,dbRaProf),'filtersRa',estructureInitFilterRA,estrctureFinalFilterRA); viewObj('filtersRa'); if(this.value == '')hideObj('filtersRa');">
+        <form method="POST" action="../BackEnd/processVincProf.php" class="Vincula" autocomplete="off">
+            <input type="text" name="raProf" id="raProf" placeholder="RA" autocomplete="off" oninput="setFilterInnerHTML(filterText(this.value,dbRaProf),'filtersRa',estructureInitFilterRA,estrctureFinalFilterRA); viewObj('filtersRa'); if(this.value == '')hideObj('filtersRa');">
             <!-- Filtro suspenso -->
-            <div id="filtersRa" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: 11vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersRa');">
-                <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('filtroNome').value = this.children[0].innerText; hideObj('filtersRa');">
+            <div id="filtersRa" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: 9.4vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersRa');">
+                <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('raProf').value = this.children[0].innerText; hideObj('filtersRa'); document.getElementById('filtroNome').value = dbNomesProf[dbRaProf.indexOf(this.children[0].innerText)];">
                     <span style="text-align: left;">exemple</span>
                 </p>
             </div>
@@ -92,7 +110,7 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
             </select>
             <input type="submit" name="submit" id="submit" class="btnVinc" value="Vincular">
         </form>
-        <!-- Listagem de professores -->
+        <!-- Listagem de professores
         <div class="dados" style="box-shadow: none;">
             <div class="titulos">
                 <p>
@@ -123,7 +141,8 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
                 echo "<p><span>{$ra}</span><span>{$nome}</span></p>";
             }
             ?>
-        </div> 
+        </div>
+        -->
         <!-- Ligação Professor Turma -->
         <h3>Professor/Turma</h3>
         <div class="dados" style="box-shadow: none;">
