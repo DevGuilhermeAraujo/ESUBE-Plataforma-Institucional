@@ -183,23 +183,40 @@ function viewObj(idObj){
     if(txt.indexOf("hideObj") != -1)
         obj.classList.toggle("hideObj");
 }
-/*onload = function(){
-    msg = new MsgBox();
-    msg.idName = "msg11";
-    msg.title = "MenssageBox"
-    msg.message = "Menssagem de Teste"
-    msg.btnOKName = "Sim";
-    msg.btnCancelName = "Não";
-    //msg.btnOKAction = "alert('aaa');"
-    msg.SET_TYPE_INPUT();
-    msg.show();
-}*/
+async function ExempleMenssageBox(){
+    //Primeira forma de usar
+    msg1 = new MsgBox();
+    msg1.idName = "msg11";
+    msg1.title = "MenssageBox Titulo"
+    msg1.message = "Menssagem Aqui"
+    msg1.inputMenssage = "Digite:"
+    msg1.onCloseAction = "ExempleMenssageBoxTerminou();"
+    msg1.btnOKName = "OK";
+    msg1.btnCancelName = "Cancel";
+    msg1.SET_TYPE_INPUT();
+    msg1.show();
+
+    //Segunda forma de usar
+    msg2 = new MsgBox();
+    msg2.showInLine("msg12", msg2.SET_TYPE_TEXT,"menssagemTeste","Titulo",true); //Permite todos os parâmetros disponiveis também. Todos os parâmetros são opcionais, exceto o idName e Type.
+}
+
+function ExempleMenssageBoxTerminou(){
+    this.alert("BtnClick: "+msg1.returnBtnClicked);
+    this.alert("CloseClick: "+msg1.returnbtnClosedClicked);
+    this.alert("RetrunInput: "+msg1.returnInput);
+    msg1.destroy();
+    msg2.abrir();
+}
 //Caixas de menssagens (modal)
 class MsgBox{
     constructor(){
-        
+
     }
-    
+    //Constantes
+    static BTN_OK = 1;
+    static BTN_Cancel = 2;
+    static BTN_Fechar = 3;
     
     //Tipos de Entrada/Saida
     SET_TYPE_TEXT = ()=>{this.#input = false; this.type = "../msg/msg.html"};;
@@ -211,46 +228,73 @@ class MsgBox{
     message = null;
     inputMenssage = null;
     inputPlaceholder = null;
+    inputPassword = false;
     title = null;
     type = null;
+    autoDestroy = false;
     
     #HTML = null;
     #input = false;
     //BtnOK
     btnOKName = null;
     btnOKHref = null;
-    btnOKAction = null;
+    btnOKAction = "null;";
     //BtnCancel
     btnCancelName = null;
     btnCancelHref = null;
-    btnCancelAction = null;
+    btnCancelAction = "null;";
+    //btnFechar
+    btnFecharView = true;
+    onCloseAction = null;
 
     //Javascript Carregado
     JS = null;
+
+    //Retorno
+    returnBtnClicked = null;
+    returnbtnClosedClicked = false;
+    returnInput = null;
 
     reset(){
         this.idName = null;
         this.message = null;
         this.inputMenssage = null;
         this.inputPlaceholder = null;
+        this.inputPassword = false;
         this.title = null;
         this.type = null;
+        this.autoDestroy = false;
     
         this.#HTML = null;
         this.#input = false;
+        
         //BtnOK
         this.btnOKName = null;
         this.btnOKHref = null;
-        this.btnOKAction = null;
+        this.btnOKAction = "null;";
         //BtnCancel
         this.btnCancelName = null;
         this.btnCancelHref = null;
-        this.btnCancelAction = null;
+        this.btnCancelAction = "null;";
+        //btnFechar
+        this.btnFecharView = true;
+        this.onCloseAction = null;
+
+        //Javascript Carregado
+        this.JS = null;
+        this.#resetReturns();
+    }
+
+    #resetReturns(){
+        this.returnBtnClicked = null;
+        this.returnbtnClosedClicked = false;
+        this.returnInput = null;
     }
 
     async show(){
+        this.#resetReturns();
         //if(this.idName != null && this.message != null){ //Testando...
-        if(true){
+        if(this.idName != null && this.type != null){
             await this.#request();
             await this.#inject();
             var i = 0;
@@ -265,6 +309,66 @@ class MsgBox{
             }
         }else
             throw "Menssagem incompleta.";
+    }
+
+    showInLine(_idName= null, 
+        _type = null, 
+        _menssagem = null, 
+        _title = null, 
+        _autoDestroy = false,
+        _inputMenssage = null, 
+        _inputPlaceholder = null, 
+        _inputPassword = false, 
+        _btnOkName = null,
+        _btnOkHref = null,
+        _btnOkAction = "null;", 
+        _btnCancelName = null, 
+        _btnCancelHref = null, 
+        _btnCancelAction = "null;", 
+        _onCloseAction = null,
+        _btnFecharView = true){
+        if(_idName == null || _type == null){
+            throw "Menssagem incompleta.";
+        }
+        this.reset();
+        this.idName = _idName;
+        this.message = _menssagem;
+        this.inputMenssage = _inputMenssage;
+        this.inputPlaceholder = _inputPlaceholder;
+        this.inputPassword = _inputPassword;
+        this.title = _title;
+        try{
+            _type();
+        }catch{
+            throw "Prorpriedade inválida.";
+        }
+        this.autoDestroy = _autoDestroy;
+        //BtnOK
+        this.btnOKName = _btnOkName;
+        this.btnOKHref = _btnOkHref;
+        this.btnOKAction = _btnOkAction;
+        //BtnCancel
+        this.btnCancelName = _btnCancelName;
+        this.btnCancelHref = _btnCancelHref;
+        this.btnCancelAction = _btnCancelAction;
+        //btnFechar
+        this.btnFecharView = _btnFecharView;
+        this.onCloseAction = _onCloseAction;
+        this.show();
+    }
+
+    abrir(){
+        this.JS.abrir();
+    }
+
+    fechar(){
+        this.JS.fechar();
+    }
+
+    destroy(){
+        document.getElementById(this.idName).remove();
+        window[this.idName] = null;
+        this.reset();
     }
 
     async #request(url = this.type){
@@ -296,32 +400,63 @@ class MsgBox{
         var msgDiv = `<div id='${idName}'>${this.#HTML}</div>`;
         body[0].innerHTML = body[0].innerHTML + msgDiv;
 
+        //Objetos
+        var objScript = document.getElementById(idName).getElementsByTagName("script");;
+        var objTitle = document.getElementById(idName).getElementsByClassName('msgTitle');
+        var objMenssage = document.getElementById(idName).getElementsByClassName('msgMenssage');
+        var objBtnOk = document.getElementById(idName).getElementsByClassName('msgOkButton');
+        var objBtnCancel = document.getElementById(idName).getElementsByClassName('msgCancelButton');
+        var objBtnFecar = document.getElementById(idName).getElementsByClassName('fechar')[0];
+        var objInput = document.getElementById(idName).getElementsByClassName("msgInput")[0];
+
         //Configurar
+        if(this.autoDestroy)
+            this.onCloseAction = idName+".destroy();" + this.onCloseAction;
+
         //Imports javascripts
-        var obj = document.getElementById(idName).getElementsByTagName("script");
+        var obj = objScript;
         for(var i = 0; i < obj.length; i++){
             this.#importJs(obj[i].getAttribute("src"));
         }
 
         //Texto
-        obj = document.getElementById(idName).getElementsByClassName('msgTitle');
+        obj = objTitle;
         if(this.title != null)
             obj[0].innerHTML = this.title;
         else
             obj[0].remove();
 
-        obj = document.getElementById(idName).getElementsByClassName('msgMenssage');
+        obj = objMenssage;
         if(this.message != null)
             obj[0].innerHTML = this.message;
         else
             obj[0].remove();
 
+        //Input
+        if(this.#input){
+            obj = objInput.getElementsByTagName("input")[0];
+            obj.setAttribute('id',idName+'_input');
+            if(this.inputPlaceholder != null)
+                obj.setAttribute('placeholder',this.inputPlaceholder);
+            
+            if(this.inputPassword)
+                obj.setAttribute('type',"password");
+            
+            obj = objInput.getElementsByTagName("p")[0]
+            if(this.inputMenssage != null)
+                obj.innerHTML = this.inputMenssage;
+            else
+                obj.remove();
+        }else{
+            obj = objInput;
+            obj.remove();
+        }
+
         //Botões
         //OK
-        if(this.btnOKName != null)
-            for(var i = 0, obj = document.getElementById(idName).getElementsByClassName('msgOkButton'); i < obj.length; i++){
+        for(var i = 0, obj = objBtnOk; i < obj.length; i++){
                 obj[i].setAttribute('id',idName+'_btnOk'+i);
-                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + this.btnOKAction);
+                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_OK + "; ") + ((this.#input)?(idName+".returnInput = MsgBox.getInputReturn('"+idName+"', '"+objInput.className+"'); "):"") + this.btnOKAction + this.onCloseAction);
                 obj[i].innerHTML = this.btnOKName;
                 if(this.btnOKName != null)
                     obj[i].setAttribute('href',this.btnOKHref);
@@ -329,38 +464,21 @@ class MsgBox{
                     obj[i].remove();
             }
         //Cancel
-        if(this.btnCancelName != null)
-            for(var i = 0, obj = document.getElementById(idName).getElementsByClassName('msgCancelButton'); i < obj.length; i++){
+        for(var i = 0, obj = objBtnCancel;  i < obj.length; i++){
                 obj[i].setAttribute('id',idName+'_btnCancel'+i);
-                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + this.btnCancelAction);
+                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_Cancel + "; ") + this.btnCancelAction + this.onCloseAction);
                 obj[i].innerHTML = this.btnCancelName;
                 if(this.btnCancelName != null)
                     obj[i].setAttribute('href',this.btnCancelHref);
                 else
                     obj[i].remove();
             }
-
-        //Input
-        if(this.#input){
-            obj = document.getElementById(idName).getElementsByClassName("msgInput")[0].getElementsByTagName("input")[0];
-            obj.setAttribute('id',idName+'_btnCancel');
-            if(this.inputPlaceholder != null)
-                obj.setAttribute('placeholder',this.inputPlaceholder);
-            
-            obj = document.getElementById(idName).getElementsByClassName("msgInput")[0].getElementsByTagName("p")[0]
-            if(this.inputMenssage != null)
-                obj.innerHTML = this.inputMenssage;
-            else
-                obj.remove();
-        }else{
-            obj = document.getElementById(idName).getElementsByClassName("msgInput")[0];
-            obj.remove();
-        }
-        //Return
-        obj = document.getElementById(idName).getElementsByTagName("returnBtn")[0];
-        obj.setAttribute('id',idName+'_btnCancel');
-        obj = document.getElementById(idName).getElementsByTagName("returnInput")[0];
-        obj.setAttribute('id',idName+'_btnCancel');
+        //Fechar
+            obj = objBtnFecar;
+            obj.setAttribute('id',idName+'_btnFechar'+i);
+            obj.setAttribute('onclick',idName+".JS.fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_Fechar + "; ") + (idName+".returnbtnClosedClicked = " + true + "; ") + this.btnCancelAction + this.onCloseAction);
+            if(!this.btnFecharView)
+                    obj.remove();
     }
 
     async #importJs(src){
@@ -371,4 +489,6 @@ class MsgBox{
         this.JS = await import(src);
         window[id] = this;
     }
+
+    static getInputReturn(id, nClass){return document.getElementById(id).getElementsByClassName(nClass)[0].getElementsByTagName("input")[0].value;}
 }
