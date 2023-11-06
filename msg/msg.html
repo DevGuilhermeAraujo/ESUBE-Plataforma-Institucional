@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="msg.css">
+    <link rel="stylesheet" href="../msg/msg.css">
 </head>
 <body>
-    <div onclick="abrir()" class="btn">OK</div>
+    <!-- Apenas para teste, deve comentar a linha de export do javascript pra funcionar na pagina original-->
+    <!-- <div onclick="abrir()" class="btn">OK</div> -->
 
-    
     <div class="janela-modal" id="janela-modal">
         <div class="modal">
             <button class="fechar" id="fechar">X</button>
-            <h1>Texto</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, eaque sed deleniti voluptas porro aut quam eveniet animi nihil recusandae mollitia sit, ea pariatur blanditiis et. Autem quia quidem maiores.</p>
-            Digite aqui: <input type="text">
+            <h1 class="msgTitle">Texto</h1>
+            <p class="msgMenssage">Lorem ipsum dolor sit amet consectetur adipisicing elit. At, eaque sed deleniti voluptas porro aut quam eveniet animi nihil recusandae mollitia sit, ea pariatur blanditiis et. Autem quia quidem maiores.</p>
+            <div class="msgInput"><P>Digite aqui:</P><input type="text"></div>
             <div>
-            <button id="btnOk"> ok</button>
-            <button id="btnCancel"> cancel</button>
-        </div>  
+                <button class="msgOkButton" id="btnOk"> ok</button>
+                <button class="msgCancelButton"id="btnCancel"> cancel</button>
+            </div>  
         </div>
     </div>
-
-
-    <script src="msg.js"></script>
+    <returnBtn hidden></returnBtn>
+    <returnInput hidden></returnInput>
+    <script src="../msg/msg.js"></script>
 </body>
 </html>

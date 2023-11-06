@@ -1,3 +1,7 @@
+button{
+    all: unset;
+    cursor: pointer;
+}   
 .btn{
     padding: 25px 60px;
     display: inline;
@@ -16,10 +20,15 @@
 .btn:hover{
     background-color: #ff4c2c;
 }
-.janela-modal{
-    width: 200vh;
-    height: 100vh;
+.menssageGroup{
     position: relative;
+    height: 12vh;
+    overflow-wrap: break-word;
+}
+.janela-modal{
+    width: 100%;
+    height: 100%;
+    position: absolute;
     top: 0;
     left: 0;
     background-color: #00000080;
@@ -27,15 +36,19 @@
     align-items: center;
     justify-content: center;
     z-index: 999;
+    flex-direction: column;
 }
 .modal{
-    width: 60%;
-    height: 100px;
+    min-width: 40%;
     min-height: 200px;
+    max-width: 60%;
+    max-height: 60%;
     background-color: #ffffff96 ;
     backdrop-filter: blur(10px);
     padding: 50px;
     border-radius: 20px;
+    margin-top: -5%;
+    display: grid;
 }
 
 .fechar{
@@ -50,6 +63,7 @@
     color: #fff;
     font-size: 20px;
     cursor: pointer;
+    text-align: center;
 }
 .janela-modal.abrirModal{
     display: flex;
@@ -68,16 +82,53 @@
 .abrirModal .modal{
     animation: animation 0.5s;
 }
-#btnOk{
+.msgOkButton, #btnOk{
     background-color: white;
     border-radius: 10px;
     border: 0;
     cursor: pointer;
    
 }
-#btnCancel{
+.msgCancelButton, #btnCancel #btnCancel{
     background-color: white;
     border-radius: 10px;
     border: 0;
     cursor: pointer;
+}
+.msgTitle{
+    height: 47px;
+    background-color: unset;
+    text-decoration: none;
+    margin-left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}   
+.msgMenssage{
+    min-width: 100%;
+    min-height: 50px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: unset;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+}
+.msgInput{
+    display: flex; 
+    align-items: center; 
+    white-space: nowrap;
+    margin-bottom: 3%;
+}
+.msgInput > p{
+    min-width: 10%; 
+    max-width: 50%;
+}
+.msgInput > input{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/*! Firefox */    
+html{
+    scrollbar-color: #cececeb6 transparent;
 }

@@ -187,12 +187,11 @@ function viewObj(idObj){
     msg = new MsgBox();
     msg.idName = "msg11";
     msg.title = "MenssageBox"
-    msg.message = "sdjsidjsijfijs~dkfoeefsdkpdskoefis~kodkfseirfposkçd~kfõpsfodjfsok~dpaoeeufpodj~sçkpekfe9fuo";
-    msg.btnOKName = "testebtnOK";
-    msg.btnOKHref = "#";
-    msg.btnCancelName = "teste"
+    msg.message = "Menssagem de Teste"
+    msg.btnOKName = "Sim";
+    msg.btnCancelName = "Não";
     //msg.btnOKAction = "alert('aaa');"
-    msg.type = msg.TYPE_TEXT;
+    msg.SET_TYPE_INPUT();
     msg.show();
 }*/
 //Caixas de menssagens (modal)
@@ -203,20 +202,20 @@ class MsgBox{
     
     
     //Tipos de Entrada/Saida
-    TYPE_TEXT = "../BackEnd/test.html";
-    TYPE_INPUT = ()=>{return this.#request()};
-    TYPE_HTML = (URL)=>{this.#externalURL = true; return URL};
-    TYPE_IFRAME = "";
-
+    SET_TYPE_TEXT = ()=>{this.#input = false; this.type = "../msg/msg.html"};;
+    SET_TYPE_INPUT = ()=>{this.#input = true; this.type = "../msg/msg.html"};
+    SET_TYPE_HTML = (URL)=>{return URL};
+    SET_TYPE_TEXTHTML = "";
 
     idName = null;
     message = null;
-    title = "";
+    inputMenssage = null;
+    inputPlaceholder = null;
+    title = null;
     type = null;
     
     #HTML = null;
-    #externalURL = false;
-    #iframeURL = null;
+    #input = false;
     //BtnOK
     btnOKName = null;
     btnOKHref = null;
@@ -225,18 +224,52 @@ class MsgBox{
     btnCancelName = null;
     btnCancelHref = null;
     btnCancelAction = null;
+
+    //Javascript Carregado
+    JS = null;
+
+    reset(){
+        this.idName = null;
+        this.message = null;
+        this.inputMenssage = null;
+        this.inputPlaceholder = null;
+        this.title = null;
+        this.type = null;
     
-    show(){
-        if(this.idName != null && this.message != null){
-            this.#request()
-            //this.#inject()
+        this.#HTML = null;
+        this.#input = false;
+        //BtnOK
+        this.btnOKName = null;
+        this.btnOKHref = null;
+        this.btnOKAction = null;
+        //BtnCancel
+        this.btnCancelName = null;
+        this.btnCancelHref = null;
+        this.btnCancelAction = null;
+    }
+
+    async show(){
+        //if(this.idName != null && this.message != null){ //Testando...
+        if(true){
+            await this.#request();
+            await this.#inject();
+            var i = 0;
+            while(i < 10)
+                try{
+                    await new Promise(r => setTimeout(r, 100));
+                    window[this.idName].JS.abrir();
+                    break;
+                }catch{}
+            if(i >= 10){
+                throw "Não foi possivel abrir a caixa de menssagem."
+            }
         }else
             throw "Menssagem incompleta.";
     }
 
-    async #request(){
-        var url = this.type;
-        var head = this.#externalURL;
+    async #request(url = this.type){
+        
+        var head = true;
         var compile = "";
         var http = new XMLHttpRequest(); // cria o objeto XHR
         http.open("GET", url); // requisita a página .html
@@ -251,10 +284,9 @@ class MsgBox{
                     compile = http.responseText.replace(/<html[\s\S]*?>([\s\S]*?)/, "").replace(/(<\/body>)([\s\S]*?)<\/html>/, "</body>").replace("<!DOCTYPE html>","");                
             }
         }
-        await new Promise(r => setTimeout(r, 200));
+        while(compile=="")
+            await new Promise(r => setTimeout(r, 100));
         this.#HTML = compile;
-
-        this.#inject();
     }
 
     #inject(){
@@ -265,32 +297,78 @@ class MsgBox{
         body[0].innerHTML = body[0].innerHTML + msgDiv;
 
         //Configurar
+        //Imports javascripts
+        var obj = document.getElementById(idName).getElementsByTagName("script");
+        for(var i = 0; i < obj.length; i++){
+            this.#importJs(obj[i].getAttribute("src"));
+        }
+
         //Texto
         obj = document.getElementById(idName).getElementsByClassName('msgTitle');
-        obj[0].innerHTML = this.title;
+        if(this.title != null)
+            obj[0].innerHTML = this.title;
+        else
+            obj[0].remove();
+
         obj = document.getElementById(idName).getElementsByClassName('msgMenssage');
-        obj[0].innerHTML = this.message;
+        if(this.message != null)
+            obj[0].innerHTML = this.message;
+        else
+            obj[0].remove();
 
         //Botões
+        //OK
         if(this.btnOKName != null)
             for(var i = 0, obj = document.getElementById(idName).getElementsByClassName('msgOkButton'); i < obj.length; i++){
                 obj[i].setAttribute('id',idName+'_btnOk'+i);
-                obj[i].getElementsByTagName('button').innerHTML = this.btnOKName;
-                if(this.btnOKHref != null)
+                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + this.btnOKAction);
+                obj[i].innerHTML = this.btnOKName;
+                if(this.btnOKName != null)
                     obj[i].setAttribute('href',this.btnOKHref);
                 else
-                    document.getElementById(idName+'_btnOk'+i).remove();
-               obj[i].setAttribute('onclick',"hideMsg(0,'"+idName+"'), " + this.btnOKAction);
+                    obj[i].remove();
             }
+        //Cancel
         if(this.btnCancelName != null)
             for(var i = 0, obj = document.getElementById(idName).getElementsByClassName('msgCancelButton'); i < obj.length; i++){
                 obj[i].setAttribute('id',idName+'_btnCancel'+i);
-                obj[i].getElementsByTagName('button').innerHTML = this.btnCancelName;
-                if(this.btnCancelHref != null)
+                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + this.btnCancelAction);
+                obj[i].innerHTML = this.btnCancelName;
+                if(this.btnCancelName != null)
                     obj[i].setAttribute('href',this.btnCancelHref);
                 else
-                    document.getElementById(idName+'_btnCancel'+i).remove();
-                    obj[i].setAttribute('onclick',"hideMsg(0,'"+idName+"'), " + this.btnCancelAction);
+                    obj[i].remove();
             }
+
+        //Input
+        if(this.#input){
+            obj = document.getElementById(idName).getElementsByClassName("msgInput")[0].getElementsByTagName("input")[0];
+            obj.setAttribute('id',idName+'_btnCancel');
+            if(this.inputPlaceholder != null)
+                obj.setAttribute('placeholder',this.inputPlaceholder);
+            
+            obj = document.getElementById(idName).getElementsByClassName("msgInput")[0].getElementsByTagName("p")[0]
+            if(this.inputMenssage != null)
+                obj.innerHTML = this.inputMenssage;
+            else
+                obj.remove();
+        }else{
+            obj = document.getElementById(idName).getElementsByClassName("msgInput")[0];
+            obj.remove();
+        }
+        //Return
+        obj = document.getElementById(idName).getElementsByTagName("returnBtn")[0];
+        obj.setAttribute('id',idName+'_btnCancel');
+        obj = document.getElementById(idName).getElementsByTagName("returnInput")[0];
+        obj.setAttribute('id',idName+'_btnCancel');
+    }
+
+    async #importJs(src){
+        var id;
+        await (id = this.idName);
+        //window["msgBox_"+id] = await import(src);
+        //document.write(document.querySelectorAll("html")[0].innerHTML);
+        this.JS = await import(src);
+        window[id] = this;
     }
 }
