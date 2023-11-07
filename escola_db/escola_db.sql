@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/11/2023 às 22:56
+-- Tempo de geração: 07/11/2023 às 19:24
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -45,6 +45,28 @@ INSERT INTO `alunos` (`ra`, `id`, `dt_MATRICULA`, `id_turma`) VALUES
 (1111116, 2, '2015-02-27', 1),
 (1111117, 3, '2015-02-27', 1),
 (1111118, 4, '2015-02-27', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `atividades`
+--
+
+CREATE TABLE `atividades` (
+  `id` int(1) NOT NULL,
+  `descricao` varchar(50) DEFAULT NULL,
+  `pontoAtribuido` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `atividades`
+--
+
+INSERT INTO `atividades` (`id`, `descricao`, `pontoAtribuido`) VALUES
+(1, 'Prova Mensal', 8),
+(2, 'Prova Bimestral', 7),
+(3, 'Trabalho', 5),
+(4, 'Participação', 5);
 
 -- --------------------------------------------------------
 
@@ -131,12 +153,12 @@ INSERT INTO `materias` (`id`, `nome`, `quant_aulas`) VALUES
 --
 
 CREATE TABLE `notas` (
-  `id` int(20) NOT NULL,
+  `id` int(10) NOT NULL,
+  `nota` decimal(10,0) DEFAULT NULL,
   `id_aluno` int(9) DEFAULT NULL,
   `id_materia` int(5) DEFAULT NULL,
-  `nota` decimal(10,0) NOT NULL,
-  `data_atribuida` timestamp NOT NULL DEFAULT current_timestamp(),
-  `tipo` int(1) NOT NULL
+  `id_atividade` int(1) DEFAULT NULL,
+  `dataAtribuida` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -321,6 +343,12 @@ ALTER TABLE `alunos`
   ADD KEY `id_turma` (`id_turma`);
 
 --
+-- Índices de tabela `atividades`
+--
+ALTER TABLE `atividades`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `comunicacao`
 --
 ALTER TABLE `comunicacao`
@@ -354,7 +382,8 @@ ALTER TABLE `materias`
 ALTER TABLE `notas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_aluno` (`id_aluno`),
-  ADD KEY `id_materia` (`id_materia`);
+  ADD KEY `id_materia` (`id_materia`),
+  ADD KEY `id_atividade` (`id_atividade`);
 
 --
 -- Índices de tabela `professor_materia`
@@ -401,6 +430,12 @@ ALTER TABLE `alunos`
   MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `atividades`
+--
+ALTER TABLE `atividades`
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de tabela `comunicacao`
 --
 ALTER TABLE `comunicacao`
@@ -428,7 +463,7 @@ ALTER TABLE `materias`
 -- AUTO_INCREMENT de tabela `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `professor_materia`
@@ -489,7 +524,8 @@ ALTER TABLE `funcionarios`
 --
 ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `alunos` (`id`),
-  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`);
+  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`),
+  ADD CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`id_atividade`) REFERENCES `atividades` (`id`);
 
 --
 -- Restrições para tabelas `professor_materia`
