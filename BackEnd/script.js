@@ -198,7 +198,7 @@ async function ExempleMenssageBox(){
 
     //Segunda forma de usar
     msg2 = new MsgBox();
-    msg2.showInLine({_idName: "msg12", _type: msg2.SET_TYPE_TEXT, _menssagem: "menssagemTeste", _title: "Titulo", _autoDestroy: true, _btnOkName: "oi"}); //Permite todos os parâmetros disponiveis também. Todos os parâmetros são opcionais, exceto o idName e Type.
+    msg2.showInLine({_idName: "msg12", _type: msg2.SET_TYPE_TEXT, _menssagem: "menssagemTeste", _title: "Titulo", _autoDestroy: true}); //Permite todos os parâmetros disponiveis também. Todos os parâmetros são opcionais, exceto o idName e Type.
 }
 
 function ExempleMenssageBoxTerminou(){
