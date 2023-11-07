@@ -89,6 +89,7 @@ function getPermission()
 {
     //return $_SESSION[SESSION_USER_IDPERMISSION];
     try{
+        include_once "conexao.php";
         $db = new Conexao();
         return $db->executar("SELECT tipo FROM usuarios WHERE ra = '".$_SESSION[SESSION_USER_RA_ID]."'")[0][0];
     }catch(Exception $e){
