@@ -10,7 +10,7 @@ function abrir(params) {
     var y=window.scrollY;
     window.onscroll=function(){window.scrollTo(x, y);};
 
-    x.addEventListener('click',(e) => {
+    j.addEventListener('click',(e) => {
         if(e.target.id == 'fechar' /*|| e.target.id =='janela-modal'*/){
             j.classList.remove('abrirModal')
             b.classList.remove('disableScroll')

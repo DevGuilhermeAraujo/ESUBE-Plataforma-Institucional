@@ -495,9 +495,18 @@ class MsgBox{
             if(!this.btnFecharView)
                     obj.remove();
         //Background
-            obj = objBackground;
-            if(this.backgroudClose)
-                obj.setAttribute('onclick',idName+".fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_Background + "; ") + this.btnCancelAction + this.onCloseAction);
+        obj = objBackground;
+        if(this.backgroudClose)
+            document.addEventListener('click',(e) => {
+                if(e.target.id =='janela-modal'){
+                    obj.setAttribute('onclick',idName+".fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_Background + "; ") + this.btnCancelAction + this.onCloseAction);
+                    obj.click();
+                    /*window[idName].fechar();
+                    window[idName].returnBtnClicked = MsgBox.BTN_Background;
+                    window[idName].this.btnCancelAction();
+                    window[idName].this.onCloseAction();
+                    */ // <-- Futuro Update
+                }});
     }
 
     async #importJs(src){
