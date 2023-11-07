@@ -198,7 +198,7 @@ async function ExempleMenssageBox(){
 
     //Segunda forma de usar
     msg2 = new MsgBox();
-    msg2.showInLine("msg12", msg2.SET_TYPE_TEXT,"menssagemTeste","Titulo",true); //Permite todos os parâmetros disponiveis também. Todos os parâmetros são opcionais, exceto o idName e Type.
+    msg2.showInLine({_idName: "msg12", _type: msg2.SET_TYPE_TEXT, _menssagem: "menssagemTeste", _title: "Titulo", _autoDestroy: true, _btnOkName: "oi"}); //Permite todos os parâmetros disponiveis também. Todos os parâmetros são opcionais, exceto o idName e Type.
 }
 
 function ExempleMenssageBoxTerminou(){
@@ -245,7 +245,7 @@ class MsgBox{
     btnCancelAction = "null;";
     //btnFechar
     btnFecharView = true;
-    onCloseAction = null;
+    onCloseAction = "null;";
 
     //Javascript Carregado
     JS = null;
@@ -278,7 +278,7 @@ class MsgBox{
         this.btnCancelAction = "null;";
         //btnFechar
         this.btnFecharView = true;
-        this.onCloseAction = null;
+        this.onCloseAction = "null;";
 
         //Javascript Carregado
         this.JS = null;
@@ -311,7 +311,7 @@ class MsgBox{
             throw "Menssagem incompleta.";
     }
 
-    showInLine(_idName= null, 
+    showInLine({_idName= null, 
         _type = null, 
         _menssagem = null, 
         _title = null, 
@@ -325,8 +325,8 @@ class MsgBox{
         _btnCancelName = null, 
         _btnCancelHref = null, 
         _btnCancelAction = "null;", 
-        _onCloseAction = null,
-        _btnFecharView = true){
+        _onCloseAction = "null;",
+        _btnFecharView = true}){
         if(_idName == null || _type == null){
             throw "Menssagem incompleta.";
         }
@@ -456,21 +456,26 @@ class MsgBox{
         //OK
         for(var i = 0, obj = objBtnOk; i < obj.length; i++){
                 obj[i].setAttribute('id',idName+'_btnOk'+i);
-                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_OK + "; ") + ((this.#input)?(idName+".returnInput = MsgBox.getInputReturn('"+idName+"', '"+objInput.className+"'); "):"") + this.btnOKAction + this.onCloseAction);
+                obj[i].setAttribute('onclick', idName+".JS.fechar(); " + 
+                                    (idName+".returnBtnClicked = " + MsgBox.BTN_OK + "; ") + 
+                                    ((this.#input)?(idName+".returnInput = MsgBox.getInputReturn('"+idName+"', '"+objInput.className+"'); "):"") + 
+                                    this.btnOKAction + 
+                                    this.onCloseAction + 
+                                    ((this.btnOKHref != null)?("window.location.href = '"+this.btnOKHref+"';"):""));
                 obj[i].innerHTML = this.btnOKName;
-                if(this.btnOKName != null)
-                    obj[i].setAttribute('href',this.btnOKHref);
-                else
+                if(this.btnOKName == null)
                     obj[i].remove();
             }
         //Cancel
         for(var i = 0, obj = objBtnCancel;  i < obj.length; i++){
                 obj[i].setAttribute('id',idName+'_btnCancel'+i);
-                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + (idName+".returnBtnClicked = " + MsgBox.BTN_Cancel + "; ") + this.btnCancelAction + this.onCloseAction);
+                obj[i].setAttribute('onclick',idName+".JS.fechar(); " + 
+                                    (idName+".returnBtnClicked = " + MsgBox.BTN_Cancel + "; ") + 
+                                    this.btnCancelAction + 
+                                    this.onCloseAction +
+                                    ((this.btnCancelHref != null)?("window.location.href = '"+this.btnCancelHref+"';"):""));
                 obj[i].innerHTML = this.btnCancelName;
-                if(this.btnCancelName != null)
-                    obj[i].setAttribute('href',this.btnCancelHref);
-                else
+                if(this.btnCancelName == null)
                     obj[i].remove();
             }
         //Fechar

@@ -1,15 +1,29 @@
 export {abrir,fechar}
 function abrir(params) {
-    var x = document.getElementById('janela-modal')
-    x.classList.add('abrirModal')
+    var j = document.getElementById('janela-modal')
+    var b = document.getElementsByTagName("body")[0];
+    j.classList.add('abrirModal')
+    j.setAttribute("style","top: "+window.scrollY+"px;")
+    b.classList.add('disableScroll')
+    b.setAttribute("style","overflow: hidden;")
+    var x=window.scrollX;
+    var y=window.scrollY;
+    window.onscroll=function(){window.scrollTo(x, y);};
 
     x.addEventListener('click',(e) => {
         if(e.target.id == 'fechar' || e.target.id =='janela-modal'){
-            x.classList.remove('abrirModal')
+            j.classList.remove('abrirModal')
+            b.classList.remove('disableScroll')
+            b.removeAttribute("style")
+            window.onscroll = function () {};
         }
     })
 }
 function fechar(){
     var x = document.getElementById('janela-modal');
+    var y = document.getElementsByTagName("body")[0];
     x.classList.remove('abrirModal');
+    y.classList.remove('disableScroll')
+    y.removeAttribute("style")
+    window.onscroll = function () {};
 }

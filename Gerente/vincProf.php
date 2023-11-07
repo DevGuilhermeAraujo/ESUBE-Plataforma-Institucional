@@ -162,7 +162,7 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
                 $nome = $professores['nome'];
                 $turma = $professores['turma'];
                 $id = $professores['id'];
-                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a href='../BackEnd/processVincProf.php?remove&id=$id'><button><img src='../imgs/iconLixeira.png'><i>Remover</i></button></a></span></p>";
+                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a onclick='var msg = new MsgBox(); msg.showInLine({_idName: `msg1`, _type: msg.SET_TYPE_TEXT, _menssagem: `Desvincular professor?`, _title: `Aviso`, _btnOkName: `Sim`, _btnOkHref: `../BackEnd/processVincProf.php?remove&id=$id`, _btnCancelName:`Não`, _autoDestroy: true});' ><button><img src='../imgs/iconLixeira.png'><i>Remover</i></button></a></span></p>";
             }
             ?>
         </div>
