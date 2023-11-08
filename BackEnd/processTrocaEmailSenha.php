@@ -39,6 +39,7 @@ switch ($tipoTroca) {
         $senha = $_POST['senha'];
         $novaSenha = $_POST['nSenha'];
         //Validar senha
+        $db = new Conexao();
         $result = $db->executar("SELECT senha FROM usuarios WHERE ra = :ra;", true, false);
         $result->bindParam(":ra", $ra);
         $result->execute();
@@ -55,8 +56,8 @@ switch ($tipoTroca) {
             exit();
         }
         //Mudar senha
-        $result = $db->executar("UPDATE usuarios SET senha = ':senha' WHERE ra = :ra",true,false);
-        $result->bindParam(":senha",$novaSenha);
+        $result = $db->executar("UPDATE usuarios SET senha = :senha WHERE ra = :ra",true,false);
+        $result->bindParam(":senha",$novaSenhaHash);
         $result->bindParam(":ra",$ra);
         $result->execute();
         //Testar
@@ -64,14 +65,14 @@ switch ($tipoTroca) {
         $result->bindParam(":ra", $ra);
         $result->execute();
         $result = $result->fetchAll();
-        if (!password_verify($senha, $result[0]['senha'])){
+        if (!password_verify($novaSenha, $result[0]['senha'])){
             //Tentar desfazer
-            $result = $db->executar("UPDATE usuarios SET senha = ':senha' WHERE ra = :ra",true,false);
+            $result = $db->executar("UPDATE usuarios SET senha = :senha WHERE ra = :ra",true,false);
             $result->bindParam(":senha",$senha);
             $result->bindParam(":ra",$ra);
             $result->execute();
             //Testar
-            $result = $db->executar("SELECT senha=':senha' FROM usuarios WHERE ra = :ra;", true, false);
+            $result = $db->executar("SELECT senha=:senha FROM usuarios WHERE ra = :ra;", true, false);
             $result->bindParam(":ra", $ra);
             $result->bindParam(":senha", $senha);
             $result->execute();
