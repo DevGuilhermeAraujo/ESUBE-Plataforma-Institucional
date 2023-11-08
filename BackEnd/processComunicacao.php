@@ -13,7 +13,7 @@ if (isset($_POST['turma'])) {
 // Verificar se a conexão foi estabelecida com sucesso
 if ($db->errorCode === 0) {
     // Preparar a consulta SQL para inserção de dados na tabela de professores com espaços reservados
-    $result = $db->executar("INSERT INTO comunicacao(titulo, descricao, id_professor, id_turma) VALUES ('$titulo', '$comunicacao', '$idUser', '$idTurma');", true);
+    $result = $db->executar("INSERT INTO comunicacao(titulo, descricao, id_funcionario, id_turma) VALUES ('$titulo', '$comunicacao', '$idUser', '$idTurma');", true);
 
 } else {
     // Lidar com erros de conexão, se houver
