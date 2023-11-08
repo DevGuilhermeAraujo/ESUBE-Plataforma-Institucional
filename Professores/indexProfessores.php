@@ -19,7 +19,7 @@
             <div class="links">
                 <img src="../Imgs/eva2.jpg" style="width: 80%; margin: 5% 0% 5% 10%">
                 <a target="index" href="inicioProfessores.php">Destaques</a>
-                <a target="index" href="../Cadastrados/Turmas.php">Turmas</a>
+                <a target="index" href="../Cadastrados/Turmas.php">Minhas turmas</a>
                 <a href="../BackEnd/logout.php"><img class="icone" src="../Imgs/sair.png" alt="iconeSair"> Sair</a>
             </div>
         </div>

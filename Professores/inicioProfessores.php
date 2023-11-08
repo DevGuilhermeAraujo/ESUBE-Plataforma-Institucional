@@ -50,14 +50,11 @@ if ($db->errorCode == 0) {
         </div>
         <div class="painel">
             <div class="conteudo">
-                <h3>Enviar mensagem</h3>
-
+                <h3>Comunicação</h3>
                 <!--total de mensagens-->
                 <p>Enviadas: <span><?php echo $quantComunicacao[0][0] ?></span></p>
-
-
             </div>
-            <a href="comunicacao.php" class="ver">Ver</a>
+            <a href="../Comunicações/EnvProfessor.php" class="ver">Ver</a>
         </div>
 
     </div>
