@@ -142,3 +142,9 @@ function msg(int $type, string $message, ?string $class = "", ?string $style = "
         echo "<script>deleteMsg($hideTimer,$id);</script>";
     }
 }
+
+function redirectPOST(string $url, string $values, ?string $importJsUri = "../BackEnd/script.js"){
+    echo "<script src='$importJsUri'></script>";
+    //Chamar o metodo javascript para interação no lado cliente
+    echo "<script>redirectPOST('$url', '$values');</script>";
+}

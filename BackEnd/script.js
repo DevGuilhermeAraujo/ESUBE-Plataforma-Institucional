@@ -183,6 +183,16 @@ function viewObj(idObj){
     if(txt.indexOf("hideObj") != -1)
         obj.classList.toggle("hideObj");
 }
+function redirectPOST(URL, values){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", URL, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onloadend = function() {
+    	document.write(xhr.response);
+    }
+    xhr.send(values);
+}
+
 async function ExempleMenssageBox(){
     //Primeira forma de usar
     msg1 = new MsgBox();
