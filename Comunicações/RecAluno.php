@@ -7,6 +7,7 @@ $db = new Conexao();
 $raUsuario = getIdRa();
 $result = $db->executar("SELECT a.id FROM alunos AS a JOIN usuarios AS u ON a.ra = u.ra WHERE u.ra = $raUsuario;");
 $idUser = $result[0][0];
+
 $tipoUser = getPermission();
 
 ?>
@@ -34,11 +35,21 @@ $tipoUser = getPermission();
             </p>
         </div>
         <p>
-            <span>Exemplo de autor</span>
-            <span>Exemplo de titulo</span>
-            <span>Exemplo de Mensagem</span>
-            <span><button style="background-color: rgb(206, 203, 203);border:2px solid rgb(49, 49, 78);"><img src="../Imgs/balão.png" alt="balão"></button></span>
-            <span><button><img src="../Imgs/iconLixeira.png" alt="lixeira"></button></span>
+            <?php
+            $result = $db->executar("SELECT u.nome, c.titulo, c.descricao FROM usuarios AS u JOIN funcionarios AS f ON u.ra = f.ra JOIN comunicacao AS c ON f.id = c.id_funcionario");
+            foreach ($result as $comunicados) {
+                $nomeAutor = $comunicados['nome'];
+                $tituloComunicado = $comunicados['titulo'];
+                $descricaoComunicado = $comunicados['descricao'];
+
+                echo "<span>$nomeAutor</span>";
+                echo "<span>$tituloComunicado</span>";
+                echo "<span>$descricaoComunicado</span>";
+                echo "<span><button style='background-color: rgb(206, 203, 203);border:2px solid rgb(49, 49, 78);'><img src='../Imgs/balão.png' alt='balão'></button></span>";
+                echo "<span><button><img src='../Imgs/iconLixeira.png' alt='lixeira'></button></span>";
+
+            }
+            ?>
         </p>
     </div>
 </body>
