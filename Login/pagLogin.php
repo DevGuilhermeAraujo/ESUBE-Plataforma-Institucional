@@ -17,17 +17,15 @@ if (Logued()) {
 </head>
 
 <body>
-    <div id="pagLogin">
-        <div id="formulario">
+    <div class="pagLogin" id="pagLogin">
+        <div id="formulario" class="formulario">
             <h2>Este portal tem finalidade educativa</h2>
             <form action="../BackEnd/processLogin.php" method="post">
                 <img src="../Imgs/eva.jpg" alt="logoEva">
                 <input type="text" name="RA_ID" placeholder="ID">
                 <input type="password" name="password" placeholder="Senha">
-                <input id="login" type="submit" value="Login">
-
-                
-
+                <input class="login" id="login" type="submit" value="Login">
+                <a href="novaSenha.php">Esqueceu sua senha?</a>
             </form>
             <!--Mensagens de erro aqui (preferência: 1 por vez)-->
             <?php
@@ -49,7 +47,7 @@ if (Logued()) {
                 }
                 ?>
         </div>
-        <div id="logo">
+        <div class="logo">
             <img src="../Imgs/triangulo.jpg" alt="triangulo">
             <h1>ESUBE</h1>
             <p class="white_p">Ensino de qualidade</p>
