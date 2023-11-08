@@ -150,8 +150,7 @@ $tipoUser = getPermission();
                 </form>
             </div>
         </div>
-
-fun    </div>
+ </div>
 
 
     <script>

@@ -55,14 +55,24 @@ $idUser = $result[0][0];
             if ($totAulasDadas != 0) {
                 $frequencia = ($totAulasComparecidas / $totAulasDadas) * 100;
             }
-
+        ?>
+            <style>
+                .progressBar.<?php echo $idMateria; ?> {
+                    width: <?php echo $frequencia; ?>%;
+                    background-color: <?php echo $frequencia < 30 ? 'red' : ($frequencia < 70 ? 'yellow' : 'green'); ?>
+                }
+            </style>
+            <div class="progressBar<?php echo $idMateria; ?>">
+                <!-- Conteúdo da barra de progresso -->
+            </div>
+        <?php
             echo '<div class="painel">';
             echo '<div class="conteudo">';
             echo "<h3> $nomeMateria </h3>";
             echo "<!--nota do aluno-->";
             echo "<p>Nota: <span> $notas</span></p>";
             echo '<p>Frequência: <span class="frequencia">' . $frequencia . '</span><span>';
-            echo '<div class="progress-bar">';
+            echo "<div class='progressBar$idMateria; '>";
             echo '<div class="progress" style="width: ' . $frequencia . '%"></div>';
             echo '</div>';
             echo '</span></p>';
@@ -74,23 +84,23 @@ $idUser = $result[0][0];
     </div>
 
     <script>
-    let frequencias = document.querySelectorAll(".frequencia");
+        let frequencias = document.querySelectorAll(".frequencia");
 
-    frequencias.forEach(function (frequencia) {
-        let valor = parseInt(frequencia.textContent);
-        let progressBar = frequencia.nextElementSibling.querySelector(".progress");
+        frequencias.forEach(function(frequencia) {
+            let valor = parseInt(frequencia.textContent);
+            let progressBar = frequencia.nextElementSibling.querySelector(".progress");
 
-        if (valor < 30) {
-            progressBar.style.backgroundColor = "red";
-        } else if (valor >= 30 && valor <= 70) {
-            progressBar.style.backgroundColor = "yellow";
-        } else {
-            progressBar.style.backgroundColor = "green"; // Define a cor padrão
-        }
+            if (valor < 30) {
+                progressBar.style.backgroundColor = "red";
+            } else if (valor >= 30 && valor <= 70) {
+                progressBar.style.backgroundColor = "yellow";
+            } else {
+                progressBar.style.backgroundColor = "green"; // Define a cor padrão
+            }
 
-        progressBar.style.width = valor + "%";
-    });
-</script>
+
+        });
+    </script>
 </body>
 
 </html>
