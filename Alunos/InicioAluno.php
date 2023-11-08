@@ -44,7 +44,7 @@ if ($db->errorCode == 0) {
 
 
             </div>
-            <a href="comunicacaoAluno.php" class="ver">Ver</a>
+            <a href="../Comunicações/RecAluno.php" class="ver">Ver</a>
         </div>
     </div>
 </body>
