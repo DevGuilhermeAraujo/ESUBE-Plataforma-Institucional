@@ -20,17 +20,12 @@ $idUser = $result[0][0];
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .progress-bar {
+        .progressBar {
             width: 100%;
             height: 10px;
             border: 1px solid #000;
             position: relative;
             border-radius: 50px;
-        }
-
-        .progress {
-            height: 100%;
-            background-color: green;
         }
     </style>
 </head>
@@ -57,33 +52,30 @@ $idUser = $result[0][0];
             }
         ?>
             <style>
-                .progressBar.<?php echo $idMateria; ?> {
-                    width: <?php echo $frequencia; ?>%;
-                    background-color: <?php echo $frequencia < 30 ? 'red' : ($frequencia < 70 ? 'yellow' : 'green'); ?>
+                .progress<?php echo $idMateria ?>{
+                    height: 100%;
+                    background-color: <?php echo $frequencia < 30 ? 'red' : ($frequencia < 70 ? 'yellow' : 'green'); ?>;
                 }
             </style>
-            <div class="progressBar<?php echo $idMateria; ?>">
-                <!-- Conteúdo da barra de progresso -->
+            <div class="painel">
+                <div class="conteudo">
+                    <h3> $nomeMateria </h3>
+                    <!--nota do aluno-->
+                    <p>Nota: <span> <?php echo $notas ?></span></p>
+                    <p>Frequência: <span class="frequencia"> <?php echo $frequencia ?> </span><span>
+                            <div class="progressBar">
+                                <div class="progress<?php echo $idMateria;?>" style="width: <?php echo $frequencia?>%"></div>
+                            </div>
+                        </span></p>
+                </div>
+                <a href='infoMaterias.php?id=$idMateria' class='ver' name=''>Ver</a>
             </div>
         <?php
-            echo '<div class="painel">';
-            echo '<div class="conteudo">';
-            echo "<h3> $nomeMateria </h3>";
-            echo "<!--nota do aluno-->";
-            echo "<p>Nota: <span> $notas</span></p>";
-            echo '<p>Frequência: <span class="frequencia">' . $frequencia . '</span><span>';
-            echo "<div class='progressBar$idMateria; '>";
-            echo '<div class="progress" style="width: ' . $frequencia . '%"></div>';
-            echo '</div>';
-            echo '</span></p>';
-            echo "</div>";
-            echo "<a href='infoMaterias.php?id=$idMateria' class='ver' name=''>Ver</a>";
-            echo '</div>';
         }
         ?>
     </div>
 
-    <script>
+    <!-- <script>
         let frequencias = document.querySelectorAll(".frequencia");
 
         frequencias.forEach(function(frequencia) {
@@ -100,7 +92,7 @@ $idUser = $result[0][0];
 
 
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
