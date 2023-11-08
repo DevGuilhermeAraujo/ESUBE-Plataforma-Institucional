@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/11/2023 às 19:24
+-- Tempo de geração: 08/11/2023 às 20:24
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -76,9 +76,13 @@ INSERT INTO `atividades` (`id`, `descricao`, `pontoAtribuido`) VALUES
 
 CREATE TABLE `comunicacao` (
   `id` int(9) NOT NULL,
+  `titulo` varchar(50) DEFAULT NULL,
   `descricao` longtext DEFAULT NULL,
-  `id_professor` int(9) DEFAULT NULL,
-  `titulo` varchar(50) DEFAULT NULL
+  `id_funcionario` int(9) DEFAULT NULL,
+  `id_aluno` int(9) DEFAULT NULL,
+  `id_turma` int(3) DEFAULT NULL,
+  `data_atribuicao` timestamp NOT NULL DEFAULT current_timestamp(),
+  `validacao` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -279,7 +283,7 @@ INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senh
 (1111114, 'Professor3', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', '$2y$10$E1tmLsTldcL1tMlNg9Zp/.5K6F.RTvVwV58ALS0jxSjidhUm8OFDG', '2023-11-01 21:47:21', 2),
 (1111115, 'Guilherme Araujo', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$pR1a7VLNKBTirO2aHK6mO.ZBYfTR.UNZgLpoMWGFT5s6DHt6BO56O', '2023-11-01 21:47:21', 3),
 (1111116, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$dBAyhTDu8CjWnjAV6qL2P.NFRns0rUysMhNca6uqTKtxQBsxZ6kpe', '2023-11-01 21:47:21', 3),
-(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$DV7G2IgSH8DI0ek.k8w/bOfdHbKjjEDh1hwtfWJopVx5lYAIWd14W', '2023-11-01 21:47:21', 3),
+(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$VSPFwiq8PmLCrVZBJFHplemyfvxrwNh89fLlR9kkZdfl73QOdjrn2', '2023-11-01 21:47:21', 3),
 (1111118, 'Alexandre Borges', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$wP3qzeEJaUV5RR/Ryu.vwuDwOeK5B13mk9CQ0cMqoc1Yb8GjNQASS', '2023-11-03 04:50:48', 3);
 
 -- --------------------------------------------------------
@@ -353,7 +357,7 @@ ALTER TABLE `atividades`
 --
 ALTER TABLE `comunicacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_professor` (`id_professor`);
+  ADD KEY `id_funcionario` (`id_funcionario`);
 
 --
 -- Índices de tabela `frequencia`
@@ -504,7 +508,7 @@ ALTER TABLE `alunos`
 -- Restrições para tabelas `comunicacao`
 --
 ALTER TABLE `comunicacao`
-  ADD CONSTRAINT `comunicacao_ibfk_1` FOREIGN KEY (`id_professor`) REFERENCES `funcionarios` (`id`);
+  ADD CONSTRAINT `comunicacao_ibfk_1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id`);
 
 --
 -- Restrições para tabelas `frequencia`
