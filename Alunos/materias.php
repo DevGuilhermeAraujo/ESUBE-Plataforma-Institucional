@@ -74,25 +74,6 @@ $idUser = $result[0][0];
         }
         ?>
     </div>
-
-    <!-- <script>
-        let frequencias = document.querySelectorAll(".frequencia");
-
-        frequencias.forEach(function(frequencia) {
-            let valor = parseInt(frequencia.textContent);
-            let progressBar = frequencia.nextElementSibling.querySelector(".progress");
-
-            if (valor < 30) {
-                progressBar.style.backgroundColor = "red";
-            } else if (valor >= 30 && valor <= 70) {
-                progressBar.style.backgroundColor = "yellow";
-            } else {
-                progressBar.style.backgroundColor = "green"; // Define a cor padrão
-            }
-
-
-        });
-    </script> -->
 </body>
 
 </html>
