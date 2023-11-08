@@ -36,8 +36,10 @@ function requiredLogin(?Int $permission = null, ?String $URL = null)
     if (!Logued($permission)) {
         if (is_null($URL)) {
             header("Location: ../Login/pagLogin.php");
+            exit();
         } else {
             header("Location: " . $URL);
+            exit();
         }
     }
 }
@@ -89,11 +91,13 @@ function getPermission()
 {
     //return $_SESSION[SESSION_USER_IDPERMISSION];
     try{
+        include_once "conexao.php";
         $db = new Conexao();
         return $db->executar("SELECT tipo FROM usuarios WHERE ra = '".$_SESSION[SESSION_USER_RA_ID]."'")[0][0];
     }catch(Exception $e){
         logout();
         header("Location: ../Login/pagLogin.php?ERROR=3");
+        exit();
     }
 }
 
@@ -140,4 +144,10 @@ function msg(int $type, string $message, ?string $class = "", ?string $style = "
         //Chamar o metodo javascript para interação no lado cliente
         echo "<script>deleteMsg($hideTimer,$id);</script>";
     }
+}
+
+function redirectPOST(string $url, string $values, ?string $importJsUri = "../BackEnd/script.js"){
+    echo "<script src='$importJsUri'></script>";
+    //Chamar o metodo javascript para interação no lado cliente
+    echo "<script>redirectPOST('$url', '$values');</script>";
 }
