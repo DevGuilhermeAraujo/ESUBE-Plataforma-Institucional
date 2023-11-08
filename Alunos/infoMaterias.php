@@ -60,6 +60,9 @@ if (isset($notaDoAluno)) {
     // Finalmente, tire a raiz quadrada da média das diferenças quadradas para obter o desvio padrão.
     $desvioPadrao = sqrt($mediaDiferencasQuadradas);
 }
+
+//maior nota da turma
+$result = $db->executar("SELECT MAX(n.nota) FROM notas AS n JOIN alunos AS a ON n.id_aluno = a.id JOIN turmas AS t ON a.id_turma = t.id  GROUP BY a.id");
 $tipoUser = getPermission();
 
 ?>
@@ -68,7 +71,7 @@ $tipoUser = getPermission();
 
 <head>
     <meta charset="UTF-8">
-    <meta name<html lang="pt-br">
+    <meta lang="pt-br">
     <title>Document</title>
     <link rel="stylesheet" href="../index.css">
     <script src="../BackEnd/script.js"></script>
@@ -81,13 +84,14 @@ $tipoUser = getPermission();
         <div class="dados">
             <div class="titulos">
                 <p>
-                    <span>Valor da atividade</span>
-                    <span>Nota do Aluno</span>
-                    <span>Tipo de nota</span>
+                    <span>Data</span>
+                    <span>Atividades realizadas</span>
+                    <span>Valor</span>
+                    <span>Sua Nota</span>
                 </p>
             </div>
             <?php
-            $result = $db->executar("SELECT atv.pontoAtribuido, nota, CASE
+            $result = $db->executar("SELECT atv.pontoAtribuido, DATE_FORMAT(dataAtribuida, '%d/%m/%Y') AS dataAtrib, nota, CASE
                                                         WHEN n.id_atividade = 1 THEN 'Prova Mensal'
                                                         WHEN n.id_atividade = 2 THEN 'Prova Bimestral'
                                                         WHEN n.id_atividade = 3 THEN 'Trabalho'
@@ -105,8 +109,9 @@ $tipoUser = getPermission();
                 $valorAtividade = $notas['pontoAtribuido'];
                 $nota = $notas['nota'];
                 $descNotas = $notas['tipo_nota'];
+                $dataAtribuida = $notas['dataAtrib'];
                 // Faça o que for necessário com os dados do aluno
-                echo "<p><span>{$valorAtividade}</span><span>{$nota}</span><span>{$descNotas}</span>  </p>";
+                echo "<p><span>{$dataAtribuida}</span><span>{$descNotas}</span> <span>{$valorAtividade}</span><span>{$nota}</span> </p>";
             }
             ?>
             <h2><span>Estatística de Atividades</span></h2>
