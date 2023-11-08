@@ -183,14 +183,31 @@ function viewObj(idObj){
     if(txt.indexOf("hideObj") != -1)
         obj.classList.toggle("hideObj");
 }
-function redirectPOST(URL, values){
+function redirectPOSTAjax(URL, values){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", URL, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onloadend = function() {
-    	document.write(xhr.response);
+        document.write(xhr.response);
     }
     xhr.send(values);
+}
+function redirectPOST(URL, values = [[]]){
+    var obj = document.createElement("form");
+    obj.setAttribute("hidden","");
+    obj.setAttribute("action",URL);
+    obj.setAttribute("method","POST");
+    values.forEach(e => {
+        var childObj = document.createElement("input");
+        childObj.setAttribute("name",e[0]);
+        childObj.setAttribute("value",e[1]);
+        obj.appendChild(childObj);
+    });
+    var childObj = document.createElement("input");
+    childObj.setAttribute("type","submit");
+    obj.appendChild(childObj);
+    document.getElementsByTagName("body")[0].appendChild(obj);
+    childObj.click();
 }
 
 function validaEmail(email){
@@ -304,7 +321,6 @@ class MsgBox{
 
         //Javascript Carregado
         this.JS = null;
-        this.#resetReturns();
     }
 
     #resetReturns(){
@@ -354,7 +370,11 @@ class MsgBox{
         if(_idName == null || _type == null){
             throw "Menssagem incompleta.";
         }
+        var obj = document.getElementById(this.idName)
+        if(obj != null)
+            await this.destroy();
         await this.reset();
+        await this.#resetReturns();
         this.idName = _idName;
         this.message = _menssagem;
         this.inputMenssage = _inputMenssage;

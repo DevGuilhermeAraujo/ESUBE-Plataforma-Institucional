@@ -22,7 +22,6 @@ if ($db->errorCode == 0) {
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../index.css">
 </head>
-
 <body>
 
     <body>
@@ -42,6 +41,7 @@ if ($db->errorCode == 0) {
                     echo "<p><span>{$titulo}</span> <span>{$descricao}</span></p>";
                 }
                 ?>
+                
             </div>
         </div>
     </body>
