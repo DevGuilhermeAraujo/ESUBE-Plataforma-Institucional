@@ -9,12 +9,12 @@ $result = $db->executar("SELECT a.id FROM alunos AS a JOIN usuarios AS u ON a.ra
 $idUser = $result[0][0];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Matérias</title>
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="cadastros.css">
     <script src="../BackEnd/script.js"></script>
