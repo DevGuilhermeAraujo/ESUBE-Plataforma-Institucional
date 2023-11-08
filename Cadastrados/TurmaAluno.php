@@ -72,19 +72,24 @@ $tipoUser = getPermission();
                         }
                         ?>
                     </select>
-                    <select name='tipoNota' style='border: 1px solid black; width: 150px;'>
-                        <option value=''>Lançar notas</option>
-                        <option value='1'>Trabalho</option>
-                        <option value='2'>Prova</option>
-                        <option value='3'>Participação</option>
+                    <select name='atividade' id="atividade" style='border: 1px solid black; width: 150px;'>
+                        <?php
+                        $result = $db->executar("SELECT id, descricao FROM atividades;");
+                        foreach ($result as $atividades) {
+                            $idAtividade = $atividades['id'];
+                            $descricaoAtividade = $atividades['descricao'];
+                            echo "<option value='$idAtividade'>$descricaoAtividade</option>";
+                        }
+                        ?>
                     </select>
+                    <input type="text" name='nomeAtividade' placeholder="Digite o nome da atividade">
                     <span class="close" id="closeModal">&times;</span>
                     <div class="dados">
                         <div class="titulos">
                             <p>
                                 <span>Nome do Aluno</span>
-                                <span>Nota</span>
-                                <span>Tipo de nota</span>
+                                <!-- <span>Nota Total</span> -->
+                                <span>Nota do Aluno</span>
                             </p>
                         </div>
                         <?php
@@ -94,9 +99,7 @@ $tipoUser = getPermission();
                             $ra = $aluno['ra'];
                             $nomeAluno = $aluno['nome'];
                             $idAluno = $aluno['id_aluno'];
-
-
-                            echo "<p><span>{$nomeAluno}</span> <span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></span>";
+                            echo "<p><span>{$nomeAluno}</span><span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></span>";
                         }
                         ?>
                         <input type="submit" value="Enviar Notas">
