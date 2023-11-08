@@ -21,47 +21,10 @@ $tipoUser = getPermission();
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="cadastros.css">
     <link rel="stylesheet" href="tabelas.css">
+    <link rel="stylesheet" href="atribuições.css">
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        /* Estilos do modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modalContent {
-            background-color: #fff;
-            border: 1px solid #000;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-        }
-
-        /* Estilos do botão de fechar */
-        .close {
-            color: #555;
-            float: right;
-            font-size: 24px;
-        }
-
-        .tableModal tr th {
-            border: 1px solid black;
-            padding: 20px;
-            width: 800px;
-        }
-    </style>
 </head>
-
 <body>
     <div id="exib">
         <?php
@@ -97,7 +60,7 @@ $tipoUser = getPermission();
         <div id="modalNotas" class="modal">
             <div class="modalContent">
                 <!-- Conteúdo do modal de lançamento de notas -->
-                <form method="POST" action="../BackEnd/processLancamentoDeNotas.php?id=<?php echo $idTurma ?>">
+                <form id="DarNota" method="POST" action="../BackEnd/processLancamentoDeNotas.php?id=<?php echo $idTurma ?>">
                     <select name='materia' style='border: 1px solid black; width: 150px;'>
                         <option value="">Matérias </option>
                         <?php
@@ -185,7 +148,7 @@ $tipoUser = getPermission();
             </div>
         </div>
 
-    </div>
+fun    </div>
 
 
     <script>
