@@ -34,23 +34,22 @@ $tipoUser = getPermission();
                 <span>Apagar</span>
             </p>
         </div>
-        <p>
             <?php
-            $result = $db->executar("SELECT u.nome, c.titulo, c.descricao FROM usuarios AS u JOIN funcionarios AS f ON u.ra = f.ra JOIN comunicacao AS c ON f.id = c.id_funcionario");
+            $result = $db->executar("SELECT u.nome, c.titulo, c.descricao, c.id FROM usuarios AS u JOIN funcionarios AS f ON u.ra = f.ra JOIN comunicacao AS c ON f.id = c.id_funcionario");
             foreach ($result as $comunicados) {
                 $nomeAutor = $comunicados['nome'];
                 $tituloComunicado = $comunicados['titulo'];
                 $descricaoComunicado = $comunicados['descricao'];
-
+                $idComunicacao = $comunicados['id'];
+                echo "<p>";
                 echo "<span>$nomeAutor</span>";
                 echo "<span>$tituloComunicado</span>";
                 echo "<span>$descricaoComunicado</span>";
                 echo "<span><button style='background-color: rgb(206, 203, 203);border:2px solid rgb(49, 49, 78);'><img src='../Imgs/balão.png' alt='balão'></button></span>";
-                echo "<span><button><img src='../Imgs/iconLixeira.png' alt='lixeira'></button></span>";
-
+                echo "<span><a href='../BackEnd/processRemoverComunicacao.php?remove=$idComunicacao'><button><img src='../Imgs/iconLixeira.png' alt='lixeira'></button></a></span>";
+                echo "</p>";
             }
             ?>
-        </p>
     </div>
 </body>
 

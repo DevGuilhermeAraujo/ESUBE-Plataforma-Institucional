@@ -68,7 +68,7 @@ $tipoUser = getPermission();
 
 <head>
     <meta charset="UTF-8">
-    <meta name<html lang="pt-br">
+    <meta lang="pt-br">
     <title>Document</title>
     <link rel="stylesheet" href="../index.css">
     <script src="../BackEnd/script.js"></script>

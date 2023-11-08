@@ -25,7 +25,7 @@ $tipoUser = getPermission();
 
 <body>
     <div class="painelCom">
-        <form method="POST" action="../BackEnd/processComunicacao.php?id=<?php echo $idUser; ?>" class="enviar">
+        <form method="POST" action="../BackEnd/processComunicacao.php?id=<?php echo $idUser; ?>&valid=1" class="enviar">
             <div style="width: 100%;display:flex;flex-flow:row nowrap">
                 <input class="tit" type="text" name="titulo" placeholder="Titulo">
                 <select name="turma" id="SelectTurma">
