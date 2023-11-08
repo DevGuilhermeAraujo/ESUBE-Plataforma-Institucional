@@ -16,10 +16,10 @@
             <h2>Este portal tem finalidade educativa</h2>
             <form action="../BackEnd/processEsqueciSenha.php" method="post">
                 <img src="../Imgs/eva.jpg" alt="logoEva">
-                <input type="text" name="cpf" placeholder="Digite seu CPF" require>
-                <input type="text" name="id" placeholder="Digite seu ID" require>
-                <input type="Password" name="senha" placeholder="Digite a nova senha" require>
-                <input type="Password" name="confSenha" placeholder="Confirme a nova senha" require>
+                <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" require>
+                <input id="ra" type="text" name="id" placeholder="Digite seu ID" require>
+                <input id="senha" type="Password" name="senha" placeholder="Digite a nova senha" require>
+                <input id="confSenha" type="Password" name="confSenha" placeholder="Confirme a nova senha" require>
                 <input class="login" type="submit" value="Cadastrar nova senha">
                 <a href="pagLogin.php">Voltar</a>
             </form>
