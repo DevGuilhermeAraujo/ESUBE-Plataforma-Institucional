@@ -45,8 +45,15 @@ $tipoUser = getPermission();
             <input style="margin-left: 40%;" class="env" type="submit" value="Enviar">
         </form>
         <div class="enviadas">
-            <h2></h2>
-            <p></p>
+        <?php
+        $result = $db->executar("SELECT c.titulo, c.descricao FROM comunicacao AS c JOIN funcionarios AS f ON c.id_professor = f.id WHERE f.id = '$idUser';");
+        foreach($result AS $mensagens){
+            $titulo = $mensagens['titulo'];
+            $descricao = $mensagens['descricao'];
+            echo "<h2>$titulo</h2>";
+            echo "<p>$descricao</p>";
+        }
+        ?>
         </div>
         <div class="not">
             <div class="dados">
