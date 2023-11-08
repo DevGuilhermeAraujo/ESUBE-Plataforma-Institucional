@@ -29,11 +29,14 @@ requiredLogin(PERMISSION_GERENTE);
     <div class="full">
         <div class="usuario">
             <p class="desc">Página do gerente</p>
-
             <!--Aqui deve aparecer qual usuário está logado-->
             <p></p>
             <p><?= getNome() ?></p>
             <img src="../Imgs/usuario.png" alt="iconeUsuario">
+        </div>
+        <!-- essa div só deve aparecer quando for clicado no icone de usuário -->
+        <div style="position: absolute; right: 1%; background-color: rgb(255,255,255); margin-top: -0.5%; padding: 0.2%; border-radius: 10px; cursor: pointer; border: 1px solid;">
+            <a target="index" href="../Cadastrados/perfil.php">Perfil</a>
         </div>
         <iframe src="inicioGerente.php" name="index"></iframe>
     </div>
