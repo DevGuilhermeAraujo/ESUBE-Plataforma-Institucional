@@ -29,8 +29,6 @@ if ($db->errorCode == 0) {
                 <!--x = numero total de materias deste aluno-->
                 <p>Matérias registradas: <span><?php echo $quantMaterias ?></span></p>
 
-                <!--x = numero total de notas registradas para este aluno-->
-                <p>Notas registradas: <span>x</span></p>
 
             </div>
             <a class="ver" href="materias.php">Ver</a>
