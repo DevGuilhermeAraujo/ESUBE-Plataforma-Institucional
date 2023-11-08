@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunicações</title>
+    <title>Comunicação</title>
     <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../Cadastrados/tabelas.css">
-    <link rel="stylesheet" href="comunicações.css">
+    <link rel="stylesheet" href="comunicações.css">k
 </head>
 <body>
-    <div class="painelCom">
+<div class="painelCom">
         <form class="enviar">
             <div style="width: 100%;display:flex;flex-flow:row nowrap">
                 <input class="tit" type="text" placeholder="Titulo">
