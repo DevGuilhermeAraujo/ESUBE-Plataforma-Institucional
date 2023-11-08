@@ -73,6 +73,7 @@ $tipoUser = getPermission();
     <link rel="stylesheet" href="../index.css">
     <script src="../BackEnd/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../Cadastrados/tabelas.css">
 </head>
 
 <body>
@@ -106,11 +107,13 @@ $tipoUser = getPermission();
             }
             ?>
             <h2>Estatística de Atividades</h2>
-            <p>Pontos Distribuídos: <span><?php echo $pontosDistribuidos ?></span></p>
-            <p>Pontos Recebidos: <span><?php echo $notaDoAluno ?></span></p>
-            <p>Média Turma: <span><?php echo $mediaNotaPorTurma ?></span>%</p>
-            <p>Desvio Padrão: <span><?php echo $desvioPadrao ?></span></p>
-            <p>Sua Média: <span><?php echo $mediaAluno ?></span>%</p>
+            <p>
+                <span> Pontos Distribuídos: <?php echo $pontosDistribuidos ?></span>
+                <span> Pontos Recebidos: <?php echo $notaDoAluno ?></span>
+                <span> Média Turma: <?php echo $mediaNotaPorTurma ?>%</span>
+                <span> Desvio Padrão:<?php echo $desvioPadrao ?></span>
+                <span> Sua Média: <?php echo $mediaAluno ?>%</span>
+            </p>
         </div>
 
     </div>

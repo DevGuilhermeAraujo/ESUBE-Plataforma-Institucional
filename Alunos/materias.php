@@ -23,9 +23,9 @@ $idUser = $result[0][0];
         .progressBar {
             width: 100%;
             height: 10px;
-            border: 1px solid #000;
             position: relative;
             border-radius: 50px;
+            background-color: gray;
         }
     </style>
 </head>
@@ -55,6 +55,7 @@ $idUser = $result[0][0];
                 .progress<?php echo $idMateria ?>{
                     height: 100%;
                     background-color: <?php echo $frequencia < 30 ? 'red' : ($frequencia < 70 ? 'yellow' : 'green'); ?>;
+                    border-radius: 50px;
                 }
             </style>
             <div class="painel">
