@@ -44,7 +44,7 @@ $tipoUser = getPermission();
         </form>
         <div class="enviadas">
         <?php
-        $result = $db->executar("SELECT c.titulo, c.descricao FROM comunicacao AS c JOIN funcionarios AS f ON c.id_professor = f.id WHERE f.id = '$idUser';");
+        $result = $db->executar("SELECT c.titulo, c.descricao FROM comunicacao AS c JOIN funcionarios AS f ON c.id_funcionario = f.id WHERE f.id = '$idUser';");
         foreach($result AS $mensagens){
             $titulo = $mensagens['titulo'];
             $descricao = $mensagens['descricao'];
