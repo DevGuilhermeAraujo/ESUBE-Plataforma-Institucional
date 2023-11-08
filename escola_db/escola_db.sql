@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/11/2023 às 20:24
+-- Tempo de geração: 08/11/2023 às 20:28
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -283,7 +283,7 @@ INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senh
 (1111114, 'Professor3', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', '$2y$10$E1tmLsTldcL1tMlNg9Zp/.5K6F.RTvVwV58ALS0jxSjidhUm8OFDG', '2023-11-01 21:47:21', 2),
 (1111115, 'Guilherme Araujo', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$pR1a7VLNKBTirO2aHK6mO.ZBYfTR.UNZgLpoMWGFT5s6DHt6BO56O', '2023-11-01 21:47:21', 3),
 (1111116, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$dBAyhTDu8CjWnjAV6qL2P.NFRns0rUysMhNca6uqTKtxQBsxZ6kpe', '2023-11-01 21:47:21', 3),
-(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$VSPFwiq8PmLCrVZBJFHplemyfvxrwNh89fLlR9kkZdfl73QOdjrn2', '2023-11-01 21:47:21', 3),
+(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$G5Adl7UQ//BeNvRK6mwMguts8vKLIVB/rdNWs1eEBxk1f8a4dmLAW', '2023-11-01 21:47:21', 3),
 (1111118, 'Alexandre Borges', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$wP3qzeEJaUV5RR/Ryu.vwuDwOeK5B13mk9CQ0cMqoc1Yb8GjNQASS', '2023-11-03 04:50:48', 3);
 
 -- --------------------------------------------------------
