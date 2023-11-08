@@ -81,12 +81,13 @@ $tipoUser = getPermission();
         <div class="dados">
             <div class="titulos">
                 <p>
-                    <span>Nota</span>
+                    <span>Valor da atividade</span>
+                    <span>Nota do Aluno</span>
                     <span>Tipo de nota</span>
                 </p>
             </div>
             <?php
-            $result = $db->executar("SELECT nota, CASE
+            $result = $db->executar("SELECT atv.pontoAtribuido, nota, CASE
                                                         WHEN n.id_atividade = 1 THEN 'Prova Mensal'
                                                         WHEN n.id_atividade = 2 THEN 'Prova Bimestral'
                                                         WHEN n.id_atividade = 3 THEN 'Trabalho'
@@ -96,14 +97,16 @@ $tipoUser = getPermission();
                                                     FROM notas AS n
                                                     JOIN alunos AS a ON n.id_aluno = a.id
                                                     JOIN materias AS m ON n.id_materia = m.id
+                                                    JOIN atividades AS atv ON atv.id = n.id_atividade
                                                     WHERE n.id_aluno = '$idUser' AND n.id_materia = '$idMateria';", true);
             $tipoNotas = $result->fetchAll(PDO::FETCH_ASSOC);
             // Loop para exibir os alunos
             foreach ($tipoNotas as $notas) {
+                $valorAtividade = $notas['pontoAtribuido'];
                 $nota = $notas['nota'];
                 $descNotas = $notas['tipo_nota'];
                 // Faça o que for necessário com os dados do aluno
-                echo "<p><span>{$nota}</span><span>{$descNotas}</span>  </p>";
+                echo "<p><span>{$valorAtividade}</span><span>{$nota}</span><span>{$descNotas}</span>  </p>";
             }
             ?>
             <h2><span>Estatística de Atividades</span></h2>
