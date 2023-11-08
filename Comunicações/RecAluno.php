@@ -19,63 +19,27 @@ $tipoUser = getPermission();
     <title>Comunicação</title>
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="comunicações.css">
+    <link rel="stylesheet" href="../Cadastrados/tabelas.css">
 </head>
 
 <body>
-    <div class="painelCom">
-        <form class="enviar">
-            <div style="width: 100%;display:flex;flex-flow:row nowrap">
-                <input class="tit" type="text" placeholder="Titulo">
-                <select name="turma" id="SelectTurma">
-                    <option value="0">Todas</option>
-                    <?php
-                    $result = $db->executar("SELECT t.id, t.desc_turma FROM turmas AS t JOIN professor_turma AS pt ON t.id = pt.id_turma JOIN view_professores AS vp ON pt.id_prof = vp.id WHERE vp.id = $idUser");
-                    foreach($result AS $turmas){
-                        $idTurma = $turmas['id'];
-                        $descTurma = $turmas['desc_turma'];
-                       echo "<option value='$idTurma'>$descTurma</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <input class="tex" type="text" placeholder="Mensagem">
-            <input style="margin-left: 40%;" class="env" type="submit" value="Enviar">
-        </form>
-        <div class="enviadas">
-            <?php
-            $result = $db->executar("SELECT c.titulo, c.descricao FROM comunicacao AS c;");
-            foreach ($result as $mensagens) {
-                $titulo = $mensagens['titulo'];
-                $descricao = $mensagens['descricao'];
-                echo "<h2>$titulo</h2>";
-                echo "<p>$descricao</p>";
-            }
-            ?>
+    <div class="dados" style="width: 98%;margin: 1% 0% 0% 1%">
+        <div class="titulos">
+            <p>
+                <span>Autor</span>
+                <span>Título</span>
+                <span>Mensagem</span>
+                <span>Responder</span>
+                <span>Apagar</span>
+            </p>
         </div>
-        <div class="not">
-            <div class="dados">
-                <div class="titulos">
-                    <p>
-                        <span>Referência</span>
-                        <span>Aluno</span>
-                        <span>Mensagem</span>
-                        <span>Excluir</span>
-                    </p>
-                </div>
-                <p>
-                    <span>Mensagem que foi respondida</span>
-                    <span>Quem respondeu</span>
-                    <span>Resposta</span>
-                    <span><button><img class="ico" src="../Imgs/iconLixeira.png" alt=""></button></span>
-                </p>
-                <p>
-                    <span>Eu envio</span>
-                    <span>Eu respondo</span>
-                    <span>Respondi aqui</span>
-                    <span><button><img class="ico" src="../Imgs/iconLixeira.png" alt=""></button></span>
-                </p>
-            </div>
-        </div>
+        <p>
+            <span>Exemplo de autor</span>
+            <span>Exemplo de titulo</span>
+            <span>Exemplo de Mensagem</span>
+            <span><button style="background-color: rgb(206, 203, 203);border:2px solid rgb(49, 49, 78);"><img src="../Imgs/balão.png" alt="balão"></button></span>
+            <span><button><img src="../Imgs/iconLixeira.png" alt="lixeira"></button></span>
+        </p>
     </div>
 </body>
 
