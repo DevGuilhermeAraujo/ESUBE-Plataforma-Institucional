@@ -16,6 +16,39 @@ $email = $result[0]['email'];
 if(getPermission() == PERMISSION_ALUNO){
     $turma = $db->executar("SELECT desc_turma FROM view_alunos WHERE ra = '".getIdRa()."';")[0][0];
 }
+//Menssagens
+if(isset($_GET['sucess'])){
+    switch($_GET['sucess']){
+        case 1:
+            msg(MSG_POSITIVE_BG, "Email alterado com sucesso!","msgPopUp msgMargin",null,null,1500);
+            break;
+        case 2:
+            msg(MSG_POSITIVE_BG, "Senha alterada com sucesso!","msgPopUp msgMargin",null,null,1500);
+            break;
+        default:
+            msg(MSG_POSITIVE_BG, "Operação concluída com sucesso!","msgPopUp msgMargin",null,null,1500);
+    }
+}
+if(isset($_GET['senhaInvalida']))
+    msg(MSG_NEGATIVE_BG, "Senha inválida!","msgPopUp msgMargin",null,null,1500);
+
+if(isset($_GET['falhaUpdate'])){
+    switch($_GET['falhaUpdate']){
+        case 1:
+            msg(MSG_NEGATIVE_BG, "Falha em alterar os dados no banco!","msgPopUp msgMargin",null,null,1500);
+            break;
+        case 2:
+            if(isset($_GET['restored']))
+                msg(MSG_NEGATIVE_BG, "Operação revertida! Falha em alterar os dados no banco!","msgPopUp msgMargin",null,null,1500);
+            else
+                msg(MSG_NEGATIVE_BG, "Falha em alterar os dados no banco!","msgPopUp msgMargin",null,null,1500);
+            break;
+        default:
+
+    }
+}
+if(isset($_GET['falhaEncrypt']))
+    msg(MSG_NEGATIVE_BG, "Falha em criptografar a senha!","msgPopUp msgMargin",null,null,1500);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,27 +60,27 @@ if(getPermission() == PERMISSION_ALUNO){
 </head>
 <script>
     //Script somente dessa pagina
-    var msg = new MsgBox();
+    var msg;
     var novoEmail = null;
     function trocarEmail(etapa = 1){
         switch(etapa){
             case 1:
-                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _menssagem: "Email atual: "+'<?php echo $email ?>', _title: "Mudar email", _inputPlaceholder: "Novo email, exemple@ex.com", _btnOkName: "Ok", _btnOkAction: "trocarEmail(2);", _btnCancelName: "Cancelar"});
+                msg = new MsgBox();
+                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _menssagem: "Email atual: "+'<?php echo $email ?>', _title: "Mudar email", _inputPlaceholder: "Novo email, exemple@ex.com", _btnOkName: "Ok", _btnOkAction: "trocarEmail(2);", _btnCancelName: "Cancelar", _autoDestroy: true});
                 break;
             case 2:
                 if(!validaEmail(msg.returnInput)){
-                    msg.destroy();
                     msg = new MsgBox();
                     msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_TEXT, _title: "Email inválido!", _btnOkName: "Ok", _autoDestroy: true});
                     break;
                 }
                 novoEmail = msg.returnInput;
-                msg.destroy();
                 msg = new MsgBox();
-                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _title: "Confirme sua senha:", _inputPlaceholder: "Senha", _inputPassword: true, _btnOkName: "Confirmar", _btnOkAction: "trocarEmail(3);", _btnCancelName: "Cancelar"});
+                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _title: "Confirme sua senha:", _inputPlaceholder: "Senha", _inputPassword: true, _btnOkName: "Confirmar", _btnOkAction: "trocarEmail(3);", _btnCancelName: "Cancelar", _autoDestroy: true});
                 break;
             case 3:
-                //redirectPOST(".//BackEnd/ProcessCRUD.php","email="+novoEmail+"&senha="+msg.returnInput);
+                //redirectPOSTAjax("../BackEnd/ProcessTrocaEmailSenha.php","troca=1&nEmail="+novoEmail+"&senha="+msg.returnInput+"&rUrl="+window.location.href);
+                redirectPOST("../BackEnd/ProcessTrocaEmailSenha.php",[["troca","1"],["nEmail",novoEmail],["senha", msg.returnInput],["rUrl",window.location.href]]);
                 msg.destroy();
                 break;
         }
