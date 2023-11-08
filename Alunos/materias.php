@@ -62,7 +62,7 @@ $idUser = $result[0][0];
                     <h3> <?php echo $nomeMateria ?></h3>
                     <!--nota do aluno-->
                     <p>Nota: <span> <?php echo $notas ?></span></p>
-                    <p>Frequência: <span class="frequencia"> <?php echo $frequencia ?> </span><span>
+                    <p>Frequência: <span class="frequencia"> <?php echo $frequencia ?>%</span><span>
                             <div class="progressBar">
                                 <div class="progress<?php echo $idMateria;?>" style="width: <?php echo $frequencia?>%"></div>
                             </div>
