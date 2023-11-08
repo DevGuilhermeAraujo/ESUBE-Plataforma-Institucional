@@ -68,16 +68,7 @@ form img{
     background-color: rgb(49, 49, 78);
     color: white;
 }
-#login:hover{
-    background-color: rgb(105, 105, 150);
-    color: rgb(49, 49, 78);
-    transition: 1s;
-}
 a{
     color: rgb(49, 49, 78);
     text-decoration: none;
-    margin-top: 2%;
-}
-a:hover{
-    text-decoration: underline;
 }
