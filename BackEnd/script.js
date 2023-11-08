@@ -193,6 +193,14 @@ function redirectPOST(URL, values){
     xhr.send(values);
 }
 
+function validaEmail(email){
+    var emailIsValid = true;
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(email))
+        emailIsValid = false;
+    return emailIsValid;
+}
+
 async function ExempleMenssageBox(){
     //Primeira forma de usar
     msg1 = new MsgBox();
@@ -326,7 +334,7 @@ class MsgBox{
             throw "Menssagem incompleta.";
     }
 
-    showInLine({_idName= null, 
+    async showInLine({_idName= null, 
         _type = null, 
         _menssagem = null, 
         _title = null, 
@@ -346,7 +354,7 @@ class MsgBox{
         if(_idName == null || _type == null){
             throw "Menssagem incompleta.";
         }
-        this.reset();
+        await this.reset();
         this.idName = _idName;
         this.message = _menssagem;
         this.inputMenssage = _inputMenssage;
@@ -354,7 +362,7 @@ class MsgBox{
         this.inputPassword = _inputPassword;
         this.title = _title;
         try{
-            _type();
+            await _type();
         }catch{
             throw "Prorpriedade inválida.";
         }
@@ -371,7 +379,7 @@ class MsgBox{
         //btnFechar
         this.btnFecharView = _btnFecharView;
         this.onCloseAction = _onCloseAction;
-        this.show();
+        await this.show();
     }
 
     abrir(){
@@ -439,6 +447,7 @@ class MsgBox{
             this.#importJs(obj[i].getAttribute("src"));
         }
 
+        try{
         //Texto
         obj = objTitle;
         if(this.title != null)
@@ -517,6 +526,8 @@ class MsgBox{
                     window[idName].this.onCloseAction();
                     */ // <-- Futuro Update
                 }});
+        
+        }catch{}
     }
 
     async #importJs(src){

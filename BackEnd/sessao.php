@@ -36,8 +36,10 @@ function requiredLogin(?Int $permission = null, ?String $URL = null)
     if (!Logued($permission)) {
         if (is_null($URL)) {
             header("Location: ../Login/pagLogin.php");
+            exit();
         } else {
             header("Location: " . $URL);
+            exit();
         }
     }
 }
@@ -95,6 +97,7 @@ function getPermission()
     }catch(Exception $e){
         logout();
         header("Location: ../Login/pagLogin.php?ERROR=3");
+        exit();
     }
 }
 
