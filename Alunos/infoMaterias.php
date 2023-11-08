@@ -64,11 +64,11 @@ $tipoUser = getPermission();
 
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name<html lang="pt-br">
     <title>Document</title>
     <link rel="stylesheet" href="../index.css">
     <script src="../BackEnd/script.js"></script>
@@ -106,13 +106,13 @@ $tipoUser = getPermission();
                 echo "<p><span>{$nota}</span><span>{$descNotas}</span>  </p>";
             }
             ?>
-            <h2>Estatística de Atividades</h2>
+            <h2><span>Estatística de Atividades</span></h2>
             <p>
                 <span> Pontos Distribuídos: <?php echo $pontosDistribuidos ?></span>
                 <span> Pontos Recebidos: <?php echo $notaDoAluno ?></span>
-                <span> Média Turma: <?php echo $mediaNotaPorTurma ?>%</span>
-                <span> Desvio Padrão:<?php echo $desvioPadrao ?></span>
-                <span> Sua Média: <?php echo $mediaAluno ?>%</span>
+                <span> Média Turma: <?php echo number_format($mediaNotaPorTurma, 2) ?>%</span>
+                <span> Desvio Padrão:<?php echo number_format($desvioPadrao, 2) ?></span>
+                <span> Sua Média: <?php echo number_format($mediaAluno, 2) ?>%</span>
             </p>
         </div>
 

@@ -6,6 +6,9 @@ requiredLogin(PERMISSION_GERENTE);
 
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
+$raUsuario = getIdRa();
+$result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE u.ra = $raUsuario;");
+$idUser = $result[0][0];
 if ($db->errorCode == 0) {
     $result = $db->executar("SELECT COUNT(*) FROM view_professores;");
     $quantProf = $result;
@@ -13,6 +16,8 @@ if ($db->errorCode == 0) {
     $quantAlunos = $result;
     $result = $db->executar("SELECT COUNT(*) FROM turmas;");
     $quantTurmas = $result;
+    $result = $db->executar("SELECT COUNT(*) FROM comunicacao WHERE id_professor = $idUser;");
+    $quantComunicacao = $result;
 }
 
 ?>
@@ -75,7 +80,7 @@ if ($db->errorCode == 0) {
         <div class="painel">
             <div class="conteudo">
                 <h3>Comunicações</h3>
-                <p>Total enviados: <span><!--total de mensagens deste gerente--></span></p>
+                <p>Enviadas: <span><?php echo $quantComunicacao[0][0] ?></span></p>
                 <p>Respostas: <span><!--Total de respostas de alunos/professores--></span></p>
             </div>
             <a class="ver" href="../Comunicações/EnvGerente.php">Ver</a>
@@ -102,7 +107,7 @@ if ($db->errorCode == 0) {
             switch ($_GET["ERROR"]) {
                 case 1:
                     //Menssagem de falha no Banco
-                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.","msgPopUp msgMargin", null, "msg3", 4000);
+                    msg(MSG_NEGATIVE_BG, "Falha ao cadastrar usuario. Falha ao conectar com a base de dados. Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.", "msgPopUp msgMargin", null, "msg3", 4000);
                     break;
                 case 2:
                     //Menssagem de falha no Banco 
