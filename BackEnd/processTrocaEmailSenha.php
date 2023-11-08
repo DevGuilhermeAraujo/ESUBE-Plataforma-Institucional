@@ -3,7 +3,7 @@ include_once "sessao.php";
 requiredLogin();
 include_once "conexao.php";
 
-$tipoTroca = $_POST['troca'];
+$tipoTroca = $_POST['tipoTroca'];
 $returnUrl = $_POST['rUrl'];
 $ra = getIdRa();
 

@@ -80,7 +80,7 @@ if(isset($_GET['falhaEncrypt']))
                 break;
             case 3:
                 //redirectPOSTAjax("../BackEnd/ProcessTrocaEmailSenha.php","troca=1&nEmail="+novoEmail+"&senha="+msg.returnInput+"&rUrl="+window.location.href);
-                redirectPOST("../BackEnd/ProcessTrocaEmailSenha.php",[["troca","1"],["nEmail",novoEmail],["senha", msg.returnInput],["rUrl",window.location.href]]);
+                redirectPOST("../BackEnd/ProcessTrocaEmailSenha.php",[["tipoTroca","1"],["nEmail",novoEmail],["senha", msg.returnInput],["rUrl",window.location.href]]);
                 msg.destroy();
                 break;
         }

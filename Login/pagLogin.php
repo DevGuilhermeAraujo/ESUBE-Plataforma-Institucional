@@ -29,6 +29,11 @@ if (Logued()) {
             </form>
             <!--Mensagens de erro aqui (preferência: 1 por vez)-->
             <?php
+                if (isset($_GET["sucess"])) {
+                    //Menssagem de senha recuperada
+                    msg(MSG_POSITIVE_BG, "Usa senha foi recuperada com sucesso!",null,"width: 40%; margin-top: 2%; margin-left: 0;","msg1",10000);
+                }
+
                 if (isset($_GET["invalidLogin"])) {
                     //Menssagem de login inválido
                     msg(MSG_NEGATIVE_BG, "Usuário e/ou senha incorretos.<br>Certifique-se de que a função Caps Lock está desligada e tente novamente.",null,"width: 40%; margin-top: 2%; margin-left: 0;","msg1",10000);
