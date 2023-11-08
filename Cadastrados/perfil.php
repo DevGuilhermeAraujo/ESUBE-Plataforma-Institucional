@@ -24,6 +24,7 @@ if(getPermission() == PERMISSION_ALUNO){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - <?= getNome(); ?></title>
     <script src="../BackEnd/script.js"></script>
+    <link rel="stylesheet" href="../index.css">
 </head>
 <script>
     //Script somente dessa pagina
@@ -54,17 +55,23 @@ if(getPermission() == PERMISSION_ALUNO){
     }
 </script>
 <body>
-    <h1>Perfil</h1>
-    <p>Cargo: <?= $cargo?></p>
-    <p><?= (getPermission() == PERMISSION_ALUNO)?"RA":"ID"; ?>: <?= getIdRa();?></p>
-    <p>Nome: <?= getNome(); ?></p>
-    <P>CPF: <?= $db->executar("SELECT CPF FROM usuarios WHERE ra = '".getIdRa()."';")[0][0]; ?></P>
-    <p>Data de Nascimento: <?= $dtNasc?></p>
-    <p>Idade: <?= $idade?></p>
-    <p>Data de <?= (getPermission() == PERMISSION_ALUNO)?"Matricula":"Contratação"; ?>: <?= $dtRegistro?></p>
-    <p>Email: <?= $email?></p>
-    <?= (getPermission() == PERMISSION_ALUNO)?"<p>Turma: $turma</p>":"";?>
-    <button id="trocaEmail" onclick="trocarEmail();">Mudar Email</button>
-    <button id="trocaSenha">Trocar Senha</button>
+    <div id="perf">
+        <div id="opc">
+            <img src="../Imgs/usuario.png" alt="iconPerfil">
+            <button id="trocaEmail" onclick="trocarEmail();">Mudar Email</button>
+            <button id="trocaSenha">Trocar Senha</button>
+        </div>
+        <div id="inf">
+            <h2><?= getNome(); ?></h2>
+            <h3><?= $cargo?></h3>
+            <p><?= (getPermission() == PERMISSION_ALUNO)?"RA":"ID"; ?>: <?= getIdRa();?></p>
+            <P>CPF: <?= $db->executar("SELECT CPF FROM usuarios WHERE ra = '".getIdRa()."';")[0][0]; ?></P>
+            <p>Data de Nascimento: <?= $dtNasc?></p>
+            <p>Idade: <?= $idade?></p>
+            <p>Data de <?= (getPermission() == PERMISSION_ALUNO)?"Matricula":"Contratação"; ?>: <?= $dtRegistro?></p>
+            <p>Email: <?= $email?></p>
+            <?= (getPermission() == PERMISSION_ALUNO)?"<p>Turma: $turma</p>":"";?>
+        </div> 
+    </div>
 </body>
 </html>

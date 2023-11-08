@@ -34,7 +34,7 @@
             </p>
             <p></p>
             <p><?= getNome() ?></p>
-            <img src="../Imgs/usuario.png" alt="iconeUsuario">
+            <a target="index" href="../Cadastrados/perfil.php"><img src="../Imgs/usuario.png" alt="iconeUsuario"></a>
         </div>
         <iframe src="inicioProfessores.php" name="index"></iframe>    
     </div>

@@ -74,6 +74,12 @@ iframe{
 .usuario p{
     margin-right: 2%;
 }
+.usuario a{
+    width: 10%;
+}
+.usuario a img{
+    width: 35%;
+}
 .full{
     height: 100vh;
     width: 92.5%;
@@ -214,6 +220,41 @@ iframe{
 }
 .hideObj{
    display: none;
+}
+#perf{
+    background-color: rgb(49, 49, 78);
+    border-radius: 20px;
+    padding: 5%;
+    width: 80%;
+    margin: 2% 0% 0% 10%;
+    color: white;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+#opc{
+    width: 20%;
+}
+#opc button{
+    margin-top: 15%;
+    font-size: 15px;
+    color: rgb(49, 49, 78);
+}
+#opc img{
+    width: 100%;
+}
+#inf{
+    width: 75%;
+    margin-left: 5%;
+}
+#inf h2{
+    font-size: 20px;
+}
+#inf h3{
+    font-size: 18px;
+}
+#inf p{
+    font-size: 15px;
 }
 /*Classe MsgBox
 

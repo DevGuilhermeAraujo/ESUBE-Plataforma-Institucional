@@ -72,6 +72,14 @@ if ($db->errorCode == 0) {
             </div>
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
+        <div class="painel">
+            <div class="conteudo">
+                <h3>Comunicações</h3>
+                <p>Total enviados: <span><!--total de mensagens deste gerente--></span></p>
+                <p>Respostas: <span><!--Total de respostas de alunos/professores--></span></p>
+            </div>
+            <a class="ver" href="../Comunicações/EnvGerente.php">Ver</a>
+        </div>
         <!--Mensagens aqui (preferência: 1 por vez)-->
         <?php
         //Menssagem de sucesso de cadastro

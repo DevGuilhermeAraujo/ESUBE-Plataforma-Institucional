@@ -15,7 +15,7 @@
     background-color: rgb(206, 203, 203);
     box-shadow: 10px 10px 5px gray;
 }
-.enviar input{
+.enviar input,select{
     border-radius: 10px;
     padding: 1%;
     margin: 1%;
@@ -69,4 +69,11 @@
 }
 .ico{
     width: 5%;
+}
+#SelectTurma{
+    width: 50%;
+    font-size: 18px;
+    background-color: #31314e;
+    color: white;
+    height: 10vh;
 }
