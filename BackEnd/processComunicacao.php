@@ -3,7 +3,9 @@
 require_once('../BackEnd/conexao.php');
 $db = new Conexao();
 $idUser = $_GET['id'];
-$validacao = $_GET['valid'];
+if(isset($_GET['valid'])){
+    $validacao = $_GET['valid'];
+}
 $titulo = $_POST['titulo'];
 $comunicacao = $_POST['descricao'];
 $idTurma = 0;
