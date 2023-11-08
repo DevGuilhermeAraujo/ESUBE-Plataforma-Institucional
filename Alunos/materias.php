@@ -59,7 +59,7 @@ $idUser = $result[0][0];
             </style>
             <div class="painel">
                 <div class="conteudo">
-                    <h3> $nomeMateria </h3>
+                    <h3> <?php echo $nomeMateria ?></h3>
                     <!--nota do aluno-->
                     <p>Nota: <span> <?php echo $notas ?></span></p>
                     <p>Frequência: <span class="frequencia"> <?php echo $frequencia ?> </span><span>
@@ -68,7 +68,7 @@ $idUser = $result[0][0];
                             </div>
                         </span></p>
                 </div>
-                <a href='infoMaterias.php?id=$idMateria' class='ver' name=''>Ver</a>
+                <a href='infoMaterias.php?id=<?php echo $idMateria?>' class='ver' name=''>Ver</a>
             </div>
         <?php
         }
