@@ -30,7 +30,6 @@ $idUser = $result[0][0];
 
         .progress {
             height: 100%;
-            width: <?php echo $frequencia?>; 
             background-color: green;
         }
     </style>
@@ -43,6 +42,7 @@ $idUser = $result[0][0];
         // Loop para exibir os professores
         foreach ($result as $materias) {
             $frequencia = 100;
+            $notas = 0;
             $idMateria = $materias['id'];
             $nomeMateria = $materias['nome'];
             // Faça o que for necessário com os dados do professor
@@ -52,40 +52,45 @@ $idUser = $result[0][0];
             $totAulasDadas = $result[0][0];
             $result = $db->executar("SELECT COUNT(*) AS freq FROM frequencia AS f JOIN alunos AS a ON f.id_aluno = a.id JOIN materias AS m ON f.id_materia = m.id WHERE a.id = $idUser AND f.desc_frequencia = 1 AND f.id_materia = $idMateria;");
             $totAulasComparecidas = $result[0][0];
-            if ($totAulasComparecidas != 0) {
+            if ($totAulasDadas != 0) {
                 $frequencia = ($totAulasComparecidas / $totAulasDadas) * 100;
             }
-        ?>
-            <div class="painel">
-                <div class="conteudo">
-                    <h3><?php echo $nomeMateria ?> </h3>
-                    <!--nota do aluno-->
-                    <p>Nota: <span><?php echo $notas ?></span></p>
-                    <p>Frequência: <span id="barraFrequencia"><?php echo $frequencia ?></span><span>
-                            <div class="progress-bar">
-                                <div class="progress"></div>  
-                            </div>
-                        </span> </p>
-                </div>
-                <a href="infoMaterias.php?id=<?php echo $idMateria ?>" class="ver" name="">Ver</a>
-            </div>
-        <?php
+
+            echo '<div class="painel">';
+            echo '<div class="conteudo">';
+            echo "<h3> $nomeMateria </h3>";
+            echo "<!--nota do aluno-->";
+            echo "<p>Nota: <span> $notas</span></p>";
+            echo '<p>Frequência: <span class="frequencia">' . $frequencia . '</span><span>';
+            echo '<div class="progress-bar">';
+            echo '<div class="progress" style="width: ' . $frequencia . '%"></div>';
+            echo '</div>';
+            echo '</span></p>';
+            echo "</div>";
+            echo "<a href='infoMaterias.php?id=$idMateria' class='ver' name=''>Ver</a>";
+            echo '</div>';
         }
         ?>
     </div>
-    <script>
-        // Obtenha o valor da frequência do elemento com o ID "barraFrequencia"
-        let frequencia = parseInt(document.getElementById("barraFrequencia").textContent);
 
-        // Se o valor da frequência for menor que 50%, mude a cor para vermelho
-        if (frequencia <30) {
-            document.querySelector(".progress").style.backgroundColor = "red";
-        } else if(frequencia >= 30 && frequencia <= 70){
-            document.querySelector(".progress").style.backgroundColor = "yellow";
+    <script>
+    let frequencias = document.querySelectorAll(".frequencia");
+
+    frequencias.forEach(function (frequencia) {
+        let valor = parseInt(frequencia.textContent);
+        let progressBar = frequencia.nextElementSibling.querySelector(".progress");
+
+        if (valor < 30) {
+            progressBar.style.backgroundColor = "red";
+        } else if (valor >= 30 && valor <= 70) {
+            progressBar.style.backgroundColor = "yellow";
+        } else {
+            progressBar.style.backgroundColor = "green"; // Define a cor padrão
         }
-        // Defina a largura da barra de progresso com base na frequência
-        document.querySelector(".progress").style.width = frequencia + "%";
-    </script>
+
+        progressBar.style.width = valor + "%";
+    });
+</script>
 </body>
 
 </html>
