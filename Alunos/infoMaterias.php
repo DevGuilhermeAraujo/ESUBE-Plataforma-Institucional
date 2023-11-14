@@ -64,7 +64,6 @@ if (isset($notaDoAluno)) {
 //maior nota da turma
 $result = $db->executar("SELECT MAX(n.nota) FROM notas AS n JOIN alunos AS a ON n.id_aluno = a.id JOIN turmas AS t ON a.id_turma = t.id  GROUP BY a.id");
 $tipoUser = getPermission();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,6 +86,7 @@ $tipoUser = getPermission();
                     <span>Data</span>
                     <span>Atividades realizadas</span>
                     <span>Valor</span>
+                    <span>Maior nota na turma</span>
                     <span>Sua Nota</span>
                 </p>
             </div>

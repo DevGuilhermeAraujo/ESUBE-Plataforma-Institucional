@@ -59,7 +59,20 @@ if ($db->errorCode == 0) {
             </div>
             <a href="../Comunicações/EnvProfessor.php" class="ver">Ver</a>
         </div>
-
+        <div class="painel">
+            <div class="conteudo">
+                <h3>Vincular notas</h3>
+                <!--total de mensagens-->
+                <p>Enviadas: <span><?php echo $quantComunicacao[0][0] ?></span></p>
+            </div>
+            <a href="../Professores/vincNotas.php" class="ver">Ver</a>
+        </div>
+        <?php
+        if (isset($_GET["cadastroNotasSucess"])) {
+            //Menssagem de senha recuperada
+            msg(MSG_POSITIVE_BG, "Notas cadastradas com sucesso!", null, "width: 40%; margin-top: 2%; margin-left: 0;", "msg1", 10000);
+        }
+        ?>
     </div>
 </body>
 
