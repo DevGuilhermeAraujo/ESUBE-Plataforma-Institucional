@@ -1,5 +1,6 @@
 <?php
 include_once("sessao.php");
+requiredLogin(PERMISSION_PROFESSOR);
 include_once("conexao.php");
 $db = new Conexao();
 if (isset($_POST["materia"]) && isset($_POST["bimestre"]) && isset($_POST["turma"])) {

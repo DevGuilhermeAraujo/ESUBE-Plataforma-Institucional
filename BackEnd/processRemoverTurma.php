@@ -14,7 +14,9 @@ if ($result->rowCount() == 0) {
         if ($result->rowCount() == 0) {
             header("Location: ../Cadastrados/Turmas.php?Sucess=2");
         }
+    } else{
+        header("Location: ../Cadastrados/Turmas.php?ERROR=25");
     }
 } else {
-    header("Location: ../Gerente/inicioGerente.php?ERRO=21");
+    header("Location: ../Cadastrados/Turmas.php?ERROR=25");
 }

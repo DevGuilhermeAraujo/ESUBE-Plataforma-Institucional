@@ -19,7 +19,7 @@
     if($db->rowCount() == 1){
         header("Location: ../Gerente/inicioGerente.php?Sucess=2");
     }else{
-        header("Location: ../Gerente/inicioGerente.php?ERRO=21");
+        header("Location: ../Gerente/inicioGerente.php?ERROR=21");
     }
 
 ?>

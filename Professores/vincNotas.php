@@ -1,5 +1,6 @@
 <?php
 include_once("../BackEnd/sessao.php");
+requiredLogin(PERMISSION_PROFESSOR);
 include_once("../BackEnd/conexao.php");
 $db = new Conexao();
 $raUsuario = getIdRa();
