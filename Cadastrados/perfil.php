@@ -63,6 +63,7 @@ if(isset($_GET['falhaEncrypt']))
     //Script somente dessa pagina
     var msg;
     var novoEmail = null;
+    var novaSenha = null;
     function trocarEmail(etapa = 1){
         switch(etapa){
             case 1:
@@ -80,8 +81,41 @@ if(isset($_GET['falhaEncrypt']))
                 msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _title: "Confirme sua senha:", _inputPlaceholder: "Senha", _inputPassword: true, _btnOkName: "Confirmar", _btnOkAction: "trocarEmail(3);", _btnCancelName: "Cancelar", _autoDestroy: true});
                 break;
             case 3:
-                //redirectPOSTAjax("../BackEnd/ProcessTrocaEmailSenha.php","troca=1&nEmail="+novoEmail+"&senha="+msg.returnInput+"&rUrl="+window.location.href);
+                //redirectPOSTAjax("../BackEnd/ProcessTrocaEmailSenha.php","tipoTroca=1&nEmail="+novoEmail+"&senha="+msg.returnInput+"&rUrl="+window.location.href);
                 redirectPOST("../BackEnd/ProcessTrocaEmailSenha.php",[["tipoTroca","1"],["nEmail",novoEmail],["senha", msg.returnInput],["rUrl",window.location.href]]);
+                msg.destroy();
+                break;
+        }
+    }
+
+    function trocarSenha(etapa = 1){
+        switch(etapa){
+            case 1:
+                msg = new MsgBox();
+                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _title: "Trocar senha", _inputPlaceholder: "Nova senha", _inputPassword: true, _btnOkName: "Ok", _btnOkAction: "trocarSenha(2);", _btnCancelName: "Cancelar", _autoDestroy: true});
+                break;
+            case 2:
+                if(!validaSenha(msg.returnInput)){
+                    msg = new MsgBox();
+                    msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_TEXT, _title: "Senha inválida!", _menssagem: "A senha deve conter pelo menos 8 caracteres e incluir caracteres especiais.", _btnOkName: "Ok", _autoDestroy: true});
+                    break;
+                }
+                novaSenha = msg.returnInput;
+                msg = new MsgBox();
+                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _title: "Confirme a Nova senha:", _inputPlaceholder: "Confirmar Senha", _inputPassword: true, _btnOkName: "Confirmar", _btnOkAction: "trocarSenha(3);", _btnCancelName: "Cancelar", _autoDestroy: true});
+                break;
+            case 3:
+                if(novaSenha != msg.returnInput){
+                    msg = new MsgBox();
+                    msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_TEXT, _title: "Senha inválida!", _menssagem: "As senhas são diferentes!", _btnOkName: "Ok", _autoDestroy: true});
+                    break;
+                }
+                msg = new MsgBox();
+                msg.showInLine({_idName: "msg1", _type: msg.SET_TYPE_INPUT, _title: "Digite sua senha atual:", _inputPlaceholder: "Senha Atual", _inputPassword: true, _btnOkName: "Confirmar", _btnOkAction: "trocarSenha(4);", _btnCancelName: "Cancelar", _autoDestroy: true});
+                break;
+            case 4:
+                //redirectPOSTAjax("../BackEnd/ProcessTrocaEmailSenha.php","troca=1&nEmail="+novoEmail+"&senha="+msg.returnInput+"&rUrl="+window.location.href);
+                redirectPOST("../BackEnd/ProcessTrocaEmailSenha.php",[["tipoTroca","2"],["nSenha",novaSenha],["senha", msg.returnInput],["rUrl",window.location.href]]);
                 msg.destroy();
                 break;
         }
@@ -92,7 +126,7 @@ if(isset($_GET['falhaEncrypt']))
         <div id="opc">
             <img src="../Imgs/usuario.png" alt="iconPerfil">
             <button id="trocaEmail" onclick="trocarEmail();">Mudar Email</button>
-            <button id="trocaSenha">Trocar Senha</button>
+            <button id="trocaSenha" onclick="trocarSenha();">Trocar Senha</button>
         </div>
         <div id="inf">
             <h2><?= getNome(); ?></h2>

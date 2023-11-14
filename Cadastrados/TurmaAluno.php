@@ -112,7 +112,7 @@ $tipoUser = getPermission();
         <div id="modalPresenca" class="modal">
             <div class="modalContent">
                 <!-- Conteúdo do modal de lançamento de presença -->
-                <form method="POST" action="../BackEnd/processLancamentoDePresencas.php?id=<?php echo $idTurma ?>">
+                <form id="formu" method="POST" action="../BackEnd/processLancamentoDePresencas.php?id=<?php echo $idTurma ?>">
                     <select name='materia' style='border: 1px solid black; width: 150px;'>
                         <option value="">Matérias </option>
                         <?php
@@ -125,27 +125,27 @@ $tipoUser = getPermission();
                         ?>
                     </select>
                     <span class="close" id="closeModal">&times;</span>
-                    <div class="dados">
-                        <div class="titulos">
-                            <p>
-                                <span>Nome do Aluno</span>
-                                <span>Presença</span>
-                            </p>
+                    <div id="modal" class="dados">
+                        <div class="mod">
+                            <div class="titulos">
+                                <p>
+                                    <span>Nome do Aluno</span>
+                                    <span>Presença</span>
+                                </p>
+                            </div>
+                            <?php
+                            $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurma");
+                            // Aqui você fará um loop para buscar os alunos da turma e exibi-los
+                            foreach ($result as $aluno) {
+                                $ra = $aluno['ra'];
+                                $nomeAluno = $aluno['nome'];
+                                $idAluno = $aluno['id_aluno'];
+                                echo "
+                                <p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia" . $idAluno . "' value='1'></span>";
+                            }
+                            ?>
                         </div>
-                        <?php
-                        $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurma");
-                        // Aqui você fará um loop para buscar os alunos da turma e exibi-los
-                        foreach ($result as $aluno) {
-                            $ra = $aluno['ra'];
-                            $nomeAluno = $aluno['nome'];
-                            $idAluno = $aluno['id_aluno'];
-                            echo "
-                            <p><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia" . $idAluno . "' value='1'></span>";
-                        }
-                        ?>
-                        <br>
                         <button id="lançar-presença">Lançar Presença</button>
-
                     </div>
                 </form>
             </div>

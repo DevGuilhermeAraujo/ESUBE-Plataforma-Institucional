@@ -188,7 +188,8 @@ function redirectPOSTAjax(URL, values){
     xhr.open("POST", URL, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onloadend = function() {
-        document.write(xhr.response);
+        //await (document.getElementsByTagName("body")[0].innerText = "");
+        await(document.write(xhr.response));
     }
     xhr.send(values);
 }
@@ -216,6 +217,12 @@ function validaEmail(email){
     if (!emailPattern.test(email))
         emailIsValid = false;
     return emailIsValid;
+}
+function validaSenha(password){
+    passwordIsValid = true;
+    if (password.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) 
+        passwordIsValid = false;
+    return passwordIsValid;
 }
 
 async function ExempleMenssageBox(){
