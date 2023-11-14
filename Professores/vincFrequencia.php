@@ -9,7 +9,6 @@ $tipoUser = getPermission();
 if (isset($_GET['valid'])) {
     $idMateriaSelected = $_GET['idMateria'];
     $idTurmaSelected = $_GET['idTurma'];
-    $idBimestreSelected = $_GET['idBimestre'];
 }
 ?>
 <!DOCTYPE html>
@@ -23,15 +22,16 @@ if (isset($_GET['valid'])) {
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../Cadastrados/tabelas.css">
     <link rel="stylesheet" href="../Cadastrados/atribuições.css">
+    <script src="../BackEnd/script.js"></script>
 </head>
 
 <body>
     <div id="exib">
-        <form method="POST" action="../BackEnd/processLancamentoDeNotas.php">
+        <form method="POST" action="../BackEnd/processLancamentoDePresencas.php">
             <?php
             if (!isset($_GET['valid'])) {
             ?>
-                <select name="materia" id="materiaSelect" required>
+                <select name="materia" required>
                     <option value="">Selecione a matéria</option>
                     <?php
                     $result = $db->executar("SELECT m.id, m.nome FROM materias AS m JOIN professor_materia AS pm ON m.id = pm.id_materia JOIN view_professores AS p ON pm.id_prof = p.id WHERE p.id = $idUser;");
@@ -42,7 +42,8 @@ if (isset($_GET['valid'])) {
                     }
                     ?>
                 </select>
-                <select name="turma" id="turmaSelect" required>
+
+                <select name="turma" required>
                     <option value="">Selecione a turma</option>
                     <?php
                     $result = $db->executar("SELECT t.id, t.desc_turma FROM turmas AS t JOIN professor_turma AS pt ON t.id = pt.id_turma JOIN funcionarios AS f ON pt.id_prof = f.id WHERE f.id = $idUser;");
@@ -53,66 +54,66 @@ if (isset($_GET['valid'])) {
                     }
                     ?>
                 </select>
-                <select name="bimestre" id="bimestreSelect" required>
-                    <option value="">Selecione o Bimestre</option>
-                    <option value='1'>1º Bimestre</option>
-                    <option value='2'>2º Bimestre</option>
-                    <option value='3'>3º Bimestre</option>
-                    <option value='4'>4º Bimestre</option>
-                </select>
             <?php
             }
             if (isset($_GET['valid'])) {
             ?>
                 <input type="hidden" name="idMateriaSelected" value="<?php echo $idMateriaSelected; ?>">
                 <input type="hidden" name="idTurmaSelected" value="<?php echo $idTurmaSelected; ?>">
-                <input type="hidden" name="idBimestreSelected" value="<?php echo $idBimestreSelected; ?>">
-                <select name="tipoNota" required>
-                    <option value="">Selecione o tipo de nota</option>
-                    <?php
-                    $result = $db->executar("SELECT a.id, a.descricao 
-            FROM atividades a
-            WHERE a.id NOT IN (
-                SELECT n.id_atividade
-                FROM notas n 
-                WHERE n.id_materia = $idMateriaSelected
-                AND n.bimestre = $idBimestreSelected
-                );");
-                    foreach ($result as $tipoNota) {
-                        $idTipoNota = $tipoNota['id'];
-                        $descricaoNota = $tipoNota['descricao'];
-                        echo "<option value='$idTipoNota'>$descricaoNota</option>";
-                    }
-                    ?>
-                </select>
                 <div class="dados">
                     <div class="titulos">
                         <p>
                             <span>RA</span>
                             <span>Nome do Aluno</span>
-                            <!-- <span>Nota Total</span> -->
-                            <span>Nota do Aluno</span>
+                            <span>Presença</span>
                         </p>
                     </div>
-
                     <?php
-                    $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurmaSelected");
+                    $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurmaSelected;");
                     // Aqui você fará um loop para buscar os alunos da turma e exibi-los
                     foreach ($result as $aluno) {
                         $ra = $aluno['ra'];
                         $nomeAluno = $aluno['nome'];
                         $idAluno = $aluno['id_aluno'];
-                        echo "<p><span>{$ra}</span><span>{$nomeAluno}</span><span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;'' required></span>";
+                        echo "
+                                <p><span>{$ra}</span><span>{$nomeAluno}</span> <span><a href'' class='presenca-toggle' data-aluno-id='frequencia" . $idAluno . "' data-status='1' style='background:green; padding: 10px 20px 10px 20px; border-radius: 50px; cursor: pointer;'>Presente</a><input type='hidden' name='frequencia" . $idAluno . "' value='1'></span>";
                     }
                     ?>
                 </div>
             <?php
             }
             ?>
-            <input type="submit" value="Enviar notas">
+            <input type="submit" value="Enviar presença">
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const presencaButtons = document.querySelectorAll('.presenca-toggle');
 
+            presencaButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Evite a ação padrão do link
+                    const alunoId = this.getAttribute('data-aluno-id');
+                    const hiddenInput = document.querySelector(`input[name='${alunoId}']`);
+                    const status = this.getAttribute('data-status');
+
+                    if (status === '1') {
+                        // Alternando para falta (0)
+                        this.textContent = 'Falta';
+                        this.style.background = 'red';
+                        this.setAttribute('data-status', '0');
+                        hiddenInput.value = '0'; // Troque '1' para '0' se desejar que o padrão seja falta
+                    } else {
+                        // Alternando de volta para presente (1)
+                        this.textContent = 'Presente';
+                        this.style.background = 'green';
+                        this.setAttribute('data-status', '1');
+                        hiddenInput.value = '1'; // Troque '0' para '1' se desejar que o padrão seja presente
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

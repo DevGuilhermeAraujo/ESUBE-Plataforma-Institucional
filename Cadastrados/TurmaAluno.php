@@ -57,57 +57,6 @@ $tipoUser = getPermission();
             }
             ?>
         </div>
-        <div id="modalNotas" class="modal">
-            <div class="modalContent">
-                <!-- Conteúdo do modal de lançamento de notas -->
-                <form id="DarNota" method="POST" action="../BackEnd/processLancamentoDeNotas.php?id=<?php echo $idTurma ?>">
-                    <select name='materia' style='border: 1px solid black; width: 150px;'>
-                        <option value="">Matérias </option>
-                        <?php
-                        $result = $db->executar("SELECT m.nome, m.id FROM materias AS m JOIN professor_materia AS pm ON m.id = pm.id_materia JOIN view_professores AS p ON pm.id_prof = p.id WHERE p.id = $idUser;");
-                        foreach ($result as $professorMaterias) {
-                            $nomeMateria = $professorMaterias['nome'];
-                            $idMateria = $professorMaterias['id'];
-                            echo "<option value='$idMateria'>$nomeMateria</option>";
-                        }
-                        ?>
-                    </select>
-                    <select name='atividade' id="atividade" style='border: 1px solid black; width: 150px;'>
-                        <?php
-                        $result = $db->executar("SELECT id, descricao FROM atividades;");
-                        foreach ($result as $atividades) {
-                            $idAtividade = $atividades['id'];
-                            $descricaoAtividade = $atividades['descricao'];
-                            echo "<option value='$idAtividade'>$descricaoAtividade</option>";
-                        }
-                        ?>
-                    </select>
-                    <input type="text" name='nomeAtividade' placeholder="Digite o nome da atividade">
-                    <span class="close" id="closeModal">&times;</span>
-                    <div class="dados">
-                        <div class="titulos">
-                            <p>
-                                <span>Nome do Aluno</span>
-                                <!-- <span>Nota Total</span> -->
-                                <span>Nota do Aluno</span>
-                            </p>
-                        </div>
-                        <?php
-                        $result = $db->executar("SELECT ra, nome, id_aluno FROM view_alunos  WHERE id_turma = $idTurma");
-                        // Aqui você fará um loop para buscar os alunos da turma e exibi-los
-                        foreach ($result as $aluno) {
-                            $ra = $aluno['ra'];
-                            $nomeAluno = $aluno['nome'];
-                            $idAluno = $aluno['id_aluno'];
-                            echo "<p><span>{$nomeAluno}</span><span><input type='number' min='0' max='100' name='nota" . $idAluno . "' style='border: 1px solid black;''></span>";
-                        }
-                        ?>
-                        <input type="submit" value="Enviar Notas">
-
-                    </div>
-                </form>
-            </div>
-        </div>
 
         <div id="modalPresenca" class="modal">
             <div class="modalContent">
@@ -154,36 +103,6 @@ $tipoUser = getPermission();
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Obtenha referências para os botões e modais
-            var btnModalLancarNotas = document.getElementById("btnModalLancarNotas");
-            var btnModalLancaPresenca = document.getElementById("btnModalLancaPresenca");
-
-            var modalNotas = document.getElementById("modalNotas");
-            var modalPresenca = document.getElementById("modalPresenca");
-
-            // Associe eventos de clique aos botões
-            btnModalLancarNotas.addEventListener("click", function() {
-                // Abra o modal de lançamento de notas
-                modalNotas.style.display = "block";
-            });
-
-            btnModalLancaPresenca.addEventListener("click", function() {
-                // Abra o modal de lançamento de presença
-                modalPresenca.style.display = "block";
-            });
-
-            // Adicione funcionalidade para fechar os modais
-            var closeButtons = document.querySelectorAll(".close");
-            closeButtons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    // Feche o modal
-                    modalNotas.style.display = "none";
-                    modalPresenca.style.display = "none";
-                });
-            });
-        });
-
         document.addEventListener('DOMContentLoaded', function() {
             const presencaButtons = document.querySelectorAll('.presenca-toggle');
 
