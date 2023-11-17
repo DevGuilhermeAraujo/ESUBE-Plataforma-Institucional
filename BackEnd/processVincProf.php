@@ -21,13 +21,13 @@ if(!isset($_GET["remove"])){
     // Verificar se a conexão foi estabelecida com sucesso
     if ($db->errorCode === 0) {
         // Preparar a consulta SQL para inserção de dados na tabela de professores com espaços reservados
-        $result = $db->executar("INSERT INTO professor_ementa(id_prof, id_materia, id_turma) VALUES ('$idProf', '$idMateria', '$idTurma')", true);
-        $vincProfessor = $result;
-        // $result = $db->executar("INSERT INTO professor_turma(id_prof, id_turma) VALUES ('$idProf', '$idTurma')", true);
-        // $insertTurma = $result;
+        $result = $db->executar("INSERT INTO professor_materia(id_prof, id_materia) VALUES ('$idProf', '$idMateria')", true);
+        $insertMateria = $result;
+        $result = $db->executar("INSERT INTO professor_turma(id_prof, id_turma) VALUES ('$idProf', '$idTurma')", true);
+        $insertTurma = $result;
 
 
-        if ($vincProfessor) {
+        if ($insertMateria and $insertTurma) {
             echo "<script> alert('Usuário cadastrado com sucesso'); </script>";
             header("Location: ../Gerente/inicioGerente.php?Sucess");
         } else {
@@ -44,10 +44,11 @@ if(!isset($_GET["remove"])){
 
     $id = $_GET['id'];
 
+    include_once "conexao.php";
 
     $db = new Conexao();
-    $db->executar("DELETE FROM professor_ementa WHERE id = '$id';");
-    $db = $db->executar("SELECT id FROM professor_ementa WHERE id = '$id'",true);
+    $db->executar("DELETE FROM professor_turma WHERE id = '$id';");
+    $db = $db->executar("SELECT id FROM professor_turma WHERE id = '$id'",true);
     if($db->rowCount() == 0){
         header("Location: ../Gerente/vincProf.php?Sucess=1");
     }else{

@@ -69,9 +69,8 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
 
 <body onclick="hidePopUpsObj();">
     <div id="exib">
-        <button onclick="goBack()">Voltar</button>
         <form method="POST" action="" class="Vincula" autocomplete="off">
-            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor" autocomplete="off" oninput="setFilterInnerHTML(filterText(this.value,dbNomesProf),'filtersNome',estructureInitFilterNome,estrctureFinalFilterNome); viewObj('filtersNome'); if(this.value == '')hideObj('filtersNome');" required>
+            <input type="text" name="filtroNome" id="filtroNome" placeholder="Digite o nome do professor" autocomplete="off" oninput="setFilterInnerHTML(filterText(this.value,dbNomesProf),'filtersNome',estructureInitFilterNome,estrctureFinalFilterNome); viewObj('filtersNome'); if(this.value == '')hideObj('filtersNome');">
         </form>
         <!-- Filtro suspenso -->
         <div id="filtersNome" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: -2vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersNome');">
@@ -80,14 +79,14 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
             </p>
         </div>
         <form method="POST" action="../BackEnd/processVincProf.php" class="Vincula" autocomplete="off">
-            <input type="text" name="raProf" id="raProf" placeholder="RA" autocomplete="off" oninput="setFilterInnerHTML(filterText(this.value,dbRaProf),'filtersRa',estructureInitFilterRA,estrctureFinalFilterRA); viewObj('filtersRa'); if(this.value == '')hideObj('filtersRa');" required>
+            <input type="text" name="raProf" id="raProf" placeholder="RA" autocomplete="off" oninput="setFilterInnerHTML(filterText(this.value,dbRaProf),'filtersRa',estructureInitFilterRA,estrctureFinalFilterRA); viewObj('filtersRa'); if(this.value == '')hideObj('filtersRa');">
             <!-- Filtro suspenso -->
             <div id="filtersRa" class="dados hideObj" style="box-shadow: 5px 5px 8px #3f3f3f; min-width: 30%; z-index: 2; position: absolute; margin-top: 9.4vh; margin-left: -0.3vw; border-radius: 10px; left: 8%; background-color: while; border: 1px solid; max-width: 83.8vw; max-height: 250px; overflow: auto; cursor: pointer;" oninput="viewObj('filtersRa');">
                 <p style="margin: 0px 10px 0px 23px; width: 91%;" onclick="document.getElementById('raProf').value = this.children[0].innerText; hideObj('filtersRa'); document.getElementById('filtroNome').value = dbNomesProf[dbRaProf.indexOf(this.children[0].innerText)];">
                     <span style="text-align: left;">exemple</span>
                 </p>
             </div>
-            <select name='materias' style='border: 1px solid black; width: 150px;' required>
+            <select name='materias' style='border: 1px solid black; width: 150px;'>
                 <option value="">Matérias </option>
                 <?php
                 $result = $db->executar("SELECT m.nome, m.id FROM materias AS m");
@@ -98,7 +97,7 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
                 }
                 ?>
             </select>
-            <select name='turmas' style='border: 1px solid black; width: 150px;' required>
+            <select name='turmas' style='border: 1px solid black; width: 150px;'>
                 <option value="">Turmas </option>
                 <?php
                 $result = $db->executar("SELECT id, desc_turma FROM turmas");
@@ -111,7 +110,7 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
             </select>
             <input type="submit" name="submit" id="submit" class="btnVinc" value="Vincular">
         </form>
-        <!-- Listagem de professores -->
+        <!-- Listagem de professores
         <div class="dados" style="box-shadow: none;">
             <div class="titulos">
                 <p>
@@ -143,7 +142,7 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
             }
             ?>
         </div>
-
+        -->
         <!-- Ligação Professor Turma -->
         <h3>Professor/Turma</h3>
         <div class="dados" style="box-shadow: none;">
@@ -152,25 +151,18 @@ echo "<script>var dbRaProf = [$dataRa]; var dbNomesProf = [$dataNome];</script>"
                     <span>RA</span>
                     <span>Nome</span>
                     <span>Turma</span>
-                    <span>Matéria</span>
                     <span></span>
                 </p>
             </div>
             <?php
-            $result = $db->executar("SELECT vp.ra AS ra, vp.nome AS nomeProf, t.desc_turma AS nomeTurma, m.nome AS nomeMateria, pe.id AS id
-            FROM view_professores AS vp 
-            JOIN professor_ementa AS pe ON vp.id = pe.id_prof 
-            JOIN turmas AS t ON pe.id_turma = t.id 
-            JOIN materias AS m ON pe.id_materia = m.id
-            ");
+            $result = $db->executar("SELECT p.ra AS ra, p.nome AS nome, t.desc_turma AS turma, pt.id as id FROM view_professores as p JOIN professor_turma AS pt ON p.id = pt.id_prof JOIN turmas as t ON pt.id_turma = t.id");
             $nomeProfessores = $result;
             foreach ($nomeProfessores as $professores) {
                 $ra = $professores['ra'];
-                $nome = $professores['nomeProf'];
-                $turma = $professores['nomeTurma'];
-                $materia = $professores['nomeMateria'];
+                $nome = $professores['nome'];
+                $turma = $professores['turma'];
                 $id = $professores['id'];
-                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span>{$materia}</span><span><a onclick='var msg = new MsgBox(); msg.showInLine({_idName: `msg1`, _type: msg.SET_TYPE_TEXT, _menssagem: `Desvincular professor?`, _title: `Aviso`, _btnOkName: `Sim`, _btnOkHref: `../BackEnd/processVincProf.php?remove&id=$id`, _btnCancelName:`Não`, _autoDestroy: true});' ><button><img src='../imgs/iconLixeira.png'><i>Remover</i></button></a></span></p>";
+                echo "<p><span>{$ra}</span><span>{$nome}</span><span>{$turma}</span><span><a onclick='var msg = new MsgBox(); msg.showInLine({_idName: `msg1`, _type: msg.SET_TYPE_TEXT, _menssagem: `Desvincular professor?`, _title: `Aviso`, _btnOkName: `Sim`, _btnOkHref: `../BackEnd/processVincProf.php?remove&id=$id`, _btnCancelName:`Não`, _autoDestroy: true});' ><button><img src='../imgs/iconLixeira.png'><i>Remover</i></button></a></span></p>";
             }
             ?>
         </div>
