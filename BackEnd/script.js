@@ -81,19 +81,6 @@ function maskCPF() {
     });
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const emailInput = document.getElementById('email');
-
-    emailInput.addEventListener('input', function () {
-        if (emailInput.value.trim() !== '') {
-            emailInput.classList.add('filled');
-        } else {
-            emailInput.classList.remove('filled');
-        }
-    });
-});
-
 //Expressão regular para validação do tipo do usuário
 function validarTipo() {
     $(document).ready(function () {
@@ -567,4 +554,9 @@ class MsgBox{
     }
 
     static getInputReturn(id, nClass){return document.getElementById(id).getElementsByClassName(nClass)[0].getElementsByTagName("input")[0].value;}
+}
+
+//Função para voltar a página anterior
+function goBack() {
+    window.history.back();
 }
