@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/11/2023 às 20:28
+-- Tempo de geração: 17/11/2023 às 15:17
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -76,13 +76,11 @@ INSERT INTO `atividades` (`id`, `descricao`, `pontoAtribuido`) VALUES
 
 CREATE TABLE `comunicacao` (
   `id` int(9) NOT NULL,
-  `titulo` varchar(50) DEFAULT NULL,
+  `titulo` longtext DEFAULT NULL,
   `descricao` longtext DEFAULT NULL,
-  `id_funcionario` int(9) DEFAULT NULL,
-  `id_aluno` int(9) DEFAULT NULL,
+  `raUsuario` int(9) DEFAULT NULL,
   `id_turma` int(3) DEFAULT NULL,
-  `data_atribuicao` timestamp NOT NULL DEFAULT current_timestamp(),
-  `validacao` int(1) DEFAULT NULL
+  `data_atribuicao` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -168,44 +166,28 @@ CREATE TABLE `notas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `professor_materia`
+-- Estrutura para tabela `professor_ementa`
 --
 
-CREATE TABLE `professor_materia` (
+CREATE TABLE `professor_ementa` (
   `id` int(5) NOT NULL,
   `id_prof` int(9) DEFAULT NULL,
-  `id_materia` int(5) DEFAULT NULL
+  `id_materia` int(5) DEFAULT NULL,
+  `id_turma` int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `professor_materia`
---
-
-INSERT INTO `professor_materia` (`id`, `id_prof`, `id_materia`) VALUES
-(1, 2, 1),
-(2, 2, 8);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `professor_turma`
+-- Estrutura para tabela `respostas`
 --
 
-CREATE TABLE `professor_turma` (
-  `id` int(5) NOT NULL,
-  `id_prof` int(9) DEFAULT NULL,
-  `id_turma` int(5) DEFAULT NULL
+CREATE TABLE `respostas` (
+  `id` int(9) NOT NULL,
+  `idComunicacao` int(9) DEFAULT NULL,
+  `raUsuario` int(9) DEFAULT NULL,
+  `resposta` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `professor_turma`
---
-
-INSERT INTO `professor_turma` (`id`, `id_prof`, `id_turma`) VALUES
-(1, 2, 1),
-(2, 2, 5),
-(3, 2, 7),
-(4, 2, 9);
 
 -- --------------------------------------------------------
 
@@ -357,7 +339,8 @@ ALTER TABLE `atividades`
 --
 ALTER TABLE `comunicacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_funcionario` (`id_funcionario`);
+  ADD KEY `raUsuario` (`raUsuario`),
+  ADD KEY `id_turma` (`id_turma`);
 
 --
 -- Índices de tabela `frequencia`
@@ -390,20 +373,21 @@ ALTER TABLE `notas`
   ADD KEY `id_atividade` (`id_atividade`);
 
 --
--- Índices de tabela `professor_materia`
+-- Índices de tabela `professor_ementa`
 --
-ALTER TABLE `professor_materia`
+ALTER TABLE `professor_ementa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_prof` (`id_prof`),
-  ADD KEY `id_materia` (`id_materia`);
+  ADD KEY `id_materia` (`id_materia`),
+  ADD KEY `id_turma` (`id_turma`);
 
 --
--- Índices de tabela `professor_turma`
+-- Índices de tabela `respostas`
 --
-ALTER TABLE `professor_turma`
+ALTER TABLE `respostas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_prof` (`id_prof`),
-  ADD KEY `id_turma` (`id_turma`);
+  ADD KEY `respostasComunic` (`idComunicacao`),
+  ADD KEY `respostasUser` (`raUsuario`);
 
 --
 -- Índices de tabela `tipo`
@@ -470,16 +454,16 @@ ALTER TABLE `notas`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `professor_materia`
+-- AUTO_INCREMENT de tabela `professor_ementa`
 --
-ALTER TABLE `professor_materia`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `professor_ementa`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `professor_turma`
+-- AUTO_INCREMENT de tabela `respostas`
 --
-ALTER TABLE `professor_turma`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `respostas`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `turmas`
@@ -508,7 +492,8 @@ ALTER TABLE `alunos`
 -- Restrições para tabelas `comunicacao`
 --
 ALTER TABLE `comunicacao`
-  ADD CONSTRAINT `comunicacao_ibfk_1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id`);
+  ADD CONSTRAINT `comunicacao_ibfk_1` FOREIGN KEY (`raUsuario`) REFERENCES `usuarios` (`ra`),
+  ADD CONSTRAINT `comunicacao_ibfk_2` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`);
 
 --
 -- Restrições para tabelas `frequencia`
@@ -532,18 +517,19 @@ ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_3` FOREIGN KEY (`id_atividade`) REFERENCES `atividades` (`id`);
 
 --
--- Restrições para tabelas `professor_materia`
+-- Restrições para tabelas `professor_ementa`
 --
-ALTER TABLE `professor_materia`
-  ADD CONSTRAINT `professor_materia_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `funcionarios` (`id`),
-  ADD CONSTRAINT `professor_materia_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`);
+ALTER TABLE `professor_ementa`
+  ADD CONSTRAINT `professor_ementa_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `funcionarios` (`id`),
+  ADD CONSTRAINT `professor_ementa_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`),
+  ADD CONSTRAINT `professor_ementa_ibfk_3` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`);
 
 --
--- Restrições para tabelas `professor_turma`
+-- Restrições para tabelas `respostas`
 --
-ALTER TABLE `professor_turma`
-  ADD CONSTRAINT `professor_turma_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `funcionarios` (`id`),
-  ADD CONSTRAINT `professor_turma_ibfk_2` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`);
+ALTER TABLE `respostas`
+  ADD CONSTRAINT `respostasComunic` FOREIGN KEY (`idComunicacao`) REFERENCES `comunicacao` (`id`),
+  ADD CONSTRAINT `respostasUser` FOREIGN KEY (`raUsuario`) REFERENCES `usuarios` (`ra`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
