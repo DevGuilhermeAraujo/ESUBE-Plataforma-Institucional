@@ -24,11 +24,11 @@ $tipoUser = getPermission();
 
 <body>
     <div class="painelCom">
-    <form method="POST" action="../BackEnd/processComunicacao.php?id=<?php echo $idUser; ?> &valid=1" class="enviar">
+        <form method="POST" action="../BackEnd/processComunicacao.php" class="enviar">
             <div style="width: 100%;display:flex;flex-flow:row nowrap">
                 <input class="tit" type="text" name="titulo" placeholder="Titulo">
                 <select name="turma" id="SelectTurma">
-                    <option value="0">Todas</option>
+                    <option value="">Todas</option>
                     <?php
                     $result = $db->executar("SELECT t.id, t.desc_turma FROM turmas AS t JOIN professor_turma AS pt ON t.id = pt.id_turma JOIN view_professores AS vp ON pt.id_prof = vp.id WHERE vp.id = $idUser");
                     foreach ($result as $turmas) {
@@ -42,16 +42,21 @@ $tipoUser = getPermission();
             <input class="tex" type="text" name="descricao" placeholder="Mensagem">
             <input style="margin-left: 40%;" class="env" type="submit" value="Enviar">
         </form>
-        <div class="enviadas">
         <?php
-        $result = $db->executar("SELECT c.titulo, c.descricao FROM comunicacao AS c JOIN funcionarios AS f ON c.id_funcionario = f.id WHERE f.id = '$idUser';");
-        foreach($result AS $mensagens){
-            $titulo = $mensagens['titulo'];
-            $descricao = $mensagens['descricao'];
-            echo "<h2>$titulo</h2>";
-            echo "<p>$descricao</p>";
+        if (isset($_GET["cadSucess"])) {
+            msg(MSG_POSITIVE_BG, "Comunicado cadastrado com sucesso!", "msgPopUp msgMargin", null, "msg1", 4000);
         }
         ?>
+        <div class="enviadas">
+            <?php
+            $result = $db->executar("SELECT c.titulo, c.descricao FROM comunicacao AS c JOIN usuarios AS u ON c.raUsuario = u.ra WHERE u.ra = '$raUsuario';");
+            foreach ($result as $mensagens) {
+                $titulo = $mensagens['titulo'];
+                $descricao = $mensagens['descricao'];
+                echo "<h2>$titulo</h2>";
+                echo "<p>$descricao</p>";
+            }
+            ?>
         </div>
         <div class="not">
             <div class="dados">

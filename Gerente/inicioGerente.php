@@ -16,7 +16,7 @@ if ($db->errorCode == 0) {
     $quantAlunos = $result;
     $result = $db->executar("SELECT COUNT(*) FROM turmas;");
     $quantTurmas = $result;
-    $result = $db->executar("SELECT COUNT(*) FROM comunicacao WHERE id_funcionario = $idUser;");
+    $result = $db->executar("SELECT COUNT(*) FROM comunicacao WHERE raUsuario = $raUsuario;");
     $quantComunicacao = $result;
 }
 
