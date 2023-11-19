@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/11/2023 às 16:13
+-- Tempo de geração: 19/11/2023 às 02:44
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -76,13 +76,11 @@ INSERT INTO `atividades` (`id`, `descricao`, `pontoAtribuido`) VALUES
 
 CREATE TABLE `comunicacao` (
   `id` int(9) NOT NULL,
-  `titulo` varchar(50) DEFAULT NULL,
+  `titulo` longtext DEFAULT NULL,
   `descricao` longtext DEFAULT NULL,
-  `id_funcionario` int(9) DEFAULT NULL,
-  `id_aluno` int(9) DEFAULT NULL,
+  `raUsuario` int(9) DEFAULT NULL,
   `id_turma` int(3) DEFAULT NULL,
-  `data_atribuicao` timestamp NOT NULL DEFAULT current_timestamp(),
-  `validacao` int(1) DEFAULT NULL
+  `data_atribuicao` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -176,6 +174,20 @@ CREATE TABLE `professor_ementa` (
   `id_prof` int(9) DEFAULT NULL,
   `id_materia` int(5) DEFAULT NULL,
   `id_turma` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `respostas`
+--
+
+CREATE TABLE `respostas` (
+  `id` int(9) NOT NULL,
+  `idComunicacao` int(9) DEFAULT NULL,
+  `raUsuario` int(9) DEFAULT NULL,
+  `resposta` longtext DEFAULT NULL,
+  `dataAtribuicao` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -328,7 +340,7 @@ ALTER TABLE `atividades`
 --
 ALTER TABLE `comunicacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_funcionario` (`id_funcionario`);
+  ADD KEY `raUsuario` (`raUsuario`);
 
 --
 -- Índices de tabela `frequencia`
@@ -368,6 +380,14 @@ ALTER TABLE `professor_ementa`
   ADD KEY `id_prof` (`id_prof`),
   ADD KEY `id_materia` (`id_materia`),
   ADD KEY `id_turma` (`id_turma`);
+
+--
+-- Índices de tabela `respostas`
+--
+ALTER TABLE `respostas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `respostasComunic` (`idComunicacao`),
+  ADD KEY `respostasUser` (`raUsuario`);
 
 --
 -- Índices de tabela `tipo`
@@ -440,6 +460,12 @@ ALTER TABLE `professor_ementa`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `respostas`
+--
+ALTER TABLE `respostas`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `turmas`
 --
 ALTER TABLE `turmas`
@@ -466,7 +492,7 @@ ALTER TABLE `alunos`
 -- Restrições para tabelas `comunicacao`
 --
 ALTER TABLE `comunicacao`
-  ADD CONSTRAINT `comunicacao_ibfk_1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id`);
+  ADD CONSTRAINT `comunicacao_ibfk_1` FOREIGN KEY (`raUsuario`) REFERENCES `usuarios` (`ra`);
 
 --
 -- Restrições para tabelas `frequencia`
@@ -496,6 +522,13 @@ ALTER TABLE `professor_ementa`
   ADD CONSTRAINT `professor_ementa_ibfk_1` FOREIGN KEY (`id_prof`) REFERENCES `funcionarios` (`id`),
   ADD CONSTRAINT `professor_ementa_ibfk_2` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id`),
   ADD CONSTRAINT `professor_ementa_ibfk_3` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`);
+
+--
+-- Restrições para tabelas `respostas`
+--
+ALTER TABLE `respostas`
+  ADD CONSTRAINT `respostasComunic` FOREIGN KEY (`idComunicacao`) REFERENCES `comunicacao` (`id`),
+  ADD CONSTRAINT `respostasUser` FOREIGN KEY (`raUsuario`) REFERENCES `usuarios` (`ra`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
