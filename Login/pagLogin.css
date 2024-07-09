@@ -1,74 +1,92 @@
-body{
-    background-image: url("../Imgs/FundoUNIUBE.png");
-    background-repeat: no-repeat;
-    background-size: 75%;
-    background-color: rgb(49, 49, 78);
+:root {
+    /* Paleta de Cores */
+    --primary-color: #0a3d62;
+    --primary-color-hover: #082c4a;
+    --secondary-color: #82ccdd;
+    --background-color: rgba(240, 240, 240, 0.9); /* Background com transparência */
+    --white-color: #ffffff;
+    --text-color: #4d4d4d;
+    --text-color-hover: #2c2c2c;
+    --input-background-color: rgba(224, 224, 224, 0.7); /* Input com transparência */
+    --input-border-color: #b0b0b0;
 }
-.pagLogin{
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
+
+body {
+    background: url('../Imgs/FundoUNIUBE.png') no-repeat center center fixed;
+    background-size: cover;
     height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
-.formulario{
-    width: 75.5%;
+
+.background-image {
+    position: relative;
+    height: 100vh;
     display: flex;
-    flex-flow: column wrap;
-    align-content: center;
     justify-content: center;
+    align-items: center;
+    padding: 1rem;
 }
-.logo{
-    width: 24.5%;
-    display: flex;
-    flex-flow: column;
-    text-align: center;
-    color: rgb(49, 49, 78);
-}
-.logo h1{
-    font-size: 50px;
-    color: white;
-}
-.white_p{
-    color: white;
-}
-form{
-    display: flex;
-    flex-flow: row wrap;
-    background-color: white;
-    width: 40%;
-    border-radius: 20px;
-    box-shadow: 0px 0px 5px rgb(49, 49, 78);
-    justify-content: center;
-    padding-bottom: 50px;
+
+.card {
     border: none;
+    border-radius: 15px; /* Aumenta o arredondamento da borda */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Aumenta a sombra */
+    background-color: rgba(255, 255, 255, 0.9); /* Card com transparência */
+    max-width: 400px; /* Ajuste o tamanho máximo do card conforme necessário */
+    width: 100%;
 }
-input{
+
+.card-body {
+    padding: 2rem;
+    background-color: transparent; /* Fundo do card transparente */
+}
+
+.text-center {
+    color: var(--primary-color);
+}
+
+.logo {
+    max-width: 150px;
+    margin-bottom: 1.5rem; /* Aumenta o espaçamento abaixo da logo */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
     border: none;
-    background-color: rgb(214, 211, 211);
-    flex: 90%;
-    padding: 10px;
-    margin: 2%;
-    border-radius: 10px;
-    height: 7vh;
+    transition: background-color 0.3s;
+    padding: 0.75rem; /* Aumenta o tamanho do botão */
+    font-size: 1.2rem; /* Aumenta o tamanho do texto do botão */
 }
-h2{
-    font-size: 20px;
-    text-align: center;
-    font-weight: 900;
-    color: white;
-    text-shadow: 1px 1px 3px black;
+
+.btn-primary:hover {
+    background-color: var(--primary-color-hover);
 }
-form img{
-    margin-left: 2%;
-    margin-top: 10%;
-    width: 40%;
-    height: 100px;
-}
-.login{
-    background-color: rgb(49, 49, 78);
-    color: white;
-}
-a{
-    color: rgb(49, 49, 78);
+
+.text-secondary {
+    color: var(--text-color);
     text-decoration: none;
+    transition: color 0.3s;
+}
+
+.text-secondary:hover {
+    color: var(--text-color-hover);
+}
+
+.form-control {
+    border: 1px solid var(--input-border-color);
+    border-radius: 10px;
+    background-color: var(--input-background-color);
+    font-size: 1.2rem;
+    padding: 0.75rem;
+}
+
+.form-control::placeholder {
+    color: var(--text-color);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+    background-color: var(--white-color);
 }

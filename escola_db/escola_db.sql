@@ -193,15 +193,6 @@ CREATE TABLE `respostas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tipo`
---
-
-CREATE TABLE `tipo` (
-  `id` int(1) NOT NULL,
-  `descricao` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
 -- Despejando dados para a tabela `tipo`
 --
 
@@ -244,32 +235,67 @@ INSERT INTO `turmas` (`id`, `desc_turma`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `ra` int(9) NOT NULL,
+  `ra` int(9) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `cpf` varchar(14) NOT NULL,
   `genero` int(1) NOT NULL,
   `dt_NASC` date NOT NULL,
   `email` varchar(50) NOT NULL,
-  `senha` varchar(60) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `dt_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `tipo` int(1) NOT NULL
+  PRIMARY KEY (`ra`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senha`, `dt_registro`, `tipo`) VALUES
-(1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', '$2y$10$DZY.OqhJWyYgelu8snEoZutt0/QFSTegiAzcK.I43AC5kCqb0zkS.', '2023-11-01 21:47:21', 1),
-(1111112, 'Professor1', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', '$2y$10$tjQ6bJzaQ3w0ry4drM3ueOGqUBSRWTWBlW0it7GIOGrgqfimBTcUy', '2023-11-01 21:47:21', 2),
-(1111113, 'Professor2', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', '$2y$10$ZpWSFrotpHH5D.3yTEqKsuIIAxC2f9iVGnJdh2hlUapRLcPz2pY5C', '2023-11-01 21:47:21', 2),
-(1111114, 'Professor3', '000.000.000-00', 1, '2002-02-27', 'professor@gmail.com', '$2y$10$E1tmLsTldcL1tMlNg9Zp/.5K6F.RTvVwV58ALS0jxSjidhUm8OFDG', '2023-11-01 21:47:21', 2),
-(1111115, 'Guilherme Araujo', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$pR1a7VLNKBTirO2aHK6mO.ZBYfTR.UNZgLpoMWGFT5s6DHt6BO56O', '2023-11-01 21:47:21', 3),
-(1111116, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$dBAyhTDu8CjWnjAV6qL2P.NFRns0rUysMhNca6uqTKtxQBsxZ6kpe', '2023-11-01 21:47:21', 3),
-(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$G5Adl7UQ//BeNvRK6mwMguts8vKLIVB/rdNWs1eEBxk1f8a4dmLAW', '2023-11-01 21:47:21', 3),
-(1111118, 'Alexandre Borges', '000.000.000-00', 1, '2002-02-27', 'aluno@gmail.com', '$2y$10$wP3qzeEJaUV5RR/Ryu.vwuDwOeK5B13mk9CQ0cMqoc1Yb8GjNQASS', '2023-11-03 04:50:48', 3);
+INSERT INTO `usuarios` (`ra`, `nome`, `cpf`, `genero`, `dt_NASC`, `email`, `senha`, `dt_registro`) VALUES
+(1111111, 'Administrador', '000.000.000-00', 1, '2002-02-27', 'admin@gmail.com', '$2y$10$DZY.OqhJWyYgelu8snEoZutt0/QFSTegiAzcK.I43AC5kCqb0zkS.', '2023-11-01 21:47:21'),
+(1111112, 'Professor1', '000.000.000-00', 1, '2002-02-27', 'professor1@gmail.com', '$2y$10$tjQ6bJzaQ3w0ry4drM3ueOGqUBSRWTWBlW0it7GIOGrgqfimBTcUy', '2023-11-01 21:47:21'),
+(1111113, 'Professor2', '000.000.000-00', 1, '2002-02-27', 'professor2@gmail.com', '$2y$10$ZpWSFrotpHH5D.3yTEqKsuIIAxC2f9iVGnJdh2hlUapRLcPz2pY5C', '2023-11-01 21:47:21'),
+(1111114, 'Professor3', '000.000.000-00', 1, '2002-02-27', 'professor3@gmail.com', '$2y$10$E1tmLsTldcL1tMlNg9Zp/.5K6F.RTvVwV58ALS0jxSjidhUm8OFDG', '2023-11-01 21:47:21'),
+(1111115, 'Guilherme Araujo', '000.000.000-00', 1, '2002-02-27', 'aluno1@gmail.com', '$2y$10$pR1a7VLNKBTirO2aHK6mO.ZBYfTR.UNZgLpoMWGFT5s6DHt6BO56O', '2023-11-01 21:47:21'),
+(1111116, 'Matheus Arantes', '000.000.000-00', 1, '2002-02-27', 'aluno2@gmail.com', '$2y$10$dBAyhTDu8CjWnjAV6qL2P.NFRns0rUysMhNca6uqTKtxQBsxZ6kpe', '2023-11-01 21:47:21'),
+(1111117, 'Gabriel Garcia', '000.000.000-00', 1, '2002-02-27', 'aluno3@gmail.com', '$2y$10$G5Adl7UQ//BeNvRK6mwMguts8vKLIVB/rdNWs1eEBxk1f8a4dmLAW', '2023-11-01 21:47:21'),
+(1111118, 'Alexandre Borges', '000.000.000-00', 1, '2002-02-27', 'aluno4@gmail.com', '$2y$10$wP3qzeEJaUV5RR/Ryu.vwuDwOeK5B13mk9CQ0cMqoc1Yb8GjNQASS', '2023-11-03 04:50:48');
+
 
 -- --------------------------------------------------------
+
+
+--
+-- Estrutura para tabela `permissões`
+--
+
+CREATE TABLE `permissoes` (
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `permissoes` (`id`, `descricao`) VALUES
+(1, 'Gerente'),
+(2, 'Professor'),
+(3, 'Aluno');
+
+CREATE TABLE `usuario_permissoes` (
+  `usuario_ra` int(9) NOT NULL,
+  `permissao_id` int(1) NOT NULL,
+  FOREIGN KEY (`usuario_ra`) REFERENCES `usuarios` (`ra`),
+  FOREIGN KEY (`permissao_id`) REFERENCES `permissoes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `usuario_permissoes` (`usuario_ra`, `permissao_id`) VALUES
+(1111111, 1), -- Administrador
+(1111112, 2), -- Professor1
+(1111113, 2), -- Professor2
+(1111114, 2), -- Professor3
+(1111115, 3), -- Guilherme Araujo (Aluno)
+(1111116, 3), -- Matheus Arantes (Aluno)
+(1111117, 3), -- Gabriel Garcia (Aluno)
+(1111118, 3); -- Alexandre Borges (Aluno)
 
 --
 -- Estrutura stand-in para view `view_alunos`

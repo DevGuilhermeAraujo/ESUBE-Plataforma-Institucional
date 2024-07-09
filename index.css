@@ -7,382 +7,105 @@ body{
     margin: 0;
     display: flex;
 }
-.index{
-    width: 7.5%;
-    padding: 1%;
-    display: flex;
-    flex-flow: row wrap;
-    height: 100vh;
-    background-color: rgb(49, 49, 78);
-    color: white;
-    align-content: flex-start;
-    box-shadow: 0px 0px 10px rgb(49, 49, 78);
+
+:root {
+    /* Paleta de Cores */
+    --primary-color: #0a3d62;
+    --primary-color-hover: #082c4a;
+    --secondary-color: #82ccdd;
+    --background-color: rgba(240, 240, 240, 0.9);
+    /* Background com transparência */
+    --white-color: #ffffff;
+    --text-color: #4d4d4d;
+    --text-color-hover: #2c2c2c;
+    --input-background-color: rgba(224, 224, 224, 0.7);
+    /* Input com transparência */
+    --input-border-color: #b0b0b0;
 }
+
+/* Estilos para o menu lateral e transição */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Inicia escondido */
+    bottom: 0;
+    z-index: 100;
+    width: 250px;
+    background-color: var(--primary-color);
+    transition: left 0.3s ease; /* Transição suave de 0.3s ao mover */
+    overflow-y: auto; /* Permite rolagem no menu se necessário */
+    padding-top: 1rem;
+}
+
+.sidebar:hover {
+    left: 0; /* Expande quando passa o mouse */
+}
+
+.sidebar .nav-link {
+    color: var(--white-color) !important; /* Ajusta a cor dos links */
+    padding: 10px 20px; /* Espaçamento interno dos links */
+    transition: background-color 0.3s ease; /* Transição de cor ao passar o mouse */
+}
+
+.sidebar .nav-link:hover {
+    background-color: var(--primary-color-hover); /* Cor de fundo ao passar o mouse */
+}
+
+.sidebar .logo {
+    max-width: 80%; /* Reduz o tamanho da logo */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sidebar .icon {
+    max-width: 20px; /* Reduz o tamanho do ícone de sair */
+    vertical-align: middle;
+    margin-right: 10px; /* Espaçamento à direita do ícone */
+}
+
+.sidebar .profile-icon {
+    max-width: 30px; /* Ajusta o tamanho do ícone do perfil */
+    vertical-align: middle;
+    margin-left: 10px; /* Espaçamento à esquerda do ícone */
+}
+
+.sidebar-handle {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    width: 30px; /* Largura do handle */
+    height: 100%;
+    cursor: pointer;
+    z-index: 101; /* Coloca o handle sobre o menu */
+}
+
+.sidebar-handle .handle-icon {
+    color: var(--white-color);
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    transition: opacity 0.3s ease; /* Transição de opacidade ao passar o mouse */
+}
+
+.sidebar:hover .sidebar-handle .handle-icon {
+    opacity: 0; /* Oculta a seta ao passar o mouse no menu */
+}
+
+.icon {
+    max-width: 20px; /* Reduz o tamanho do ícone de sair */
+    vertical-align: middle;
+}
+
+.profile-icon {
+    max-width: 30px; /* Ajusta o tamanho do ícone do perfil */
+    vertical-align: middle;
+}
+
 .nav{
     display: flex;
     flex-flow: row wrap;
     text-align: center;
-}
-.index span{
-    font-size: 20px;
-}
-.index:hover{
-    font-size: 45px;
-    width: 20%;
-    transition: 1s;
-}
-.links{
-    display: none;
-    width: 100%;
-    
-}
-.links a{
-    color: white;
-    width: 100%;
-    text-decoration: none;
-    height: 50px;
-    padding: 5%;
-    border-radius: 20px;
-
-}
-.links a:hover{
-    background-color: rgb(49, 49, 78);
-}
-.index:hover .links{
-    display: flex;
-    flex-flow: row wrap;
-    font-size: 15px;
-}
-iframe{
-    height: 90vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.icone{
-    width: 3vh;
-}
-.usuario{
-    height: 10vh;
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    align-content: center;
-    padding: 1%;
-    background-color: rgb(201, 201, 201);
-}
-.usuario p{
-    margin-right: 2%;
-}
-.usuario a{
-    width: 10%;
-}
-.usuario a img{
-    width: 35%;
-}
-.full{
-    height: 100vh;
-    width: 92.5%;
-}
-.painel{
-    border-radius: 20px;
-    box-shadow: 5px 5px 5px gray;
-    width: 23%;
-    height: 40vh;
-    display: flex;
-    flex-flow: row wrap;
-    margin: 1%;
-    background-color: rgb(199, 193, 193);
-}
-.inicio{
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-}
-.painel h3{
-    text-align: center;
-    color: rgb(49, 49, 78); 
-    font-size: 25px;   
-}
-.painel p{
-    font-size: 14px;
-}
-.conteudo{
-    width: 100%;
-    overflow: hidden;
-    height: 29vh;
-    padding: 2%;
-}
-.conteudo span{
-    color: rgb(49, 49, 78);
-    font-size: 20px;
-}
-.ver{
-    width: 100%;
-    color: white;
-    height: 10vh;
-    text-align: center;
-    border-radius: 0px 0px 20px 20px;
-    margin-top: 2%;
-    background-color: rgb(49, 49, 78);
-    font-size: 25px;
-    padding: 2%;
-    text-decoration: none;
-}
-.top{
-    background-color: rgb(49, 49, 78);
-    width: 100%;
-    color: white;
-    text-align: center;
-}
-.tudo{
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-}
-.materias{
-    width: 90%;
-    margin: 5%;
-    border-radius: 20px;
-    background-color: rgb(202, 198, 198);
-    box-shadow: 10px 10px 10px gray;
-    padding: 5%;
-}
-#exib{
-    width: 90%;
-    margin: 5%;
-    overflow: auto;
-    background-color: rgb(206, 203, 203);
-    box-shadow: 10px 10px 5px gray;
-    border-radius: 20px;
-    color: rgb(49, 49, 78);
-    font-size: 20px;
-    padding: 2%;
-}
-.msgV{
-    width: 80%;
-    border-radius: 20px;
-    width: 100%;
-    color: rgb(19, 184, 33);
-    padding: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 1s linear;
-}
-.msgN{
-    width: 80%;
-    border-radius: 20px;
-    width: 100%;
-    color: rgb(184, 19, 19);
-    padding: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 1s linear;
-}
-.msgV-bg{
-    width: 80%;
-    background-color: rgb(99, 224, 95);
-    border: 2px solid rgb(19, 184, 55);
-    border-radius: 20px;
-    width: 100%;
-    color: rgb(14, 145, 21);
-    padding: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 1s linear;
-}
-.msgN-bg{
-    width: 80%;
-    background-color: rgb(224, 95, 95);
-    border: 2px solid rgb(184, 19, 19);
-    border-radius: 20px;
-    width: 100%;
-    color: rgb(161, 20, 20);
-    padding: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 1s linear;
-}
-.msgPopUp{
-    bottom: 4%; 
-    position: fixed;
-}
-.msgMargin{
-    width: 90%;
-    margin-left: 5%;
-}
-.msgHide{
-    opacity: 0;
-}
-.hideObj{
-   display: none;
-}
-#perf{
-    background-color: rgb(49, 49, 78);
-    border-radius: 20px;
-    padding: 5%;
-    width: 80%;
-    margin: 2% 0% 0% 10%;
-    color: white;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-}
-#opc{
-    width: 20%;
-}
-#opc button{
-    margin-top: 15%;
-    font-size: 15px;
-    color: rgb(49, 49, 78);
-}
-#opc img{
-    width: 100%;
-}
-#inf{
-    width: 75%;
-    margin-left: 5%;
-}
-#inf h2{
-    font-size: 20px;
-}
-#inf h3{
-    font-size: 18px;
-}
-#inf p{
-    font-size: 15px;
-}
-/*Classe MsgBox
-
-.msgBox-modal{
-    display: flex;
-    justify-content: center;
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle;
-    width: 30%; 
-    height: 20%;
-    margin-top: 7%;
-    background-color: white;
-    opacity: 100%;
-    border-radius: 10px;
-}
-.msgTitle{
-    background-color: rgb(230, 230, 230);
-    width: 100%;
-}
-.msgTitle, .msgMenssage{
-    overflow: auto;
-    word-wrap: break-word;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.msgBox-modal-btns{
-    border-radius: 10px;
-    margin-left: 0;
-}
-.msgBox-modal-base{
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1001;
-    opacity: 100%;
-    width: 100%;
-    height: 100vh;
-    vertical-align: middle;
-}
-.msgBox-modal-bg{
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1000;
-    opacity: 70%;
-    background-color: rgb(46, 46, 46);
-    width: 100%;
-    height: 100vh;
-    vertical-align: middle;
-}
-
-/* --- */
-.fm h3{
-    margin-left: 20%;
-    width: 100%;
-    text-align: center;
-}
-#btnCadTur{
-    font-size: 40px;
-    height: 10vh;
-    color: white;
-    border-radius: 0px 0px 10px 10px;
-    background-color: rgb(49, 49, 78);
-}
-.in{
-    height: 10vh;
-    border: none;
-    width: 100%;
-    padding: 2%;
-    margin-left: 20%;
-    border-radius: 10px 10px 0px 0px;
-}
-.Vincula{
-    display: flex;
-    justify-content: space-between;
-}
-.Vincula input,select,button{
-    width: 100%;
-    height: 7vh;
-    margin: 1%;
-    border: none;
-    border-radius: 10px;
-}
-.Vincula button,select{
-    color: white;
-    background-color: rgb(49, 49, 78);
-}
-#submit{
-    color: white;
-    background-color: rgb(49, 49, 78);
-}
-.dados button{
-    background-color: rgb(49, 49, 78);
-    color: white;
-    font-size: 20px;
-    padding: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: underline rgb(49, 49, 78);
-}
-.dados button img{
-    width: 10%;
-}
-.dados i{
-    margin: 10%;
-}
-.DelTurma{
-    background-color: rgb(49, 49, 78);
-    color: white;
-    font-size: 20px;
-    padding: 1%;
-    display: flex;
-    align-items: center;
-    width: 55%;
-    margin-left: 25%;
-    justify-content: center;
-    text-decoration: underline rgb(49, 49, 78);
-}
-.DelTurma img{
-    width: 18%;
-    margin: 1%;
-}
-.DelTurma i{
-    margin: 10%;
 }

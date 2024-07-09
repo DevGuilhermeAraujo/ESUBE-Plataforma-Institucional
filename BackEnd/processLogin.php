@@ -1,73 +1,38 @@
-<?php 
-    $ra_id = $_POST["RA_ID"];
-    $password = $_POST["password"];
+<?php
+session_start();
+include_once "../BackEnd/Classes/App.php";
 
-    if(!filter_var($ra_id,FILTER_VALIDATE_INT)){
-        header("Location: ../Login/pagLogin.php?invalidLogin");
-        exit();
-    }
-    if($password == ""){
-        header("Location: ../Login/pagLogin.php?invalidLogin");
-        exit();
-    }
+// Validação de entrada
+$usuarioRa = $_POST["usuario"];
+$password = $_POST["password"];
 
-    //Validar com o banco
-    include_once "conexao.php";
-    $db = new Conexao();
-    if($db->errorCode != 0){
-        //Houve um erro de conexão
-        header("Location: ../Login/pagLogin.php?ERROR=1");
-        exit();
-    }
+if (!filter_var($usuarioRa, FILTER_VALIDATE_INT) || $password == "") {
+    header("Location: ../Login/pagLogin.php?invalidLogin");
+    exit();
+}
 
-    //Buscar usuário
-    /*$result = $db->executar("SELECT ra from usuarios;");
-    $userValid = false;
-    foreach($result as $c){
-        //Valida usuário
-        if($c[0] == $ra_id){
-            $userValid = true;
-            break;
-        }
-    }*/
-    $userValid = $db->executar("SELECT ra from usuarios WHERE ra = :ra",true,false);
-    $userValid->bindParam(":ra",$ra_id);
-    $userValid->execute();
-    $userValid = $userValid->rowCount();
-    if(!$userValid){
-        header("Location: ../Login/pagLogin.php?invalidLogin");
-        exit();
-    }
+// Instância da conexão com o banco de dados
+if (App::$db->errorCode() != 0) {
+    // Houve um erro de conexão
+    header("Location: ../Login/pagLogin.php?ERROR=1");
+    exit();
+}
 
-    //Valida senha
-    $result = $db->executar("SELECT senha FROM usuarios WHERE ra = :ra;",true,false);
-    $result->bindParam(":ra",$ra_id);
-    $result->execute();
-    $result = $result->fetchAll();
-    //if(!password_verify($password, $result[0]['senha']) && $result[0][0] != $password){ // IMPORTANTE -> A segunda parte do '&&' (E) deve ser removida após a padronização da criptografia!
-    if(!password_verify($password, $result[0]['senha'])){
-        header("Location: ../Login/pagLogin.php?invalidLogin");
-        exit();
-    }
+// Instância do usuário
+App::$usuario->setDados($usuarioRa);
 
-    //Concluir login na sessão e Indentificar tipo de usuário
-    include_once "sessao.php";
-    $_SESSION[SESSION_USER_RA_ID] = $ra_id;
+// Autenticação
+if (!App::$usuario->autenticar($usuarioRa, $password)) {
+    header("Location: ../Login/pagLogin.php?invalidLogin");
+    exit();
+}
 
-    $result = $db->executar("SELECT nome FROM usuarios WHERE ra = $ra_id;");
-    $_SESSION[SESSION_USERNAME] = $result[0][0];
+// Concluir login na sessão
+$_SESSION[App::$permissao::SESSION_USER_RA_ID] = App::$usuario->getRA();
+$_SESSION[App::$permissao::SESSION_USERNAME] = App::$usuario->getNome();
+$_SESSION[App::$permissao::SESSION_USER_IDPERMISSION] = App::$usuario->getPermissao();
 
-    $result = $db->executar("SELECT tipo FROM usuarios WHERE ra = $ra_id",true);
-    $permisson = 0;
-    if($result->rowCount() == 3){
-        $permisson = PERMISSION_ALUNO;
-    }else{
-        $result = $result->fetchAll();
-        $permisson = $result[0][0];
-    }
-    $_SESSION[SESSION_USER_IDPERMISSION] = $permisson;
+// Redirecionar com base na permissão
+//App::$permissao::redirecionarPorPermissao(App::$usuario->getPermissao());
 
-    
-    //Redirecionar
-    redirectByPermission($permisson);
-?>
+header("Location: ../indexUsuario.php");

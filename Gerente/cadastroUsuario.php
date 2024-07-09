@@ -51,33 +51,13 @@ if ($db->errorCode == 0) {
             <option value="3">Outro</option>
         </select>
         <input type="password" placeholder="Código de confirmação" name="senha" id="senha">
-        <select id="tipo" name="tipo" onchange="validarTipo()">
+        <select id="tipo" name="permission" onchange="validarTipo()">
             <option value="">Selecione o tipo</option>
             <option value="1">Gerente</option>
             <option value="2">Professor</option>
             <option value="3">Aluno</option>
         </select>
-
-        <!-- Campos específicos para gerente -->
-        <div class="tipo" id="parteFuncionario" style="display:none">
-            <input type="date" name="dtContrato" id="dtContrato">
-        </div>
-        <!-- Campos específicos para aluno -->
-        <div class="tipo" id="parteAluno" style="display: none">
-            <input type="date" name="dtMatricula" id="dtMatricula">
-            <select name="idTurma">
-                <option value="">Selecione a turma</option>
-                <?php
-                $result = $db->executar("SELECT id, desc_turma FROM turmas");
-                // Loop para exibir os professores
-                foreach ($result as $turmas) {
-                    $idTurma = $turmas['id'];
-                    $descTurma = $turmas['desc_turma'];
-                    echo "<option  value='$idTurma'>$descTurma</option>";
-                }
-                ?>
-            </select>
-        </div>
+        
         <input type="submit" name="submit" id="submit" class="btnCad" value="Cadastrar">
 
         <div class="msgN">

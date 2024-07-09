@@ -1,25 +1,31 @@
 <?php
 //Deve estar presente em todas as paginas
-include_once '../BackEnd/sessao.php';
-//Deve estar presente se o login for obrigatório 
-requiredLogin(PERMISSION_GERENTE);
+include_once '../BackEnd/Classes/App.php';
+//Deve estar presente se o login for obrigatório (parametro opcional, exige determinada permissão para acessar a pagina)
+App::$permissao::requiredLogin(App::$permissao::PERMISSION_GERENTE);
 
-require_once('../BackEnd/conexao.php');
-$db = new Conexao();
-$raUsuario = getIdRa();
-$result = $db->executar("SELECT f.id FROM funcionarios AS f JOIN usuarios AS u ON f.ra = u.ra WHERE u.ra = $raUsuario;");
-$idUser = $result[0][0];
-if ($db->errorCode == 0) {
-    $result = $db->executar("SELECT COUNT(*) FROM view_professores;");
-    $quantProf = $result;
-    $result = $db->executar("SELECT COUNT(*) FROM view_alunos;");
-    $quantAlunos = $result;
-    $result = $db->executar("SELECT COUNT(*) FROM turmas;");
-    $quantTurmas = $result;
-    $result = $db->executar("SELECT COUNT(*) FROM comunicacao WHERE raUsuario = $raUsuario;");
-    $quantComunicacao = $result;
+$raUsuario = App::$usuario->getRA();
+$idUser = App::$usuario->getIdUser();
+// Encapsulando a lógica de contagem em uma função
+function getCount($query)
+{
+    $result = App::$db->executar($query);
+    if (App::$db->errorCode != 0 || !isset($result[0]['count'])) {
+        return 0;
+    }
+    return $result[0]['count'];
 }
 
+$quantProf = getCount("SELECT COUNT(*) AS count FROM view_professores;");
+$quantAlunos = getCount("SELECT COUNT(*) AS count FROM view_alunos;");
+$quantTurmas = getCount("SELECT COUNT(*) AS count FROM turmas;");
+$quantComunicacao = getCount("SELECT COUNT(*) AS count FROM comunicacao WHERE raUsuario = $raUsuario");
+
+// Verificando se a consulta SQL para obter o ID do usuário foi bem-sucedida
+if ($idUser === null) {
+    //msg(MSG_NEGATIVE_BG, "Falha ao obter o ID do usuário, Tente novamente mais tarde.");
+    //exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +42,7 @@ if ($db->errorCode == 0) {
 <body>
     <?php
     //Validar Banco de Dados
-    if ($db->errorCode != 0) {
+    if (App::$db->errorCode != 0) {
         msg(MSG_NEGATIVE_BG, "Falha ao conectar com a base de dados, Tente novamente mais tarde.<br>Se o problema persistir, por favor entre em contato com o adminstrador do sistema.");
         exit();
     }
@@ -45,14 +51,14 @@ if ($db->errorCode == 0) {
         <div class="painel">
             <div class="conteudo">
                 <h3>Professores</h3>
-                <p>Total cadastrados: <span><?php echo $quantProf[0][0] ?></span></p>
+                <p>Total cadastrados: <span><?php echo $quantProf ?></span></p>
             </div>
             <a href="../Cadastrados/professores.php" class="ver">Ver</a>
         </div>
         <div class="painel">
             <div class="conteudo">
                 <h3>Alunos</h3>
-                <p>Total cadastrados: <span><?php echo $quantAlunos[0][0] ?></span></p>
+                <p>Total cadastrados: <span><?php echo $quantAlunos ?></span></p>
             </div>
             <a href="../Cadastrados/alunos.php" class="ver">Ver</a>
         </div>
@@ -66,21 +72,22 @@ if ($db->errorCode == 0) {
                     <span id="turmaError">
                         <?php if (isset($turmaError)) {
                             echo $turmaError;
-                        } ?></span>
+                        } ?>
+                    </span>
                 </div>
             </form>
         </div>
         <div class="painel">
             <div class="conteudo">
                 <h3>Turmas</h3>
-                <p>Total cadastrados: <span><?php echo $quantTurmas[0][0] ?></span></p>
+                <p>Total cadastrados: <span><?php echo $quantTurmas ?></span></p>
             </div>
             <a href="../Cadastrados/Turmas.php" class="ver">Ver</a>
         </div>
         <div class="painel">
             <div class="conteudo">
                 <h3>Comunicações</h3>
-                <p>Enviadas: <span><?php echo $quantComunicacao[0][0] ?></span></p>
+                <p>Enviadas: <span><?php echo $quantComunicacao ?></span></p>
                 <p>Respostas: <span><!--Total de respostas de alunos/professores--></span></p>
             </div>
             <a class="ver" href="../Comunicações/EnvGerente.php">Ver</a>

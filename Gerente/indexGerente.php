@@ -1,8 +1,8 @@
 <?php
 //Deve estar presente em todas as paginas
-include_once '../BackEnd/sessao.php';
+include_once '../BackEnd/Classes/App.php';
 //Deve estar presente se o login for obrigatório (parametro opcional, exige determinada permissão para acessar a pagina)
-requiredLogin(PERMISSION_GERENTE);
+App::$permissao::requiredLogin(App::$permissao::PERMISSION_GERENTE);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -31,7 +31,7 @@ requiredLogin(PERMISSION_GERENTE);
             <p class="desc">Página do gerente</p>
             <!--Aqui deve aparecer qual usuário está logado-->
             <p></p>
-            <p><?= getNome() ?></p>
+            <p><?= App::$usuario->getNome() ?></p>
             <a target="index" href="../Cadastrados/perfil.php"><img src="../Imgs/usuario.png" alt="iconeUsuario"></a>
         </div>
         <iframe src="inicioGerente.php" name="index"></iframe>
